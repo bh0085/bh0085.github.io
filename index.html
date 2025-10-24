@@ -60,6 +60,10 @@
       color: #000;
       margin: 8px 0;
       text-decoration: underline;
+      cursor: pointer;
+      position: relative;
+      z-index: 10;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
     }
     #auth-links a:hover {
       text-decoration: none;
@@ -77,7 +81,7 @@
     <a href="/gantt.html">gantt chart</a>
   </div>
   
-  <div id="zoom-gantt" style="display: none; width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 40px; padding: 0 10px; box-sizing: border-box; position: relative;"></div>
+  <div id="zoom-gantt" style="display: none; width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 40px; padding: 0 10px; box-sizing: border-box; position: relative; z-index: 1;"></div>
 
   <script type="module">
     import { checkAuth } from './auth.js';
