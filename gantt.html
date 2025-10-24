@@ -98,7 +98,7 @@
         .task-row {
             display: flex;
             align-items: center;
-            padding: 12px 0;
+            padding: 3px 0;
             border-bottom: 1px solid #ecf0f1;
             position: relative;
         }
@@ -114,34 +114,34 @@
         }
         
         .task-name {
-            font-weight: 600;
+            font-weight: 500;
             color: #2c3e50;
-            font-size: 14px;
-            margin-bottom: 4px;
+            font-size: 12px;
+            margin-bottom: 0;
         }
         
         .task-info {
-            font-size: 12px;
-            color: #7f8c8d;
+            font-size: 10px;
+            color: #95a5a6;
         }
         
         .timeline-track {
             flex: 1;
             position: relative;
-            height: 40px;
+            height: 24px;
         }
         
         .task-bar {
             position: absolute;
-            height: 28px;
-            border-radius: 4px;
-            top: 6px;
+            height: 18px;
+            border-radius: 3px;
+            top: 3px;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            padding: 0 8px;
-            font-size: 11px;
+            padding: 0 6px;
+            font-size: 9px;
             color: white;
             font-weight: 500;
         }
@@ -151,10 +151,15 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         
-        .category-fundraising { background: #9b59b6; }
-        .category-technology { background: #3498db; }
-        .category-milestones { background: #2ecc71; }
-        .category-ops { background: #e67e22; }
+        .user-0 { background: #9b59b6; }
+        .user-1 { background: #3498db; }
+        .user-2 { background: #2ecc71; }
+        .user-3 { background: #e67e22; }
+        .user-4 { background: #e74c3c; }
+        .user-5 { background: #1abc9c; }
+        .user-6 { background: #f39c12; }
+        .user-7 { background: #34495e; }
+        .user-unassigned { background: #95a5a6; }
         .category-work { background: #34495e; }
         .category-default { background: #95a5a6; }
         
@@ -467,16 +472,13 @@
                 const label = document.createElement('div');
                 label.className = 'task-label';
                 
-                const statusClass = `status-${(task.status || 'default').toLowerCase().replace(/\s+/g, '-')}`;
+                const assignedText = (task.assigned_to && task.assigned_to.length > 0) 
+                    ? task.assigned_to.join(', ') 
+                    : 'Unassigned';
+                
                 label.innerHTML = `
-                    <div class="task-name">
-                        ${task.name || 'Untitled'}
-                        ${task.status ? `<span class="status-badge ${statusClass}">${task.status}</span>` : ''}
-                    </div>
-                    <div class="task-info">
-                        ${task.category || 'No category'} • 
-                        ${formatDate(task.start_date)} - ${formatDate(task.end_date)}
-                    </div>
+                    <div class="task-name">${task.name || 'Untitled'}</div>
+                    <div class="task-info">${assignedText}</div>
                 `;
                 
                 const track = document.createElement('div');
@@ -488,7 +490,7 @@
                 const duration = ((endDate - startDate) / (1000 * 60 * 60 * 24)) / totalDays * 100;
                 
                 const bar = document.createElement('div');
-                bar.className = `task-bar category-${getCategoryClass(task.category)}`;
+                bar.className = `task-bar user-${getUserClass(task)}`;
                 bar.style.left = `${startOffset}%`;
                 bar.style.width = `${Math.max(duration, 2)}%`;
                 
@@ -505,15 +507,19 @@
             });
         }
         
-        function getCategoryClass(category) {
-            if (!category) return 'default';
-            const normalized = category.toLowerCase().replace(/\s+/g, '-');
-            if (normalized.includes('fundraising')) return 'fundraising';
-            if (normalized.includes('technology')) return 'technology';
-            if (normalized.includes('milestone') || normalized.includes('bd')) return 'milestones';
-            if (normalized.includes('ops')) return 'ops';
-            if (normalized.includes('work')) return 'work';
-            return 'default';
+        const userColors = {};
+        let userColorIndex = 0;
+        
+        function getUserClass(task) {
+            const assignedPeople = task.assigned_to || [];
+            if (assignedPeople.length === 0) return 'unassigned';
+            
+            const primaryUser = assignedPeople[0];
+            if (!(primaryUser in userColors)) {
+                userColors[primaryUser] = userColorIndex % 8;
+                userColorIndex++;
+            }
+            return userColors[primaryUser];
         }
         
         function formatDate(dateStr) {
