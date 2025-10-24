@@ -11,7 +11,8 @@
     <h1 class="text-3xl sm:text-4xl font-bold mb-2">Brand Concept Moodboards</h1>
     <p class="text-gray-400 mb-8 text-sm sm:text-base">Click any concept to generate its visual word cloud</p>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="concepts">
+    <h2 class="text-2xl font-bold mb-4 text-gray-300">Brand Concepts</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12" id="brand-concepts">
       <div class="concept-card bg-blue-900/30 border border-blue-500 p-4 sm:p-6 rounded-lg cursor-pointer hover:bg-blue-900/50 transition" data-concept="vision">
         <h2 class="text-xl sm:text-2xl font-bold mb-2">Vision Catalyst</h2>
         <p class="text-xs sm:text-sm text-gray-300 mb-4">Perception-driven evolution</p>
@@ -47,16 +48,34 @@
         <p class="text-xs sm:text-sm text-gray-300 mb-4">Compressed evolution</p>
         <div class="word-cloud text-center text-sm" id="acceleration-cloud">Click to generate →</div>
       </div>
-      
-      <div class="concept-card bg-indigo-900/30 border border-indigo-500 p-4 sm:p-6 rounded-lg cursor-pointer hover:bg-indigo-900/50 transition" data-concept="scifi">
-        <h2 class="text-xl sm:text-2xl font-bold mb-2">Sci-Fi Futures</h2>
+    </div>
+    
+    <h2 class="text-2xl font-bold mb-4 text-gray-300">User Moodboards</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="user-concepts">
+      <div class="concept-card bg-indigo-900/30 border border-indigo-500 p-4 sm:p-6 rounded-lg" data-concept="scifi">
+        <div class="flex justify-between items-start mb-2">
+          <h2 class="text-xl sm:text-2xl font-bold">Sci-Fi Futures</h2>
+          <button onclick="editPrompt('scifi')" class="text-xs bg-indigo-600 hover:bg-indigo-700 px-2 py-1 rounded">Edit Prompt</button>
+        </div>
         <p class="text-xs sm:text-sm text-gray-300 mb-4">For sandy@mlcl.ai</p>
-        <div class="word-cloud text-center text-sm" id="scifi-cloud">Click to generate →</div>
+        <div class="word-cloud text-center text-sm cursor-pointer hover:opacity-80 transition" id="scifi-cloud" onclick="generateUserMoodboard('scifi')">Click to generate →</div>
       </div>
     </div>
     
     <div class="mt-8 p-4 bg-gray-800 rounded text-center">
       <p class="text-xs sm:text-sm text-gray-400">✨ Powered by Gemini API</p>
+    </div>
+  </div>
+
+  <!-- Prompt Editor Modal -->
+  <div id="promptModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
+    <div class="bg-gray-800 rounded-lg p-6 max-w-2xl w-full">
+      <h3 class="text-2xl font-bold mb-4">Edit Prompt</h3>
+      <textarea id="promptText" class="w-full h-40 bg-gray-700 text-white p-3 rounded border border-gray-600 text-sm" placeholder="Enter your prompt..."></textarea>
+      <div class="flex gap-3 mt-4">
+        <button onclick="savePrompt()" class="flex-1 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded font-semibold">Save & Generate</button>
+        <button onclick="closePromptModal()" class="flex-1 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded font-semibold">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -97,7 +116,8 @@
       return data.candidates[0].content.parts[0].text;
     }
 
-    document.querySelectorAll('.concept-card').forEach(card => {
+    // Brand concept click handlers
+    document.querySelectorAll('#brand-concepts .concept-card').forEach(card => {
       card.addEventListener('click', async () => {
         const concept = card.dataset.concept;
         const cloudEl = document.getElementById(concept + '-cloud');
@@ -119,6 +139,48 @@
         }
       });
     });
+
+    // User moodboard functions
+    let currentEditingConcept = null;
+
+    function editPrompt(concept) {
+      currentEditingConcept = concept;
+      document.getElementById('promptText').value = prompts[concept];
+      document.getElementById('promptModal').classList.remove('hidden');
+    }
+
+    function closePromptModal() {
+      document.getElementById('promptModal').classList.add('hidden');
+      currentEditingConcept = null;
+    }
+
+    function savePrompt() {
+      const newPrompt = document.getElementById('promptText').value;
+      if (currentEditingConcept && newPrompt.trim()) {
+        prompts[currentEditingConcept] = newPrompt;
+        closePromptModal();
+        generateUserMoodboard(currentEditingConcept);
+      }
+    }
+
+    async function generateUserMoodboard(concept) {
+      const cloudEl = document.getElementById(concept + '-cloud');
+      cloudEl.innerHTML = '<div class="text-yellow-400">Generating...</div>';
+      
+      try {
+        const text = await callGeminiAPI(prompts[concept]);
+        const words = text.split(',').map(w => w.trim()).filter(w => w.length > 0);
+        
+        cloudEl.innerHTML = words.map((word, i) => {
+          const size = Math.floor(Math.random() * 20) + 12;
+          const opacity = Math.random() * 0.5 + 0.5;
+          return `<span style="font-size:${size}px; opacity:${opacity}; margin:4px; display:inline-block">${word}</span>`;
+        }).join(' ');
+      } catch (error) {
+        cloudEl.innerHTML = `<div class="text-red-400 text-xs">Error: ${error.message}</div>`;
+        console.error(error);
+      }
+    }
   </script>
 </body>
 </html>
