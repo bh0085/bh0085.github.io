@@ -1,12 +1,12 @@
 // Firebase Auth Configuration
-// REPLACE THIS with your actual Firebase config from console.firebase.google.com
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAoOu8P7aGPMlhlb8Ckk2GlcqWLiGu3rWs",
+  authDomain: "mlcl-website.firebaseapp.com",
+  projectId: "mlcl-website",
+  storageBucket: "mlcl-website.firebasestorage.app",
+  messagingSenderId: "655483104521",
+  appId: "1:655483104521:web:8f761078cbb712901db7d8",
+  measurementId: "G-8BTXQVQXH7"
 };
 
 // Initialize Firebase
