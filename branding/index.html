@@ -12,8 +12,23 @@
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .home-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-family: 'Courier New', Courier, monospace;
+      color: #374151;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+    .home-link:hover {
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
+  <a href="/" class="home-link">← home</a>
   <div id="root"></div>
   <script type="text/babel">
 const BrandDeck = () => {
