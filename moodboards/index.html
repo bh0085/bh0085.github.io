@@ -8,8 +8,11 @@
 </head>
 <body class="bg-gray-900 text-white p-4 sm:p-8">
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-3xl sm:text-4xl font-bold mb-2">Brand Concept Moodboards</h1>
-    <p class="text-gray-400 mb-8 text-sm sm:text-base">Click any concept to generate its visual word cloud</p>
+    <div class="flex justify-between items-start mb-2">
+      <h1 class="text-3xl sm:text-4xl font-bold">Brand Concept Moodboards</h1>
+      <button onclick="copyAllWords()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded font-semibold text-sm">COPY ALL WORDS</button>
+    </div>
+    <p class="text-gray-400 mb-8 text-sm sm:text-base">Click any concept to generate. Click again for a different result.</p>
     
     <h2 class="text-2xl font-bold mb-4 text-gray-300">Brand Concepts</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12" id="brand-concepts">
@@ -83,6 +86,9 @@
     // Gemini API keys are designed for client-side use with HTTP referrer restrictions
     const GEMINI_API_KEY = 'AIzaSyBPwwjrvnUhTqmjF2i-pcnMsRq8ZreLGjU';
     
+    // Store generated words for each concept
+    const generatedWords = {};
+    
     const prompts = {
       vision: "Generate a poetic word cloud of 30-40 evocative words about vision, perception, light, eyes, seeing, observation, XR glasses, spatial awareness, and visual intelligence. Mix scientific and poetic terms. Format as a simple comma-separated list.",
       emergent: "Generate a poetic word cloud of 30-40 evocative words about emergence, evolution, growth, biological systems, adaptation, organic intelligence, self-organization, and natural systems. Mix scientific and poetic terms. Format as a simple comma-separated list.",
@@ -128,6 +134,8 @@
           const text = await callGeminiAPI(prompts[concept]);
           const words = text.replace(/^[^:]*:\s*/, '').split(',').map(w => w.trim()).filter(w => w.length > 0);
           
+          generatedWords[concept] = words;
+          
           cloudEl.innerHTML = words.map((word, i) => {
             const size = Math.floor(Math.random() * 20) + 12;
             const opacity = Math.random() * 0.5 + 0.5;
@@ -171,6 +179,8 @@
         const text = await callGeminiAPI(prompts[concept]);
         const words = text.replace(/^[^:]*:\s*/, '').split(',').map(w => w.trim()).filter(w => w.length > 0);
         
+        generatedWords[concept] = words;
+        
         cloudEl.innerHTML = words.map((word, i) => {
           const size = Math.floor(Math.random() * 20) + 12;
           const opacity = Math.random() * 0.5 + 0.5;
@@ -180,6 +190,17 @@
         cloudEl.innerHTML = `<div class="text-red-400 text-xs">Error: ${error.message}</div>`;
         console.error(error);
       }
+    }
+
+    async function copyAllWords() {
+      const allWords = Object.values(generatedWords).flat();
+      if (allWords.length === 0) {
+        alert('Generate some moodboards first!');
+        return;
+      }
+      const text = allWords.join(', ');
+      await navigator.clipboard.writeText(text);
+      alert(`Copied ${allWords.length} words to clipboard!`);
     }
   </script>
 </body>
