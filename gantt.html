@@ -231,10 +231,7 @@
 <body>
     <a href="/" class="home-link">← home</a>
     <div class="container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <h1 style="margin: 0;">Key Actions Gantt Chart</h1>
-            <button onclick="refreshFromNotion()" style="padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">↻ Refresh from Notion</button>
-        </div>
+        <h1>Key Actions Gantt Chart</h1>
         <div class="meta" id="meta"></div>
         
         <div class="filters">
@@ -264,116 +261,6 @@
     <script>
         let ganttData = null;
         let filteredTasks = [];
-        
-        async function fetchNotionDatabase() {
-            const url = `https://api.notion.com/v1/databases/${DATABASE_ID}/query`;
-            const headers = {
-                'Authorization': `Bearer ${NOTION_API_KEY}`,
-                'Notion-Version': '2022-06-28',
-                'Content-Type': 'application/json'
-            };
-            
-            let allResults = [];
-            let hasMore = true;
-            let startCursor = null;
-            
-            while (hasMore) {
-                const payload = startCursor ? { start_cursor: startCursor } : {};
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify(payload)
-                });
-                
-                const data = await response.json();
-                allResults = allResults.concat(data.results);
-                hasMore = data.has_more || false;
-                startCursor = data.next_cursor;
-            }
-            
-            return allResults;
-        }
-        
-        function extractPropertyValue(prop) {
-            if (!prop || !prop.type) return null;
-            
-            const type = prop.type;
-            if (type === 'title') return prop.title.map(t => t.plain_text).join('');
-            if (type === 'rich_text') return prop.rich_text.map(t => t.plain_text).join('');
-            if (type === 'select' && prop.select) return prop.select.name;
-            if (type === 'multi_select') return prop.multi_select.map(s => s.name);
-            if (type === 'date' && prop.date) return { start: prop.date.start, end: prop.date.end };
-            if (type === 'number') return prop.number;
-            if (type === 'status' && prop.status) return prop.status.name;
-            if (type === 'relation') return prop.relation.map(r => r.id);
-            return null;
-        }
-        
-        function transformNotionToGantt(notionPages) {
-            const tasks = notionPages.map(page => {
-                const props = page.properties;
-                const startDate = extractPropertyValue(props['Start Date'] || {});
-                const endDate = extractPropertyValue(props['End Date'] || {});
-                
-                return {
-                    id: page.id,
-                    name: extractPropertyValue(props['Task/Project Name'] || {}),
-                    category: extractPropertyValue(props['Category'] || {}),
-                    start_date: startDate ? startDate.start : null,
-                    end_date: endDate ? endDate.start : null,
-                    status: extractPropertyValue(props['Status'] || {}),
-                    priority: extractPropertyValue(props['Priority'] || {}),
-                    assigned_to: extractPropertyValue(props['Assigned To'] || {}) || [],
-                    progress: extractPropertyValue(props['Progress'] || {}),
-                    dependencies: extractPropertyValue(props['Dependencies'] || {}),
-                    tags: extractPropertyValue(props['Tags'] || {}) || [],
-                    budget_cost: extractPropertyValue(props['Budget/Cost'] || {}),
-                    one_time_cost: extractPropertyValue(props['One-Time Cost'] || {}),
-                    monthly_cost: extractPropertyValue(props['Monthly Cost'] || {}),
-                    blocked_by: extractPropertyValue(props['Blocked by'] || {}) || [],
-                    blocking: extractPropertyValue(props['Blocking'] || {}) || []
-                };
-            });
-            
-            return {
-                exported_at: new Date().toISOString(),
-                database_id: DATABASE_ID,
-                task_count: tasks.length,
-                tasks: tasks
-            };
-        }
-        
-        async function refreshFromNotion() {
-            const btn = event.target;
-            btn.textContent = '⟳ Fetching from Notion...';
-            btn.disabled = true;
-            
-            try {
-                const notionPages = await fetchNotionDatabase();
-                ganttData = transformNotionToGantt(notionPages);
-                
-                document.getElementById('meta').textContent = 
-                    `${ganttData.task_count} tasks • Live from Notion • ${new Date().toLocaleString()}`;
-                
-                populateFilters();
-                filterAndRender();
-                renderStats();
-                
-                btn.textContent = '✓ Refreshed!';
-                setTimeout(() => {
-                    btn.textContent = '↻ Refresh from Notion';
-                    btn.disabled = false;
-                }, 2000);
-            } catch (error) {
-                console.error('Notion fetch error:', error);
-                btn.textContent = '✗ Error - using cached data';
-                setTimeout(() => {
-                    btn.textContent = '↻ Refresh from Notion';
-                    btn.disabled = false;
-                }, 3000);
-                loadData();
-            }
-        }
         
         async function loadData() {
             const response = await fetch('gantt_data.json');
