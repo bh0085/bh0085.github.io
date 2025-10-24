@@ -8,6 +8,8 @@
     checkAuth().then(isAuth => {
       if (isAuth) {
         document.getElementById('auth-links').style.display = 'block';
+        document.getElementById('sign-in-link').style.display = 'none';
+        document.getElementById('sign-out-link').style.display = 'block';
       }
     });
     window.signOutUser = signOutUser;
@@ -45,37 +47,33 @@
       background: #000;
       color: #fff;
     }
+    #sign-out-link {
+      display: none;
+    }
     #auth-links {
       display: none;
       margin-top: 20px;
       text-align: center;
     }
     #auth-links a {
+      display: block;
       color: #000;
-      margin: 0 10px;
+      margin: 8px 0;
       text-decoration: underline;
     }
     #auth-links a:hover {
       text-decoration: none;
     }
-    #auth-links button {
-      margin-top: 10px;
-      padding: 8px 16px;
-      cursor: pointer;
-      font-family: 'Courier New', Courier, monospace;
-    }
   </style>
 </head>
 <body>
-  <a href="/login.html" class="sign-in-link">sign in</a>
+  <a href="/login.html" class="sign-in-link" id="sign-in-link">sign in</a>
+  <a href="#" onclick="event.preventDefault(); signOutUser().then(() => window.location.reload())" class="sign-in-link" id="sign-out-link">sign out</a>
   <img src="assets/glasses_cropped.png" alt="Scientific Super Intelligence">
   coming soon
   <div id="auth-links">
-    <div>
-      <a href="/branding/">brand deck</a> | 
-      <a href="/moodboards/">moodboards</a>
-    </div>
-    <button onclick="signOutUser().then(() => window.location.reload())">sign out</button>
+    <a href="/branding/">brand deck</a>
+    <a href="/moodboards/">moodboards</a>
   </div>
 </body>
 </html>
