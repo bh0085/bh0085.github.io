@@ -3,6 +3,12 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>mlcl.ai</title>
+  <script type="module">
+    import { requireAuth, signOutUser, getCurrentUser } from './auth.js';
+    requireAuth();
+    window.signOutUser = signOutUser;
+    window.getCurrentUser = getCurrentUser;
+  </script>
   <style>
     body {
       margin: 0;
@@ -27,6 +33,9 @@
 <body>
   <img src="assets/glasses_cropped.png" alt="Scientific Super Intelligence">
   coming soon
+  <div style="margin-top: 20px;">
+    <button onclick="signOutUser().then(() => window.location.href='/login.html')" style="font-family: 'Courier New', Courier, monospace; padding: 8px 16px; cursor: pointer;">sign out</button>
+  </div>
 </body>
 </html>
 
