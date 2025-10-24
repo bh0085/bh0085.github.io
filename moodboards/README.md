@@ -2,15 +2,23 @@
 
 AI-powered word cloud generator for brand concepts using Google's Gemini API.
 
-## Setup
+## Setup - Configure API Key
 
-1. **Add GitHub Secret:**
-   - Go to Repository Settings → Secrets and variables → Actions
-   - Add secret named `GEMINI_API_KEY` with your Gemini API key
+The API key is already in the code, but needs to be configured in Google Cloud Console:
 
-2. **Enable GitHub Actions for Pages:**
-   - Go to Repository Settings → Pages
-   - Under "Build and deployment", select "GitHub Actions" as source
+1. **Go to Google Cloud Console:**
+   - Visit: https://console.cloud.google.com/apis/credentials
+   - Find your API key: `AIzaSyBPwwjrvnUhTqmjF2i-pcnMsRq8ZreLGjU`
+
+2. **Add HTTP Referrer Restrictions:**
+   - Click on the API key to edit it
+   - Under "Application restrictions", select "HTTP referrers (web sites)"
+   - Click "Add an item" and add:
+     - `https://www.mlcl.ai/*`
+     - `https://mlcl.ai/*`
+   - Save the changes
+
+3. **Wait ~1 minute for changes to propagate**
 
 ## How It Works
 
