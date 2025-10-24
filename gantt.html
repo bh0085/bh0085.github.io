@@ -499,6 +499,7 @@
                 
                 bar.addEventListener('mouseenter', (e) => showTooltip(e, task));
                 bar.addEventListener('mouseleave', hideTooltip);
+                bar.addEventListener('click', () => openNotionPage(task.id));
                 
                 track.appendChild(bar);
                 row.appendChild(label);
@@ -546,12 +547,21 @@
             if (task.one_time_cost) content += `<div class="tooltip-row"><strong>One-Time Cost:</strong> $${task.one_time_cost.toLocaleString()}</div>`;
             if (task.monthly_cost) content += `<div class="tooltip-row"><strong>Monthly Cost:</strong> $${task.monthly_cost.toLocaleString()}/mo</div>`;
             if (task.progress) content += `<div class="tooltip-row"><strong>Progress:</strong> ${Math.round(task.progress * 100)}%</div>`;
+            content += `<div class="tooltip-row" style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.2); font-style: italic; opacity: 0.8;">Click to open in Notion →</div>`;
             
             tooltip.innerHTML = content;
         }
         
         function hideTooltip() {
             document.getElementById('tooltip').style.display = 'none';
+        }
+        
+        function openNotionPage(pageId) {
+            if (!pageId) return;
+            // Convert Notion page ID to URL format (remove dashes)
+            const cleanId = pageId.replace(/-/g, '');
+            const notionUrl = `https://www.notion.so/${cleanId}`;
+            window.open(notionUrl, '_blank');
         }
         
         function renderStats() {
