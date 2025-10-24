@@ -76,6 +76,79 @@
     <a href="/moodboards/">moodboards</a>
     <a href="/gantt.html">gantt chart</a>
   </div>
+  
+  <div id="mini-gantt" style="display: none; width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 40px; height: 60px; position: relative;"></div>
+
+  <script type="module">
+    import { checkAuth } from './auth.js';
+    
+    checkAuth().then(isAuth => {
+      if (isAuth) {
+        loadMiniGantt();
+      }
+    });
+
+    async function loadMiniGantt() {
+      try {
+        const response = await fetch('gantt_data.json');
+        const data = await response.json();
+        
+        // Filter tasks for next 12 months
+        const today = new Date();
+        const twelveMonthsLater = new Date(today);
+        twelveMonthsLater.setMonth(today.getMonth() + 12);
+        
+        const tasks = data.tasks.filter(task => {
+          if (!task.start_date || !task.end_date) return false;
+          const startDate = new Date(task.start_date);
+          const endDate = new Date(task.end_date);
+          return startDate <= twelveMonthsLater && endDate >= today;
+        });
+        
+        if (tasks.length === 0) return;
+        
+        // Calculate time range
+        const minDate = today;
+        const maxDate = twelveMonthsLater;
+        const totalMs = maxDate - minDate;
+        
+        // Create mini gantt
+        const container = document.getElementById('mini-gantt');
+        container.style.display = 'block';
+        
+        // Category colors
+        const categoryColors = {
+          'Fundraising timeline': '#3498db',
+          'Key structure and BD milestones': '#2ecc71',
+          'Technology': '#9b59b6',
+          'Ops ITEM': '#e67e22'
+        };
+        
+        tasks.forEach(task => {
+          const startDate = new Date(task.start_date);
+          const endDate = new Date(task.end_date);
+          
+          const startOffset = Math.max(0, (startDate - minDate) / totalMs * 100);
+          const endOffset = Math.min(100, (endDate - minDate) / totalMs * 100);
+          const width = endOffset - startOffset;
+          
+          const bar = document.createElement('div');
+          bar.style.position = 'absolute';
+          bar.style.left = startOffset + '%';
+          bar.style.width = width + '%';
+          bar.style.height = '8px';
+          bar.style.background = categoryColors[task.category] || '#95a5a6';
+          bar.style.opacity = '0.7';
+          bar.style.borderRadius = '2px';
+          bar.style.top = (Math.random() * 45) + 'px'; // Random vertical placement for visual interest
+          
+          container.appendChild(bar);
+        });
+      } catch (error) {
+        console.error('Failed to load mini gantt:', error);
+      }
+    }
+  </script>
 </body>
 </html>
 
