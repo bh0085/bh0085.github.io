@@ -77,8 +77,7 @@
     <a href="/gantt.html">gantt chart</a>
   </div>
   
-  <div id="mini-gantt" style="display: none; width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 40px; height: 60px; position: relative;"></div>
-  <div id="zoom-gantt" style="display: none; width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 20px; height: 80px; position: relative;"></div>
+  <div id="zoom-gantt" style="display: none; width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 40px; padding: 0 10px; box-sizing: border-box; position: relative;"></div>
 
   <script type="module">
     import { checkAuth } from './auth.js';
@@ -96,8 +95,13 @@
       'Ops ITEM': '#e67e22'
     };
 
-    function renderGantt(container, tasks, minDate, maxDate, showLabels = false) {
+    function renderGantt(container, tasks, minDate, maxDate) {
       const totalMs = maxDate - minDate;
+      const barHeight = 12;
+      const labelHeight = 18;
+      const rowHeight = barHeight + labelHeight + 8;
+      
+      container.style.height = (tasks.length * rowHeight + 20) + 'px';
       
       tasks.forEach((task, i) => {
         const startDate = new Date(task.start_date);
@@ -107,16 +111,16 @@
         const endOffset = Math.min(100, (endDate - minDate) / totalMs * 100);
         const width = endOffset - startOffset;
         
+        const yPos = i * rowHeight;
+        
         const bar = document.createElement('div');
-        bar.style.cssText = `position:absolute;left:${startOffset}%;width:${width}%;height:8px;background:${COLORS[task.category] || '#95a5a6'};opacity:0.7;border-radius:2px;top:${showLabels ? i * 16 : Math.random() * 45}px`;
+        bar.style.cssText = `position:absolute;left:${startOffset}%;width:${width}%;height:${barHeight}px;background:${COLORS[task.category] || '#95a5a6'};opacity:0.8;border-radius:3px;top:${yPos + labelHeight}px`;
         
-        if (showLabels && width > 10) {
-          const label = document.createElement('div');
-          label.style.cssText = `position:absolute;left:${startOffset}%;top:${i * 16}px;font-size:10px;white-space:nowrap;padding-left:4px;line-height:8px`;
-          label.textContent = task.name;
-          container.appendChild(label);
-        }
+        const label = document.createElement('div');
+        label.style.cssText = `position:absolute;left:${startOffset}%;top:${yPos}px;font-size:14px;font-weight:500;white-space:nowrap;padding:2px 4px;line-height:${labelHeight}px;color:#000`;
+        label.textContent = task.name;
         
+        container.appendChild(label);
         container.appendChild(bar);
       });
     }
@@ -126,21 +130,6 @@
         const response = await fetch('gantt_data.json');
         const data = await response.json();
         const today = new Date();
-        
-        // 12-month view
-        const yearLater = new Date(today);
-        yearLater.setMonth(today.getMonth() + 12);
-        const yearTasks = data.tasks.filter(t => {
-          if (!t.start_date || !t.end_date) return false;
-          const s = new Date(t.start_date), e = new Date(t.end_date);
-          return s <= yearLater && e >= today;
-        });
-        
-        if (yearTasks.length) {
-          const container = document.getElementById('mini-gantt');
-          container.style.display = 'block';
-          renderGantt(container, yearTasks, today, yearLater);
-        }
         
         // 14-day zoomed view
         const twoWeeksLater = new Date(today);
@@ -154,7 +143,7 @@
         if (zoomTasks.length) {
           const container = document.getElementById('zoom-gantt');
           container.style.display = 'block';
-          renderGantt(container, zoomTasks, today, twoWeeksLater, true);
+          renderGantt(container, zoomTasks, today, twoWeeksLater);
         }
       } catch (error) {
         console.error('Failed to load gantt:', error);
