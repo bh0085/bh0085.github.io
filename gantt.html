@@ -226,7 +226,10 @@
 <body>
     <a href="/" class="home-link">← home</a>
     <div class="container">
-        <h1>Key Actions Gantt Chart</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h1 style="margin: 0;">Key Actions Gantt Chart</h1>
+            <button onclick="refreshData()" style="padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">↻ Refresh Data</button>
+        </div>
         <div class="meta" id="meta"></div>
         
         <div class="filters">
@@ -258,7 +261,7 @@
         let filteredTasks = [];
         
         async function loadData() {
-            const response = await fetch('gantt_data.json');
+            const response = await fetch(`gantt_data.json?t=${Date.now()}`);
             ganttData = await response.json();
             
             document.getElementById('meta').textContent = 
@@ -453,6 +456,26 @@
                     <div class="stat-value">$${(totalMonthly/1000).toFixed(0)}K/mo</div>
                 </div>` : ''}
             `;
+        }
+        
+        async function refreshData() {
+            const btn = event.target;
+            btn.textContent = '⟳ Refreshing...';
+            btn.disabled = true;
+            try {
+                await loadData();
+                btn.textContent = '✓ Refreshed!';
+                setTimeout(() => {
+                    btn.textContent = '↻ Refresh Data';
+                    btn.disabled = false;
+                }, 2000);
+            } catch (error) {
+                btn.textContent = '✗ Error';
+                setTimeout(() => {
+                    btn.textContent = '↻ Refresh Data';
+                    btn.disabled = false;
+                }, 2000);
+            }
         }
         
         loadData();
