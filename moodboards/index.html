@@ -53,6 +53,23 @@
       </div>
     </div>
     
+    <h2 class="text-2xl font-bold mb-4 text-gray-300">Combined Moodboard</h2>
+    <div class="bg-gray-800/50 p-4 sm:p-6 rounded-lg mb-12">
+      <p class="text-sm text-gray-400 mb-4">Select themes to find words in their intersection:</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4 text-sm">
+        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="vision" class="combine-check"> Vision Catalyst</label>
+        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="emergent" class="combine-check"> Emergent Intelligence</label>
+        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="dimensional" class="combine-check"> Dimensional Discovery</label>
+        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="cambrian" class="combine-check"> Cambrian Moment</label>
+        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="symbiotic" class="combine-check"> Symbiotic Intelligence</label>
+        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="acceleration" class="combine-check"> Pattern Acceleration</label>
+        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="scifi" class="combine-check"> Sci-Fi Futures</label>
+        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="culture" class="combine-check"> Culture & Foundation</label>
+      </div>
+      <button onclick="generateCombined()" class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded font-semibold">Generate Combined</button>
+      <div class="mt-4 word-cloud text-center text-sm" id="combined-cloud"></div>
+    </div>
+    
     <h2 class="text-2xl font-bold mb-4 text-gray-300">User Moodboards</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="user-concepts">
       <div class="concept-card bg-indigo-900/30 border border-indigo-500 p-4 sm:p-6 rounded-lg" data-concept="scifi">
@@ -211,6 +228,41 @@
       const text = allWords.join(', ');
       await navigator.clipboard.writeText(text);
       alert(`Copied ${allWords.length} words to clipboard!`);
+    }
+
+    async function generateCombined() {
+      const selected = Array.from(document.querySelectorAll('.combine-check:checked')).map(cb => cb.value);
+      if (selected.length < 2) {
+        alert('Select at least 2 themes to combine!');
+        return;
+      }
+      
+      const cloudEl = document.getElementById('combined-cloud');
+      cloudEl.innerHTML = '<div class="text-yellow-400">Generating intersection...</div>';
+      
+      const themeDescriptions = selected.map(concept => {
+        const prompt = prompts[concept];
+        const match = prompt.match(/about (.+?)\. /);
+        return match ? match[1] : concept;
+      }).join(' AND ');
+      
+      const combinedPrompt = `Generate 30-40 evocative words that exist at the INTERSECTION of ALL these themes: ${themeDescriptions}. CRITICAL: Only include words that genuinely relate to ALL selected themes simultaneously, like a Venn diagram overlap. Find the conceptual overlap. Mix scientific and poetic terms. Format as a simple comma-separated list.`;
+      
+      try {
+        const text = await callGeminiAPI(combinedPrompt);
+        const words = text.replace(/^[^:]*:\s*/, '').split(',').map(w => w.trim()).filter(w => w.length > 0);
+        
+        generatedWords['combined'] = words;
+        
+        cloudEl.innerHTML = words.map((word, i) => {
+          const size = Math.floor(Math.random() * 20) + 12;
+          const opacity = Math.random() * 0.5 + 0.5;
+          return `<span style="font-size:${size}px; opacity:${opacity}; margin:4px; display:inline-block">${word}</span>`;
+        }).join(' ');
+      } catch (error) {
+        cloudEl.innerHTML = `<div class="text-red-400 text-xs">Error: ${error.message}</div>`;
+        console.error(error);
+      }
     }
   </script>
 </body>
