@@ -419,7 +419,7 @@ const BrandDeck = () => {
             <button
               onClick={prevSlide}
               disabled={currentSlide === 0}
-              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="flex items-center justify-start gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors w-20 sm:w-auto"
             >
               <span>←</span>
               <span className="text-xs sm:text-sm font-medium hidden sm:inline">Previous</span>
@@ -443,7 +443,7 @@ const BrandDeck = () => {
             <button
               onClick={nextSlide}
               disabled={currentSlide === slides.length - 1}
-              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="flex items-center justify-end gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors w-20 sm:w-auto"
             >
               <span className="text-xs sm:text-sm font-medium hidden sm:inline">Next</span>
               <span>→</span>
