@@ -22,9 +22,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Inject API Keys
+      - name: Inject API Configuration
         run: |
-          sed -i "s/NOTION_API_KEY_PLACEHOLDER/${{ secrets.NOTION_API_KEY }}/g" gantt.html
+          sed -i "s|CLOUDFLARE_WORKER_URL_PLACEHOLDER|${{ secrets.CLOUDFLARE_WORKER_URL }}|g" gantt.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
