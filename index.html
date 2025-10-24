@@ -78,74 +78,86 @@
   </div>
   
   <div id="mini-gantt" style="display: none; width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 40px; height: 60px; position: relative;"></div>
+  <div id="zoom-gantt" style="display: none; width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 20px; height: 80px; position: relative;"></div>
 
   <script type="module">
     import { checkAuth } from './auth.js';
     
     checkAuth().then(isAuth => {
       if (isAuth) {
-        loadMiniGantt();
+        loadGanttCharts();
       }
     });
 
-    async function loadMiniGantt() {
+    const COLORS = {
+      'Fundraising timeline': '#3498db',
+      'Key structure and BD milestones': '#2ecc71',
+      'Technology': '#9b59b6',
+      'Ops ITEM': '#e67e22'
+    };
+
+    function renderGantt(container, tasks, minDate, maxDate, showLabels = false) {
+      const totalMs = maxDate - minDate;
+      
+      tasks.forEach((task, i) => {
+        const startDate = new Date(task.start_date);
+        const endDate = new Date(task.end_date);
+        
+        const startOffset = Math.max(0, (startDate - minDate) / totalMs * 100);
+        const endOffset = Math.min(100, (endDate - minDate) / totalMs * 100);
+        const width = endOffset - startOffset;
+        
+        const bar = document.createElement('div');
+        bar.style.cssText = `position:absolute;left:${startOffset}%;width:${width}%;height:8px;background:${COLORS[task.category] || '#95a5a6'};opacity:0.7;border-radius:2px;top:${showLabels ? i * 16 : Math.random() * 45}px`;
+        
+        if (showLabels && width > 10) {
+          const label = document.createElement('div');
+          label.style.cssText = `position:absolute;left:${startOffset}%;top:${i * 16}px;font-size:10px;white-space:nowrap;padding-left:4px;line-height:8px`;
+          label.textContent = task.name;
+          container.appendChild(label);
+        }
+        
+        container.appendChild(bar);
+      });
+    }
+
+    async function loadGanttCharts() {
       try {
         const response = await fetch('gantt_data.json');
         const data = await response.json();
-        
-        // Filter tasks for next 12 months
         const today = new Date();
-        const twelveMonthsLater = new Date(today);
-        twelveMonthsLater.setMonth(today.getMonth() + 12);
         
-        const tasks = data.tasks.filter(task => {
-          if (!task.start_date || !task.end_date) return false;
-          const startDate = new Date(task.start_date);
-          const endDate = new Date(task.end_date);
-          return startDate <= twelveMonthsLater && endDate >= today;
+        // 12-month view
+        const yearLater = new Date(today);
+        yearLater.setMonth(today.getMonth() + 12);
+        const yearTasks = data.tasks.filter(t => {
+          if (!t.start_date || !t.end_date) return false;
+          const s = new Date(t.start_date), e = new Date(t.end_date);
+          return s <= yearLater && e >= today;
         });
         
-        if (tasks.length === 0) return;
+        if (yearTasks.length) {
+          const container = document.getElementById('mini-gantt');
+          container.style.display = 'block';
+          renderGantt(container, yearTasks, today, yearLater);
+        }
         
-        // Calculate time range
-        const minDate = today;
-        const maxDate = twelveMonthsLater;
-        const totalMs = maxDate - minDate;
-        
-        // Create mini gantt
-        const container = document.getElementById('mini-gantt');
-        container.style.display = 'block';
-        
-        // Category colors
-        const categoryColors = {
-          'Fundraising timeline': '#3498db',
-          'Key structure and BD milestones': '#2ecc71',
-          'Technology': '#9b59b6',
-          'Ops ITEM': '#e67e22'
-        };
-        
-        tasks.forEach(task => {
-          const startDate = new Date(task.start_date);
-          const endDate = new Date(task.end_date);
-          
-          const startOffset = Math.max(0, (startDate - minDate) / totalMs * 100);
-          const endOffset = Math.min(100, (endDate - minDate) / totalMs * 100);
-          const width = endOffset - startOffset;
-          
-          const bar = document.createElement('div');
-          bar.style.position = 'absolute';
-          bar.style.left = startOffset + '%';
-          bar.style.width = width + '%';
-          bar.style.height = '8px';
-          bar.style.background = categoryColors[task.category] || '#95a5a6';
-          bar.style.opacity = '0.7';
-          bar.style.borderRadius = '2px';
-          bar.style.top = (Math.random() * 45) + 'px'; // Random vertical placement for visual interest
-          
-          container.appendChild(bar);
+        // 14-day zoomed view
+        const twoWeeksLater = new Date(today);
+        twoWeeksLater.setDate(today.getDate() + 14);
+        const zoomTasks = data.tasks.filter(t => {
+          if (!t.start_date || !t.end_date) return false;
+          const s = new Date(t.start_date), e = new Date(t.end_date);
+          return s <= twoWeeksLater && e >= today;
         });
+        
+        if (zoomTasks.length) {
+          const container = document.getElementById('zoom-gantt');
+          container.style.display = 'block';
+          renderGantt(container, zoomTasks, today, twoWeeksLater, true);
+        }
       } catch (error) {
-        console.error('Failed to load mini gantt:', error);
+        console.error('Failed to load gantt:', error);
       }
     }
   </script>
