@@ -393,17 +393,17 @@ const BrandDeck = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-4 sm:p-8">
       <div className="max-w-5xl w-full">
         {/* Slide Container */}
-        <div className="bg-white rounded-2xl shadow-2xl p-12 min-h-[600px] flex flex-col">
+        <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-12 min-h-[500px] sm:min-h-[600px] flex flex-col">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <div className="mb-4 sm:mb-8">
+            <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2">
               {slides[currentSlide].title}
             </h1>
             {slides[currentSlide].subtitle && (
-              <p className="text-lg text-gray-500">
+              <p className="text-base sm:text-lg text-gray-500">
                 {slides[currentSlide].subtitle}
               </p>
             )}
@@ -415,25 +415,25 @@ const BrandDeck = () => {
           </div>
 
           {/* Navigation */}
-          <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+          <div className="flex items-center justify-between mt-4 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
             <button
               onClick={prevSlide}
               disabled={currentSlide === 0}
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
             >
               <span>←</span>
-              <span className="text-sm font-medium">Previous</span>
+              <span className="text-xs sm:text-sm font-medium hidden sm:inline">Previous</span>
             </button>
 
             {/* Dots */}
-            <div className="flex gap-2">
+            <div className="flex gap-1 sm:gap-2">
               {slides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
                   className={`transition-all ${
                     index === currentSlide
-                      ? 'w-8 bg-blue-600'
+                      ? 'w-6 sm:w-8 bg-blue-600'
                       : 'w-2 bg-gray-300 hover:bg-gray-400'
                   } h-2 rounded-full`}
                 />
@@ -443,15 +443,15 @@ const BrandDeck = () => {
             <button
               onClick={nextSlide}
               disabled={currentSlide === slides.length - 1}
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
             >
-              <span className="text-sm font-medium">Next</span>
+              <span className="text-xs sm:text-sm font-medium hidden sm:inline">Next</span>
               <span>→</span>
             </button>
           </div>
 
           {/* Slide Counter */}
-          <div className="text-center mt-4">
+          <div className="text-center mt-2 sm:mt-4">
             <span className="text-xs text-gray-400">
               {currentSlide + 1} / {slides.length}
             </span>
