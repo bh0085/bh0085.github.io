@@ -149,12 +149,48 @@
         .gantt-container {
             overflow-x: auto;
             margin-top: 20px;
+            padding-top: 30px;
+            position: relative;
         }
         
         .timeline {
             position: relative;
             min-width: 100%;
         }
+        
+        .timeline-marker {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            border-left: 2px dashed #bdc3c7;
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        .timeline-label {
+            position: absolute;
+            top: -25px;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: 600;
+            color: #7f8c8d;
+            white-space: nowrap;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: 6px;
+        }
+        
+        .status-ind-in-progress { background: #3498db; }
+        .status-ind-not-started { background: #95a5a6; }
+        .status-ind-completed { background: #2ecc71; }
+        .status-ind-delayed { background: #e74c3c; }
+        .status-ind-on-hold { background: #f39c12; }
         
         .task-row {
             display: flex;
@@ -477,10 +513,32 @@
                 return;
             }
             
+            // Extend date range: 2 weeks back from today, 60+ days forward
+            const today = new Date();
+            const twoWeeksAgo = new Date(today);
+            twoWeeksAgo.setDate(today.getDate() - 14);
+            
             const dates = filteredTasks.flatMap(t => [t.start_date, t.end_date]).filter(Boolean);
-            const minDate = new Date(Math.min(...dates.map(d => new Date(d))));
-            const maxDate = new Date(Math.max(...dates.map(d => new Date(d))));
+            const taskMinDate = new Date(Math.min(...dates.map(d => new Date(d))));
+            const taskMaxDate = new Date(Math.max(...dates.map(d => new Date(d))));
+            
+            // Use earliest of 2 weeks ago or first task
+            const minDate = taskMinDate < twoWeeksAgo ? taskMinDate : twoWeeksAgo;
+            // Use latest of 60 days from now or last task
+            const sixtyDaysOut = new Date(today);
+            sixtyDaysOut.setDate(today.getDate() + 60);
+            const maxDate = taskMaxDate > sixtyDaysOut ? taskMaxDate : sixtyDaysOut;
+            
             const totalDays = (maxDate - minDate) / (1000 * 60 * 60 * 24);
+            
+            // Add timeline markers
+            const todayOffset = ((today - minDate) / (1000 * 60 * 60 * 24)) / totalDays * 100;
+            const twoWeeksOffset = ((new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000) - minDate) / (1000 * 60 * 60 * 24)) / totalDays * 100;
+            const sixtyDaysOffset = ((sixtyDaysOut - minDate) / (1000 * 60 * 60 * 24)) / totalDays * 100;
+            
+            addTimelineMarker(timeline, todayOffset, 'Today');
+            addTimelineMarker(timeline, twoWeeksOffset, '2 Weeks');
+            addTimelineMarker(timeline, sixtyDaysOffset, '60 Days');
             
             filteredTasks.forEach(task => {
                 const row = document.createElement('div');
@@ -490,10 +548,11 @@
                 label.className = 'task-label';
                 
                 const ownerText = task.owner || 'Unassigned';
+                const statusClass = getStatusClass(task.status);
                 
                 label.innerHTML = `
                     <div class="task-name">${task.name || 'Untitled'}</div>
-                    <div class="task-info">${ownerText}</div>
+                    <div class="task-info">${ownerText}<span class="status-indicator ${statusClass}"></span></div>
                 `;
                 
                 const track = document.createElement('div');
@@ -522,6 +581,26 @@
                 row.appendChild(track);
                 timeline.appendChild(row);
             });
+        }
+        
+        function addTimelineMarker(timeline, position, label) {
+            const marker = document.createElement('div');
+            marker.className = 'timeline-marker';
+            marker.style.left = `${position}%`;
+            
+            const markerLabel = document.createElement('div');
+            markerLabel.className = 'timeline-label';
+            markerLabel.textContent = label;
+            markerLabel.style.left = `${position}%`;
+            
+            timeline.appendChild(marker);
+            timeline.appendChild(markerLabel);
+        }
+        
+        function getStatusClass(status) {
+            if (!status) return 'status-ind-not-started';
+            const normalized = status.toLowerCase().replace(/\s+/g, '-');
+            return `status-ind-${normalized}`;
         }
         
         function getCategoryColor(task) {
