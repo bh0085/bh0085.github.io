@@ -274,10 +274,7 @@
 <body>
     <a href="/" class="home-link">← home</a>
     <div class="container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <h1 style="margin: 0;">Key Actions Gantt Chart</h1>
-            <button onclick="refreshFromNotion()" style="padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">↻ Refresh from Notion</button>
-        </div>
+        <h1>Key Actions Gantt Chart</h1>
         <div class="meta" id="meta"></div>
         
         <!-- Priority Tabs -->
@@ -286,10 +283,14 @@
             <button class="priority-tab" onclick="setPriorityFilter('Fundraising')">Fundraising Priority</button>
         </div>
         
-        <!-- Advanced Filters Accordion -->
-        <div class="filters-accordion">
+        <div class="gantt-container">
+            <div class="timeline" id="timeline"></div>
+        </div>
+        
+        <!-- Advanced Settings at Bottom -->
+        <div class="filters-accordion" style="margin-top: 30px;">
             <div class="filters-toggle" onclick="toggleFilters()">
-                <span>Advanced Filters</span>
+                <span>⚙️ Advanced Settings</span>
                 <span id="filters-arrow">▼</span>
             </div>
             <div class="filters-content" id="filters-content">
@@ -313,11 +314,11 @@
                         </select>
                     </div>
                 </div>
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+                    <button onclick="refreshFromNotion()" style="padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px;">↻ Force Refresh from Notion</button>
+                    <span style="margin-left: 10px; font-size: 12px; color: #7f8c8d;">Data auto-refreshes from cache on page load</span>
+                </div>
             </div>
-        </div>
-        
-        <div class="gantt-container">
-            <div class="timeline" id="timeline"></div>
         </div>
     </div>
     
@@ -390,10 +391,14 @@
         
         async function loadData() {
             try {
-                ganttData = await fetchFromWorker(false); // Use cache if available
+                // Fetch from cache (fast) - worker handles 1-hour cache TTL
+                ganttData = await fetchFromWorker(false);
+                
+                const lastUpdate = new Date(ganttData.exported_at);
+                const cacheAge = Math.round((Date.now() - lastUpdate) / 60000); // minutes
                 
                 document.getElementById('meta').textContent = 
-                    `${ganttData.task_count} tasks • ${new Date(ganttData.exported_at).toLocaleString()}`;
+                    `${ganttData.task_count} tasks • Updated ${cacheAge}m ago`;
                 
                 populateFilters();
                 filterAndRender();
