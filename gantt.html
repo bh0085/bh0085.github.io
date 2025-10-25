@@ -54,12 +54,74 @@
         
         .meta {
             color: #7f8c8d;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-size: 14px;
         }
         
-        .filters {
+        .priority-tabs {
+            display: flex;
+            gap: 10px;
             margin-bottom: 20px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .priority-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 15px;
+            font-weight: 500;
+            color: #7f8c8d;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .priority-tab:hover {
+            color: #2c3e50;
+        }
+        
+        .priority-tab.active {
+            color: #3498db;
+            border-bottom-color: #3498db;
+        }
+        
+        .filters-accordion {
+            margin-bottom: 20px;
+        }
+        
+        .filters-toggle {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .filters-toggle:hover {
+            background: #e9ecef;
+        }
+        
+        .filters-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            background: white;
+        }
+        
+        .filters-content.open {
+            display: block;
+        }
+        
+        .filters {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
@@ -74,14 +136,14 @@
         .filter-group label {
             font-weight: 600;
             color: #2c3e50;
-            font-size: 14px;
+            font-size: 13px;
         }
         
         .filter-group select {
             padding: 6px 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 13px;
         }
         
         .gantt-container {
@@ -184,36 +246,6 @@
         .status-delayed { background: #e74c3c; color: white; }
         .status-on-hold { background: #f39c12; color: white; }
         
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 2px solid #ecf0f1;
-        }
-        
-        .stat-card {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
-            border-left: 4px solid #3498db;
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            color: #7f8c8d;
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #2c3e50;
-        }
-        
         .tooltip {
             position: fixed;
             background: #2c3e50;
@@ -248,38 +280,45 @@
         </div>
         <div class="meta" id="meta"></div>
         
-        <div class="filters">
-            <div class="filter-group">
-                <label for="categoryFilter">Category:</label>
-                <select id="categoryFilter">
-                    <option value="">All Categories</option>
-                </select>
+        <!-- Priority Tabs -->
+        <div class="priority-tabs">
+            <button class="priority-tab active" onclick="setPriorityFilter('')">All Tasks</button>
+            <button class="priority-tab" onclick="setPriorityFilter('Fundraising')">Fundraising Priority</button>
+        </div>
+        
+        <!-- Advanced Filters Accordion -->
+        <div class="filters-accordion">
+            <div class="filters-toggle" onclick="toggleFilters()">
+                <span>Advanced Filters</span>
+                <span id="filters-arrow">▼</span>
             </div>
-            <div class="filter-group">
-                <label for="statusFilter">Status:</label>
-                <select id="statusFilter">
-                    <option value="">All Statuses</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="priorityFilter">Priority:</label>
-                <select id="priorityFilter">
-                    <option value="">All Priorities</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="ownerFilter">Owner:</label>
-                <select id="ownerFilter">
-                    <option value="">All People</option>
-                </select>
+            <div class="filters-content" id="filters-content">
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="categoryFilter">Category:</label>
+                        <select id="categoryFilter">
+                            <option value="">All Categories</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="statusFilter">Status:</label>
+                        <select id="statusFilter">
+                            <option value="">All Statuses</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="ownerFilter">Owner:</label>
+                        <select id="ownerFilter">
+                            <option value="">All People</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
         
         <div class="gantt-container">
             <div class="timeline" id="timeline"></div>
         </div>
-        
-        <div class="stats" id="stats"></div>
     </div>
     
     <div class="tooltip" id="tooltip"></div>
@@ -287,6 +326,26 @@
     <script>
         let ganttData = null;
         let filteredTasks = [];
+        let currentPriorityFilter = '';
+        
+        function toggleFilters() {
+            const content = document.getElementById('filters-content');
+            const arrow = document.getElementById('filters-arrow');
+            content.classList.toggle('open');
+            arrow.textContent = content.classList.contains('open') ? '▲' : '▼';
+        }
+        
+        function setPriorityFilter(priority) {
+            currentPriorityFilter = priority;
+            
+            // Update active tab
+            document.querySelectorAll('.priority-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            filterAndRender();
+        }
         
         // Fetch data from Cloudflare Worker (which handles Notion API + transformation)
         async function fetchFromWorker(forceRefresh = false) {
@@ -313,7 +372,6 @@
                 
                 populateFilters();
                 filterAndRender();
-                renderStats();
                 
                 btn.textContent = '✓ Refreshed!';
                 setTimeout(() => {
@@ -339,7 +397,6 @@
                 
                 populateFilters();
                 filterAndRender();
-                renderStats();
             } catch (error) {
                 console.error('Load error:', error);
                 document.getElementById('meta').textContent = 
@@ -350,7 +407,6 @@
         function populateFilters() {
             const categories = [...new Set(ganttData.tasks.map(t => t.category).filter(Boolean))];
             const statuses = [...new Set(ganttData.tasks.map(t => t.status).filter(Boolean))];
-            const priorities = [...new Set(ganttData.tasks.map(t => t.priority).filter(Boolean))];
             const owners = [...new Set(ganttData.tasks.map(t => t.owner).filter(Boolean))];
             
             const categoryFilter = document.getElementById('categoryFilter');
@@ -371,15 +427,6 @@
                 statusFilter.appendChild(option);
             });
             
-            const priorityFilter = document.getElementById('priorityFilter');
-            priorityFilter.innerHTML = '<option value="">All Priorities</option>';
-            priorities.sort().forEach(priority => {
-                const option = document.createElement('option');
-                option.value = priority;
-                option.textContent = priority;
-                priorityFilter.appendChild(option);
-            });
-            
             const ownerFilter = document.getElementById('ownerFilter');
             ownerFilter.innerHTML = '<option value="">All People</option>';
             owners.sort().forEach(owner => {
@@ -391,20 +438,18 @@
             
             categoryFilter.addEventListener('change', filterAndRender);
             statusFilter.addEventListener('change', filterAndRender);
-            priorityFilter.addEventListener('change', filterAndRender);
             ownerFilter.addEventListener('change', filterAndRender);
         }
         
         function filterAndRender() {
             const categoryFilter = document.getElementById('categoryFilter').value;
             const statusFilter = document.getElementById('statusFilter').value;
-            const priorityFilter = document.getElementById('priorityFilter').value;
             const ownerFilter = document.getElementById('ownerFilter').value;
             
             filteredTasks = ganttData.tasks.filter(task => {
                 if (categoryFilter && task.category !== categoryFilter) return false;
                 if (statusFilter && task.status !== statusFilter) return false;
-                if (priorityFilter && task.priority !== priorityFilter) return false;
+                if (currentPriorityFilter && task.priority !== currentPriorityFilter) return false;
                 if (ownerFilter && task.owner !== ownerFilter) return false;
                 return task.start_date && task.end_date;
             });
@@ -538,47 +583,6 @@
             const cleanId = pageId.replace(/-/g, '');
             const notionUrl = `https://www.notion.so/${cleanId}`;
             window.open(notionUrl, '_blank');
-        }
-        
-        function renderStats() {
-            const stats = document.getElementById('stats');
-            
-            const totalTasks = ganttData.tasks.length;
-            const withDates = ganttData.tasks.filter(t => t.start_date && t.end_date).length;
-            const inProgress = ganttData.tasks.filter(t => t.status === 'In Progress').length;
-            const completed = ganttData.tasks.filter(t => t.status === 'Completed').length;
-            
-            const totalOneTime = ganttData.tasks.reduce((sum, t) => sum + (t.one_time_cost || 0), 0);
-            const totalMonthly = ganttData.tasks.reduce((sum, t) => sum + (t.monthly_cost || 0), 0);
-            
-            stats.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-label">Total Tasks</div>
-                    <div class="stat-value">${totalTasks}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">With Timeline</div>
-                    <div class="stat-value">${withDates}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">In Progress</div>
-                    <div class="stat-value">${inProgress}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Completed</div>
-                    <div class="stat-value">${completed}</div>
-                </div>
-                ${totalOneTime > 0 ? `
-                <div class="stat-card">
-                    <div class="stat-label">One-Time Costs</div>
-                    <div class="stat-value">$${(totalOneTime/1000).toFixed(0)}K</div>
-                </div>` : ''}
-                ${totalMonthly > 0 ? `
-                <div class="stat-card">
-                    <div class="stat-label">Monthly Costs</div>
-                    <div class="stat-value">$${(totalMonthly/1000).toFixed(0)}K/mo</div>
-                </div>` : ''}
-            `;
         }
         
         loadData();
