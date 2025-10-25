@@ -118,15 +118,26 @@
         const yPos = i * rowHeight;
         
         const bar = document.createElement('div');
-        bar.style.cssText = `position:absolute;left:${startOffset}%;width:${width}%;height:${barHeight}px;background:${COLORS[task.category] || '#95a5a6'};opacity:0.8;border-radius:3px;top:${yPos + labelHeight}px`;
+        bar.style.cssText = `position:absolute;left:${startOffset}%;width:${width}%;height:${barHeight}px;background:${COLORS[task.category] || '#95a5a6'};opacity:0.8;border-radius:3px;top:${yPos + labelHeight}px;cursor:pointer`;
+        bar.addEventListener('click', () => openNotionPage(task.id));
+        bar.title = `Click to open: ${task.name}`;
         
         const label = document.createElement('div');
-        label.style.cssText = `position:absolute;left:${startOffset}%;top:${yPos}px;font-size:14px;font-weight:500;white-space:nowrap;padding:2px 4px;line-height:${labelHeight}px;color:#000`;
+        label.style.cssText = `position:absolute;left:${startOffset}%;top:${yPos}px;font-size:14px;font-weight:500;white-space:nowrap;padding:2px 4px;line-height:${labelHeight}px;color:#000;text-decoration:underline;cursor:pointer`;
         label.textContent = task.name;
+        label.addEventListener('click', () => openNotionPage(task.id));
+        label.title = `Click to open: ${task.name}`;
         
         container.appendChild(label);
         container.appendChild(bar);
       });
+    }
+
+    function openNotionPage(pageId) {
+      if (!pageId) return;
+      const cleanId = pageId.replace(/-/g, '');
+      const notionUrl = `https://www.notion.so/${cleanId}`;
+      window.open(notionUrl, '_blank');
     }
 
     async function loadGanttCharts() {
