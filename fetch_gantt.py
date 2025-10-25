@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """
 Fetch Gantt Chart data from Notion and export to JSON
-File: fetch_gantt.py
-Edit v1: Initial version - fetch Notion Gantt database and export to JSON
+
+Called by .github/workflows/update-gantt.yml daily at midnight UTC.
+Reads NOTION_API_KEY from environment variable (GitHub secret).
+Outputs gantt_data.json which is used by gantt.html and index.html.
 """
 
 import os

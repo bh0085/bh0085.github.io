@@ -1,9 +1,13 @@
 name: Update Gantt Data
 
+# Automatically fetches latest task data from Notion database and updates gantt_data.json
+# The gantt.html and index.html pages read from this JSON file to display the chart
+# Database ID: 291cdd12fc5e81ceafeadc78e6c03258
+
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Run every 6 hours
-  workflow_dispatch:  # Allow manual trigger
+    - cron: '0 0 * * *'  # Run daily at midnight UTC
+  workflow_dispatch:  # Allow manual trigger from Actions tab
 
 jobs:
   update-gantt:

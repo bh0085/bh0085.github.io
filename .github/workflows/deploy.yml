@@ -1,5 +1,9 @@
 name: Deploy to GitHub Pages
 
+# Deploys the site to GitHub Pages and injects secrets at build time:
+# - CLOUDFLARE_WORKER_URL: Proxy for Notion API (avoids CORS, keeps API key secure)
+# - GEMINI_API_KEY: For AI-powered moodboard word cloud generation
+
 on:
   push:
     branches:
