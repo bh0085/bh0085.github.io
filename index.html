@@ -94,8 +94,8 @@
 
     function renderGantt(container, tasks, minDate, maxDate) {
       const totalMs = maxDate - minDate;
-      const barHeight = 24;
-      const rowHeight = barHeight + 6;
+      const barHeight = 22;
+      const rowHeight = barHeight + 8;
       
       container.style.height = (tasks.length * rowHeight + 20) + 'px';
       
@@ -119,7 +119,7 @@
           : `background:#ccc;opacity:0.5`;
         
         const bar = document.createElement('div');
-        bar.style.cssText = `position:absolute;left:${startOffset}%;width:${width}%;height:${barHeight}px;${barStyle};border-radius:4px;top:${yPos}px;cursor:pointer;overflow:hidden;display:flex;align-items:center;padding:0 8px`;
+        bar.style.cssText = `position:absolute;left:${startOffset}%;width:${width}%;height:${barHeight}px;${barStyle};top:${yPos}px;cursor:pointer;overflow:hidden;display:flex;align-items:center;padding:0 8px`;
         bar.addEventListener('click', () => openNotionPage(task.id));
         bar.title = `Click to open: ${task.name}`;
         
@@ -130,6 +130,27 @@
         
         bar.appendChild(label);
         container.appendChild(bar);
+        
+        // Status-based color for names
+        const statusColor = 
+          task.status === 'In Progress' ? '#3498db' :
+          task.status === 'Completed' ? '#2ecc71' :
+          '#95a5a6'; // Not Started, etc
+        
+        // Owner and contributors to the right of the bar
+        if (task.owner || (task.contributors && task.contributors.length > 0)) {
+          const names = document.createElement('div');
+          names.style.cssText = `position:absolute;left:${endOffset + 1}%;top:${yPos}px;height:${barHeight}px;display:flex;align-items:center;font-size:12px;color:${statusColor};white-space:nowrap;font-weight:500`;
+          
+          const namesList = [];
+          if (task.owner) namesList.push(`@${task.owner}`);
+          if (task.contributors && task.contributors.length > 0) {
+            task.contributors.forEach(c => namesList.push(`+@${c}`));
+          }
+          
+          names.textContent = namesList.join(' ');
+          container.appendChild(names);
+        }
       });
     }
 
