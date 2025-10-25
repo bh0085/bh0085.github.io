@@ -72,6 +72,8 @@ def extract_property_value(prop):
         return prop['status']['name']
     elif prop_type == 'relation':
         return [rel['id'] for rel in prop['relation']]
+    elif prop_type == 'people':
+        return [person.get('name', person.get('id')) for person in prop['people']]
     else:
         return None
 
@@ -82,6 +84,13 @@ def transform_to_gantt_format(notion_pages):
     for page in notion_pages:
         props = page['properties']
         
+        # Extract owner (single person) and contributors (multiple people)
+        owner_data = extract_property_value(props.get('Owner', {}))
+        owner = owner_data[0] if owner_data and len(owner_data) > 0 else None
+        
+        contributors_data = extract_property_value(props.get('Contributors', {}))
+        contributors = contributors_data if contributors_data else []
+        
         task = {
             'id': page['id'],
             'name': extract_property_value(props.get('Task/Project Name', {})),
@@ -90,7 +99,8 @@ def transform_to_gantt_format(notion_pages):
             'end_date': extract_property_value(props.get('End Date', {})),
             'status': extract_property_value(props.get('Status', {})),
             'priority': extract_property_value(props.get('Priority', {})),
-            'assigned_to': extract_property_value(props.get('Assigned To', {})),
+            'owner': owner,
+            'contributors': contributors,
             'progress': extract_property_value(props.get('Progress', {})),
             'dependencies': extract_property_value(props.get('Dependencies', {})),
             'tags': extract_property_value(props.get('Tags', {})),
