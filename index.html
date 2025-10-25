@@ -100,7 +100,7 @@
     </div>
   </div>
   
-  <div id="zoom-gantt" style="display: none; width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 40px; padding: 0 10px; box-sizing: border-box; position: relative; z-index: 1;"></div>
+  <div id="zoom-gantt" style="display: none; width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 40px; padding: 0 10px; box-sizing: border-box; position: relative; z-index: 1; overflow-x: hidden;"></div>
 
   <script type="module">
     import { checkAuth } from './auth.js';
@@ -162,15 +162,22 @@
           task.status === 'Completed' ? '#2ecc71' :
           '#95a5a6'; // Not Started, etc
         
-        // Owner and contributors to the right of the bar (first names only)
+        // Owner and contributors (first names only)
         if (task.owner || (task.contributors && task.contributors.length > 0)) {
-          const names = document.createElement('div');
-          names.style.cssText = `position:absolute;left:${endOffset + 1}%;top:${yPos}px;height:${barHeight}px;display:flex;align-items:center;font-size:12px;color:${statusColor};white-space:nowrap;font-weight:500;padding-left:6px`;
-          
           const namesList = [];
           if (task.owner) namesList.push(`@${getFirstName(task.owner)}`);
           if (task.contributors && task.contributors.length > 0) {
             task.contributors.forEach(c => namesList.push(`+@${getFirstName(c)}`));
+          }
+          
+          const names = document.createElement('div');
+          
+          // If bar ends near right edge (>85%), place names inside bar on right side
+          if (endOffset > 85) {
+            names.style.cssText = `position:absolute;right:1%;top:${yPos}px;height:${barHeight}px;display:flex;align-items:center;justify-content:flex-end;font-size:12px;color:${isFundraising ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.6)'};white-space:nowrap;font-weight:500;text-shadow:${isFundraising ? '0 1px 2px rgba(0,0,0,0.3)' : 'none'};padding-right:6px;pointer-events:none`;
+          } else {
+            // Otherwise place names outside bar on right
+            names.style.cssText = `position:absolute;left:${endOffset + 1}%;top:${yPos}px;height:${barHeight}px;display:flex;align-items:center;font-size:12px;color:${statusColor};white-space:nowrap;font-weight:500;padding-left:6px;pointer-events:none`;
           }
           
           names.textContent = namesList.join(' ');
