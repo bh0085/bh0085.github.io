@@ -21,7 +21,7 @@ The API key is in the code, but the **Generative Language API needs to be enable
    - Visit: https://console.cloud.google.com/apis/credentials
    
 2. **Edit your API key:**
-   - Find: `AIzaSyBPwwjrvnUhTqmjF2i-pcnMsRq8ZreLGjU`
+   - Find: `GEMINI_API_KEY_PLACEHOLDER`
    - Click to edit
    
 3. **Add HTTP Referrer Restrictions:**
