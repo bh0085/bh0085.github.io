@@ -94,9 +94,8 @@
 
     function renderGantt(container, tasks, minDate, maxDate) {
       const totalMs = maxDate - minDate;
-      const barHeight = 12;
-      const labelHeight = 18;
-      const rowHeight = barHeight + labelHeight + 8;
+      const barHeight = 24;
+      const rowHeight = barHeight + 6;
       
       container.style.height = (tasks.length * rowHeight + 20) + 'px';
       
@@ -112,19 +111,22 @@
         
         // Use color directly from Notion API (via worker)
         const color = task.category_color || '#95a5a6';
+        const isFundraising = task.priority === 'Fundraising';
+        
+        // Desaturate non-fundraising items
+        const opacity = isFundraising ? '1' : '0.35';
         
         const bar = document.createElement('div');
-        bar.style.cssText = `position:absolute;left:${startOffset}%;width:${width}%;height:${barHeight}px;background:${color};opacity:0.8;border-radius:3px;top:${yPos + labelHeight}px;cursor:pointer`;
+        bar.style.cssText = `position:absolute;left:${startOffset}%;width:${width}%;height:${barHeight}px;background:${color};opacity:${opacity};border-radius:4px;top:${yPos}px;cursor:pointer;overflow:hidden;display:flex;align-items:center;padding:0 8px`;
         bar.addEventListener('click', () => openNotionPage(task.id));
         bar.title = `Click to open: ${task.name}`;
         
+        // Text overlaid on bar
         const label = document.createElement('div');
-        label.style.cssText = `position:absolute;left:${startOffset}%;top:${yPos}px;font-size:14px;font-weight:500;white-space:nowrap;padding:2px 4px;line-height:${labelHeight}px;color:#000;text-decoration:underline;cursor:pointer`;
+        label.style.cssText = `font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:${isFundraising ? '#fff' : '#333'};text-shadow:${isFundraising ? '0 1px 2px rgba(0,0,0,0.3)' : 'none'};width:100%`;
         label.textContent = task.name;
-        label.addEventListener('click', () => openNotionPage(task.id));
-        label.title = `Click to open: ${task.name}`;
         
-        container.appendChild(label);
+        bar.appendChild(label);
         container.appendChild(bar);
       });
     }
