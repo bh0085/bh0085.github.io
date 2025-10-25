@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Domain Analysis - Strategic Fit</title>
+  <script type="module">
+    import { requireAuth, signOutUser } from '../auth.js';
+    requireAuth();
+    window.signOutUser = signOutUser;
+  </script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .home-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-family: 'Courier New', Courier, monospace;
+      color: #374151;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+    .home-link:hover {
+      text-decoration: none;
+    }
+    .sign-out-link {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-family: 'Courier New', Courier, monospace;
+      color: #374151;
+      text-decoration: underline;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .sign-out-link:hover {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="home-link">← home</a>
+  <a href="#" onclick="event.preventDefault(); signOutUser().then(() => window.location.href='/')" class="sign-out-link">sign out</a>
+  <div id="root"></div>
+  <script type="text/babel">
+const BrandDeck = () => {
+  const { useState } = React;
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      title: "Available Domain Analysis",
+      subtitle: "Strategic Fit Against Our Three Territories",
+      content: (
+        <div className="space-y-8 text-center">
+          <div className="text-6xl mb-4">🔍</div>
+          <div className="space-y-2">
+            <p className="text-gray-600">October 25, 2025</p>
+            <p className="text-gray-600">Confidential</p>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Our Strategic Framework",
+      subtitle: "Three territories to evaluate against",
+      content: (
+        <div className="space-y-4">
+          <p className="text-gray-600 mb-6">Each domain has been mapped to our strategic territories. Some span multiple territories.</p>
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-4">
+            <p className="font-semibold text-blue-900 mb-2">1. The Vision Catalyst</p>
+            <p className="text-blue-700 text-sm">Perception-driven evolution. XR as a sensory organ.</p>
+          </div>
+          <div className="bg-green-50 border-l-4 border-green-500 p-4">
+            <p className="font-semibold text-green-900 mb-2">2. Emergent Intelligence</p>
+            <p className="text-green-700 text-sm">Grown, not programmed. Biological, adaptive thinking.</p>
+          </div>
+          <div className="bg-purple-50 border-l-4 border-purple-500 p-4">
+            <p className="font-semibold text-purple-900 mb-2">3. Dimensional Discovery</p>
+            <p className="text-purple-700 text-sm">Spatial understanding, not linear processing. Immersion & relationships.</p>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Territory 1: The Vision Catalyst",
+      subtitle: "Domains about Perception & Seeing",
+      content: (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <h3 className="font-semibold text-blue-600 text-xs uppercase tracking-wide">Strong Fit</h3>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-gray-800">view.ai</p>
+              <p className="text-2xl font-bold text-gray-800">perceive.bio</p>
+              <p className="text-2xl font-bold text-gray-800">percept.ai</p>
+              <p className="text-2xl font-bold text-gray-800">light.ai</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-semibold text-blue-600 text-xs uppercase tracking-wide">Good Fit</h3>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-gray-800">luma.ai</p>
+              <p className="text-2xl font-bold text-gray-800">insight.ai</p>
+              <p className="text-2xl font-bold text-gray-800">sense.ai</p>
+              <p className="text-2xl font-bold text-gray-800">grasp.ai</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-semibold text-blue-600 text-xs uppercase tracking-wide">Frame Concepts</h3>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-gray-800">frame.ai</p>
+              <p className="text-2xl font-bold text-gray-800">frame.bio</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Territory 2: Emergent Intelligence",
+      subtitle: "Domains about Growth & Evolution",
+      content: (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <h3 className="font-semibold text-green-600 text-xs uppercase tracking-wide">Strong Fit</h3>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-gray-800">evolve.ai</p>
+              <p className="text-2xl font-bold text-gray-800">helix.ai</p>
+              <p className="text-2xl font-bold text-gray-800">origin.ai</p>
+              <p className="text-2xl font-bold text-gray-800">eos.ai</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-semibold text-green-600 text-xs uppercase tracking-wide">Good Fit</h3>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-gray-800">rana.ai</p>
+              <p className="text-2xl font-bold text-gray-800">cascade.ai</p>
+              <p className="text-2xl font-bold text-gray-800">cascade.bio</p>
+              <p className="text-2xl font-bold text-gray-800">augment.ai</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-semibold text-green-600 text-xs uppercase tracking-wide">Philosophical</h3>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-gray-800">ethos.ai</p>
+              <p className="text-2xl font-bold text-gray-800">template.ai</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Territory 3: Dimensional Discovery",
+      subtitle: "Domains about Space & Relationships",
+      content: (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <h3 className="font-semibold text-purple-600 text-xs uppercase tracking-wide">Strong Fit</h3>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-gray-800">context.ai</p>
+              <p className="text-2xl font-bold text-gray-800">context.bio</p>
+              <p className="text-2xl font-bold text-gray-800">field.ai</p>
+              <p className="text-2xl font-bold text-gray-800">layer.ai</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-semibold text-purple-600 text-xs uppercase tracking-wide">Network/Weaving</h3>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-gray-800">mesh.ai</p>
+              <p className="text-2xl font-bold text-gray-800">weave.ai</p>
+              <p className="text-2xl font-bold text-gray-800">pattern.ai</p>
+              <p className="text-2xl font-bold text-gray-800">pattern.io</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-semibold text-purple-600 text-xs uppercase tracking-wide">Integration</h3>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-gray-800">meld.ai</p>
+              <p className="text-2xl font-bold text-gray-800">holo.ai</p>
+              <p className="text-2xl font-bold text-gray-800">switch.ai</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Cross-Territory: Collaboration",
+      subtitle: "Human + AI Partnership Domains",
+      content: (
+        <div className="grid grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <h3 className="font-semibold text-orange-600 text-sm uppercase tracking-wide">Partnership Focus</h3>
+            <div className="space-y-2">
+              <p className="text-3xl font-bold text-gray-800">pair.ai</p>
+              <p className="text-3xl font-bold text-gray-800">pair.bio</p>
+              <p className="text-3xl font-bold text-gray-800">join.ai</p>
+              <p className="text-3xl font-bold text-gray-800">collaborative.ai</p>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <h3 className="font-semibold text-orange-600 text-sm uppercase tracking-wide">Support/Enable</h3>
+            <div className="space-y-2">
+              <p className="text-3xl font-bold text-gray-800">facilitate.bio</p>
+              <p className="text-3xl font-bold text-gray-800">resource.ai</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Intriguing Outliers",
+      subtitle: "Unique or abstract concepts worth considering",
+      content: (
+        <div className="space-y-6">
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold text-gray-800 mb-3 text-sm">Mythological/Cultural</h3>
+              <div className="space-y-2">
+                <div>
+                  <p className="text-2xl font-bold text-gray-800">eos.ai</p>
+                  <p className="text-xs text-gray-500">Greek goddess of dawn</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-gray-800">marain.ai</p>
+                  <p className="text-xs text-gray-500">Culture universe language</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-800 mb-3 text-sm">Abstract/Short</h3>
+              <div className="space-y-2">
+                <p className="text-2xl font-bold text-gray-800">crux.ai</p>
+                <p className="text-2xl font-bold text-gray-800">par.ai</p>
+                <p className="text-2xl font-bold text-gray-800">opa.ai</p>
+                <p className="text-2xl font-bold text-gray-800">kyklo.ai</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-800 mb-3 text-sm">Creative/Inspiration</h3>
+            <div className="space-y-2">
+              <p className="text-2xl font-bold text-gray-800">muse.ai</p>
+              <p className="text-2xl font-bold text-gray-800">fascinate.ai</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Top Recommendations by Territory",
+      subtitle: "Strategic winners across categories",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-4">
+            <p className="font-semibold text-blue-900 mb-2">Vision Catalyst Top Picks</p>
+            <div className="flex gap-4 flex-wrap">
+              <span className="bg-white px-3 py-1 rounded text-blue-900 font-semibold">view.ai</span>
+              <span className="bg-white px-3 py-1 rounded text-blue-900 font-semibold">light.ai</span>
+              <span className="bg-white px-3 py-1 rounded text-blue-900 font-semibold">perceive.bio</span>
+            </div>
+          </div>
+          <div className="bg-green-50 border-l-4 border-green-500 p-4">
+            <p className="font-semibold text-green-900 mb-2">Emergent Intelligence Top Picks</p>
+            <div className="flex gap-4 flex-wrap">
+              <span className="bg-white px-3 py-1 rounded text-green-900 font-semibold">evolve.ai</span>
+              <span className="bg-white px-3 py-1 rounded text-green-900 font-semibold">helix.ai</span>
+              <span className="bg-white px-3 py-1 rounded text-green-900 font-semibold">eos.ai</span>
+            </div>
+          </div>
+          <div className="bg-purple-50 border-l-4 border-purple-500 p-4">
+            <p className="font-semibold text-purple-900 mb-2">Dimensional Discovery Top Picks</p>
+            <div className="flex gap-4 flex-wrap">
+              <span className="bg-white px-3 py-1 rounded text-purple-900 font-semibold">context.ai</span>
+              <span className="bg-white px-3 py-1 rounded text-purple-900 font-semibold">field.ai</span>
+              <span className="bg-white px-3 py-1 rounded text-purple-900 font-semibold">mesh.ai</span>
+            </div>
+          </div>
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <p className="font-semibold text-orange-900 mb-2">Cross-Territory Standout</p>
+            <div className="flex gap-4 flex-wrap">
+              <span className="bg-white px-3 py-1 rounded text-orange-900 font-semibold">pair.ai</span>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Domain Quality Assessment",
+      subtitle: "Practical considerations",
+      content: (
+        <div className="space-y-4">
+          <div className="bg-white p-4 rounded border-l-4 border-green-500">
+            <p className="font-semibold text-green-900 mb-2">✓ Strongest Overall</p>
+            <p className="text-sm text-gray-700">Clean, memorable, broad appeal:</p>
+            <p className="text-gray-600 mt-1 text-sm">view.ai • context.ai • evolve.ai • field.ai • pair.ai</p>
+          </div>
+          <div className="bg-white p-4 rounded border-l-4 border-yellow-500">
+            <p className="font-semibold text-yellow-900 mb-2">⚠ Potentially Competitive</p>
+            <p className="text-sm text-gray-700">Common words, may face confusion:</p>
+            <p className="text-gray-600 mt-1 text-sm">light.ai • pattern.ai • insight.ai • resource.ai</p>
+          </div>
+          <div className="bg-white p-4 rounded border-l-4 border-blue-500">
+            <p className="font-semibold text-blue-900 mb-2">⚡ Unique/Distinctive</p>
+            <p className="text-sm text-gray-700">Stand out but may need explanation:</p>
+            <p className="text-gray-600 mt-1 text-sm">eos.ai • marain.ai • rana.ai • kyklo.ai • holo.ai</p>
+          </div>
+          <div className="bg-white p-4 rounded border-l-4 border-purple-500">
+            <p className="font-semibold text-purple-900 mb-2">🔬 Bio Domain Strategy</p>
+            <p className="text-sm text-gray-700">.bio emphasizes biological/life sciences positioning:</p>
+            <p className="text-gray-600 mt-1 text-sm">perceive.bio • context.bio • pair.bio • cascade.bio • frame.bio • facilitate.bio</p>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Strategic Discussion Points",
+      subtitle: "Key questions for the team",
+      content: (
+        <div className="space-y-3">
+          <div className="bg-white p-3 rounded border-l-4 border-gray-300">
+            <p className="text-gray-800 text-sm"><strong>.ai vs .bio strategy:</strong> Does .bio better position us in life sciences? Or does .ai signal the technology?</p>
+          </div>
+          <div className="bg-white p-3 rounded border-l-4 border-gray-300">
+            <p className="text-gray-800 text-sm"><strong>Single vs multi-territory:</strong> Do we want pure territory alignment (evolve.ai) or bridge multiple (context.ai spans Territory 3 + vision)?</p>
+          </div>
+          <div className="bg-white p-3 rounded border-l-4 border-gray-300">
+            <p className="text-gray-800 text-sm"><strong>Memorability vs meaning:</strong> Short (par.ai, eos.ai) vs descriptive (perceive.bio, collaborative.ai)?</p>
+          </div>
+          <div className="bg-white p-3 rounded border-l-4 border-gray-300">
+            <p className="text-gray-800 text-sm"><strong>Competition risk:</strong> Are we comfortable with commonly-used words (light, pattern, view) or prefer more distinctive (rana, kyklo)?</p>
+          </div>
+          <div className="bg-white p-3 rounded border-l-4 border-gray-300">
+            <p className="text-gray-800 text-sm"><strong>Partnership positioning:</strong> Does pair.ai/collaborative.ai better capture the human+AI narrative than territory-specific names?</p>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Next Steps",
+      subtitle: "Narrowing to finalists",
+      content: (
+        <div className="space-y-6">
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold text-gray-800 mb-3">Immediate Actions</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li>• Select 5-7 finalists across territories</li>
+                <li>• Verify actual domain availability</li>
+                <li>• Check trademark conflicts</li>
+                <li>• Say-it-aloud + spell-it-over-phone test</li>
+                <li>• Test with 2-3 trusted scientists</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-800 mb-3">Strategic Decisions</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li>• Choose .ai vs .bio extension strategy</li>
+                <li>• Align on memorability vs descriptiveness</li>
+                <li>• Test top 3 against "Lila Sciences" positioning</li>
+                <li>• Visual identity mockups for finalists</li>
+              </ul>
+            </div>
+          </div>
+          <div className="bg-blue-50 p-4 rounded-lg mt-8">
+            <p className="text-sm text-blue-900 text-center">
+              <span className="font-semibold">Recommendation:</span> Start deep dive on top 5: <strong>view.ai, context.ai, evolve.ai, pair.ai, eos.ai</strong>
+            </p>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Thank You",
+      subtitle: "",
+      content: (
+        <div className="space-y-8 text-center">
+          <div className="text-6xl mb-4">💬</div>
+          <p className="text-2xl text-gray-800">
+            Ready for discussion.
+          </p>
+          <p className="text-gray-500 text-sm max-w-md mx-auto">
+            These domains represent genuine availability checks mapped to our strategic territories. Let's discuss which combinations best capture our vision while remaining ownable and memorable.
+          </p>
+        </div>
+      )
+    }
+  ];
+
+  const nextSlide = () => {
+    if (currentSlide < slides.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-4 sm:p-8">
+      <div className="max-w-5xl w-full">
+        {/* Slide Container */}
+        <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-12 min-h-[500px] sm:min-h-[600px] flex flex-col">
+          {/* Header */}
+          <div className="mb-4 sm:mb-8">
+            <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2">
+              {slides[currentSlide].title}
+            </h1>
+            {slides[currentSlide].subtitle && (
+              <p className="text-base sm:text-lg text-gray-500">
+                {slides[currentSlide].subtitle}
+              </p>
+            )}
+          </div>
+
+          {/* Content */}
+          <div className="flex-1 overflow-y-auto min-h-[300px] sm:min-h-[400px]">
+            {slides[currentSlide].content}
+          </div>
+
+          {/* Navigation */}
+          <div className="flex items-center justify-between mt-4 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+            <button
+              onClick={prevSlide}
+              disabled={currentSlide === 0}
+              className="flex items-center justify-start gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors w-20 sm:w-auto"
+            >
+              <span>←</span>
+              <span className="text-xs sm:text-sm font-medium hidden sm:inline">Previous</span>
+            </button>
+
+            {/* Dots */}
+            <div className="flex gap-1 sm:gap-2">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`transition-all ${
+                    index === currentSlide
+                      ? 'w-6 sm:w-8 bg-blue-600'
+                      : 'w-2 bg-gray-300 hover:bg-gray-400'
+                  } h-2 rounded-full`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={nextSlide}
+              disabled={currentSlide === slides.length - 1}
+              className="flex items-center justify-end gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors w-20 sm:w-auto"
+            >
+              <span className="text-xs sm:text-sm font-medium hidden sm:inline">Next</span>
+              <span>→</span>
+            </button>
+          </div>
+
+          {/* Slide Counter */}
+          <div className="text-center mt-2 sm:mt-4">
+            <span className="text-xs text-gray-400">
+              {currentSlide + 1} / {slides.length}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<BrandDeck />);
+  </script>
+</body>
+</html>
+
