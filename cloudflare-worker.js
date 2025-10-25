@@ -144,16 +144,37 @@ async function fetchAllNotionPages(databaseId, apiKey) {
  * This is the SINGLE SOURCE OF TRUTH for data transformation
  */
 function transformToGanttFormat(notionPages, databaseId) {
+  // Extract category color mappings from the first page's schema
+  const categoryColors = {};
+  if (notionPages.length > 0) {
+    const categoryProp = notionPages[0].properties.Category;
+    if (categoryProp?.select) {
+      // Get color from the actual select value
+      const selectValue = categoryProp.select;
+      if (selectValue) {
+        categoryColors[selectValue.name] = notionColorToHex(selectValue.color);
+      }
+    }
+  }
+  
   const tasks = notionPages.map(page => {
     const props = page.properties;
     
     const owner = extractPeople(props.Owner);
     const contributors = extractPeople(props.Contributors);
+    const category = extractSelect(props.Category);
+    
+    // Get color from the select option
+    let categoryColor = null;
+    if (props.Category?.select) {
+      categoryColor = notionColorToHex(props.Category.select.color);
+    }
     
     return {
       id: page.id,
       name: extractText(props['Task/Project Name']),
-      category: extractSelect(props.Category),
+      category: category,
+      category_color: categoryColor,
       start_date: extractDate(props['Start Date']),
       end_date: extractDate(props['End Date']),
       status: extractStatus(props.Status),
@@ -208,4 +229,21 @@ function extractPeople(prop) {
 
 function extractRelation(prop) {
   return prop?.relation?.map(r => r.id) || [];
+}
+
+// Convert Notion color names to hex codes
+function notionColorToHex(notionColor) {
+  const colorMap = {
+    'default': '#95a5a6',
+    'gray': '#95a5a6',
+    'brown': '#8B4513',
+    'orange': '#e67e22',
+    'yellow': '#f39c12',
+    'green': '#2ecc71',
+    'blue': '#3498db',
+    'purple': '#9b59b6',
+    'pink': '#e91e63',
+    'red': '#e74c3c'
+  };
+  return colorMap[notionColor] || '#95a5a6';
 }

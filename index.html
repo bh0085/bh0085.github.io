@@ -92,16 +92,6 @@
       }
     });
 
-    // Match colors from gantt.html - same as Notion categories
-    const COLORS = {
-      'Partnerships': '#2ecc71',           // green
-      'Operations': '#e67e22',              // orange
-      'Technology': '#f39c12',              // yellow
-      'Branding & Vision': '#95a5a6',       // gray
-      'Pre-raise Scientific Founder': '#e91e63', // pink
-      'G&A / Fundraising Ops': '#e74c3c'    // red
-    };
-
     function renderGantt(container, tasks, minDate, maxDate) {
       const totalMs = maxDate - minDate;
       const barHeight = 12;
@@ -120,8 +110,11 @@
         
         const yPos = i * rowHeight;
         
+        // Use color directly from Notion API (via worker)
+        const color = task.category_color || '#95a5a6';
+        
         const bar = document.createElement('div');
-        bar.style.cssText = `position:absolute;left:${startOffset}%;width:${width}%;height:${barHeight}px;background:${COLORS[task.category] || '#95a5a6'};opacity:0.8;border-radius:3px;top:${yPos + labelHeight}px;cursor:pointer`;
+        bar.style.cssText = `position:absolute;left:${startOffset}%;width:${width}%;height:${barHeight}px;background:${color};opacity:0.8;border-radius:3px;top:${yPos + labelHeight}px;cursor:pointer`;
         bar.addEventListener('click', () => openNotionPage(task.id));
         bar.title = `Click to open: ${task.name}`;
         

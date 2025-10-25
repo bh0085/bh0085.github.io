@@ -455,9 +455,10 @@
                 const duration = ((endDate - startDate) / (1000 * 60 * 60 * 24)) / totalDays * 100;
                 
                 const bar = document.createElement('div');
-                bar.className = `task-bar ${getCategoryClass(task)}`;
+                bar.className = 'task-bar';
                 bar.style.left = `${startOffset}%`;
                 bar.style.width = `${Math.max(duration, 2)}%`;
+                bar.style.background = getCategoryColor(task);
                 
                 const progress = task.progress ? Math.round(task.progress * 100) : 0;
                 bar.textContent = progress > 0 ? `${progress}%` : '';
@@ -473,19 +474,13 @@
             });
         }
         
-        function getCategoryClass(task) {
-            if (!task.category) return 'category-default';
-            
-            const categoryMap = {
-                'Partnerships': 'category-partnerships',
-                'Operations': 'category-operations',
-                'Technology': 'category-technology',
-                'Branding & Vision': 'category-branding',
-                'Pre-raise Scientific Founder': 'category-pre-raise',
-                'G&A / Fundraising Ops': 'category-ga-fundraising'
-            };
-            
-            return categoryMap[task.category] || 'category-default';
+        function getCategoryColor(task) {
+            // Use color directly from Notion API (via worker)
+            if (task.category_color) {
+                return task.category_color;
+            }
+            // Fallback to default gray
+            return '#95a5a6';
         }
         
         const userColors = {};
