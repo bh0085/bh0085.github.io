@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Naming Exploration</title>
   <script type="module">
-    // Mocking auth import for consistent structure
-    // import { requireAuth } from '../auth.js';
-    // requireAuth();
-    console.log("Auth mock: Page loaded.");
+    import { requireAuth, signOutUser } from '../auth.js';
+    requireAuth();
+    window.signOutUser = signOutUser;
   </script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -27,10 +26,24 @@
     .home-link:hover {
       text-decoration: none;
     }
+    .sign-out-link {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-family: 'Courier New', Courier, monospace;
+      color: #374151;
+      text-decoration: underline;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .sign-out-link:hover {
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
   <a href="/" class="home-link">← home</a>
+  <a href="#" onclick="event.preventDefault(); signOutUser().then(() => window.location.href='/')" class="sign-out-link">sign out</a>
   <div id="root"></div>
   <script type="text/babel">
 const BrandDeck = () => {
