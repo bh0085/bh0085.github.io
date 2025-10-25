@@ -149,33 +149,35 @@
         .gantt-container {
             overflow-x: auto;
             margin-top: 20px;
-            padding-top: 30px;
             position: relative;
         }
         
         .timeline {
             position: relative;
             min-width: 100%;
+            padding-top: 25px;
         }
         
         .timeline-marker {
             position: absolute;
-            top: 0;
+            top: 25px;
             bottom: 0;
-            width: 2px;
+            width: 0;
             border-left: 2px dashed #bdc3c7;
             pointer-events: none;
-            z-index: 5;
+            z-index: 1;
         }
         
         .timeline-label {
             position: absolute;
-            top: -25px;
+            top: 0;
             transform: translateX(-50%);
             font-size: 11px;
             font-weight: 600;
             color: #7f8c8d;
             white-space: nowrap;
+            pointer-events: none;
+            z-index: 2;
         }
         
         .status-indicator {
@@ -198,6 +200,8 @@
             padding: 3px 0;
             border-bottom: 1px solid #ecf0f1;
             position: relative;
+            z-index: 3;
+            background: white;
         }
         
         .task-row:hover {
@@ -208,6 +212,7 @@
             width: 300px;
             flex-shrink: 0;
             padding-right: 20px;
+            z-index: 4;
         }
         
         .task-name {
@@ -226,6 +231,7 @@
             flex: 1;
             position: relative;
             height: 24px;
+            z-index: 3;
         }
         
         .task-bar {
@@ -241,6 +247,7 @@
             font-size: 9px;
             color: white;
             font-weight: 500;
+            z-index: 4;
         }
         
         .task-bar:hover {
@@ -586,12 +593,13 @@
         function addTimelineMarker(timeline, position, label) {
             const marker = document.createElement('div');
             marker.className = 'timeline-marker';
-            marker.style.left = `${position}%`;
+            // Position needs to account for 300px task label width
+            marker.style.left = `calc(300px + ${position}%)`;
             
             const markerLabel = document.createElement('div');
             markerLabel.className = 'timeline-label';
             markerLabel.textContent = label;
-            markerLabel.style.left = `${position}%`;
+            markerLabel.style.left = `calc(300px + ${position}%)`;
             
             timeline.appendChild(marker);
             timeline.appendChild(markerLabel);
