@@ -25,7 +25,7 @@ jobs:
       - name: Inject API Configuration
         run: |
           sed -i "s|CLOUDFLARE_WORKER_URL_PLACEHOLDER|${{ secrets.CLOUDFLARE_WORKER_URL }}|g" gantt.html
-
+          sed -i "s|GEMINI_API_KEY_PLACEHOLDER|${{ secrets.GEMINI_API_KEY }}|g" moodboards/index.html
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
