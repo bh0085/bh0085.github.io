@@ -27,11 +27,24 @@
       min-height: 100vh;
       font-size: 18px;
     }
-    img {
+    .hero-container {
+      position: relative;
       max-width: 400px;
       width: 100%;
-      height: auto;
       margin-bottom: 20px;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .coming-soon {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      color: #000;
     }
     .sign-in-link {
       position: absolute;
@@ -52,7 +65,10 @@
     }
     #auth-links {
       display: none;
-      margin-top: 20px;
+      position: absolute;
+      bottom: 15%;
+      left: 50%;
+      transform: translateX(-50%);
       text-align: center;
     }
     #auth-links a {
@@ -73,12 +89,15 @@
 <body>
   <a href="/login.html" class="sign-in-link" id="sign-in-link">sign in</a>
   <a href="#" onclick="event.preventDefault(); signOutUser().then(() => window.location.reload())" class="sign-in-link" id="sign-out-link">sign out</a>
-  <img src="assets/glasses_cropped.png" alt="Scientific Super Intelligence">
-  coming soon
-  <div id="auth-links">
-    <a href="/branding/">brand deck</a>
-    <a href="/moodboards/">moodboards</a>
-    <a href="/gantt.html">gantt chart</a>
+  
+  <div class="hero-container">
+    <img src="assets/glasses_cropped.png" alt="Scientific Super Intelligence">
+    <div class="coming-soon">coming soon</div>
+    <div id="auth-links">
+      <a href="/branding/">brand deck</a>
+      <a href="/moodboards/">moodboards</a>
+      <a href="/gantt.html">gantt chart</a>
+    </div>
   </div>
   
   <div id="zoom-gantt" style="display: none; width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 40px; padding: 0 10px; box-sizing: border-box; position: relative; z-index: 1;"></div>
