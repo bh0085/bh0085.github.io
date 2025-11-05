@@ -15,249 +15,297 @@
   <script type="text/babel">
 const PitchDeck = () => {
   const { useState, Fragment } = React;
-  // Kept state for potential future use, but it's now fixed to one story
-  const [currentStory, setCurrentStory] = useState(0); 
+  const [currentStory, setCurrentStory] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isNavVisible, setIsNavVisible] = useState(false);
 
   const stories = [
     {
-      name: "Story 1: The Ladder to the Moon",
-      tagline: "Operational superintelligence is the necessary foundation",
+      name: "Story 1: The Scientific Infrastructure",
+      tagline: "Building the operating system for automated science",
       slides: [
         {
-          title: "Operational superintelligence through embodied AI is the necessary foundation for scientific superintelligence",
-          subtitle: "We're building that foundation",
+          title: "We're building the operating system for automated science",
+          subtitle: "Starting with the lab, expanding to the clinic",
           content: (
             <div className="space-y-8">
               <div className="flex items-center justify-center">
-                <div className="relative">
-                  <svg className="w-64 h-64" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* Moon */}
-                    <circle cx="100" cy="40" r="20" fill="#FCD34D" stroke="#F59E0B" strokeWidth="2"/>
-                    {/* Ladder that doesn't reach */}
-                    <rect x="85" y="100" width="4" height="80" fill="#EF4444" opacity="0.7"/>
-                    <rect x="111" y="100" width="4" height="80" fill="#EF4444" opacity="0.7"/>
-                    {/* Rungs */}
-                    <rect x="85" y="110" width="30" height="3" fill="#EF4444" opacity="0.7"/>
-                    <rect x="85" y="130" width="30" height="3" fill="#EF4444" opacity="0.7"/>
-                    <rect x="85" y="150" width="30" height="3" fill="#EF4444" opacity="0.7"/>
-                    <rect x="85" y="170" width="30" height="3" fill="#EF4444" opacity="0.7"/>
-                    {/* Ground */}
-                    <rect x="0" y="180" width="200" height="4" fill="#374151"/>
-                    {/* Gap indicator */}
-                    <line x1="100" y1="60" x2="100" y2="100" stroke="#9CA3AF" strokeWidth="2" strokeDasharray="4 4"/>
-                    <text x="110" y="80" fill="#6B7280" fontSize="12">Gap</text>
-                  </svg>
-                </div>
+                <svg className="w-96 h-64" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Base platform */}
+                  <rect x="50" y="140" width="300" height="40" fill="#3B82F6" rx="4"/>
+                  <text x="200" y="165" fontSize="16" fill="white" textAnchor="middle" fontWeight="bold">Scientific OS Platform</text>
+                  
+                  {/* Applications on top */}
+                  <rect x="60" y="80" width="80" height="50" fill="#8B5CF6" rx="4"/>
+                  <text x="100" y="100" fontSize="12" fill="white" textAnchor="middle">LabOS</text>
+                  <text x="100" y="115" fontSize="9" fill="white" textAnchor="middle">Research</text>
+                  
+                  <rect x="160" y="80" width="80" height="50" fill="#8B5CF6" rx="4"/>
+                  <text x="200" y="100" fontSize="12" fill="white" textAnchor="middle">ClinOS</text>
+                  <text x="200" y="115" fontSize="9" fill="white" textAnchor="middle">Clinical</text>
+                  
+                  <rect x="260" y="80" width="80" height="50" fill="#8B5CF6" opacity="0.4" rx="4"/>
+                  <text x="300" y="100" fontSize="12" fill="white" textAnchor="middle">Future</text>
+                  <text x="300" y="115" fontSize="9" fill="white" textAnchor="middle">Tracks</text>
+                  
+                  {/* Connecting lines */}
+                  <line x1="100" y1="130" x2="100" y2="140" stroke="#8B5CF6" strokeWidth="2"/>
+                  <line x1="200" y1="130" x2="200" y2="140" stroke="#8B5CF6" strokeWidth="2"/>
+                  <line x1="300" y1="130" x2="300" y2="140" stroke="#8B5CF6" strokeWidth="2" opacity="0.4"/>
+                </svg>
               </div>
               <div className="text-center max-w-2xl mx-auto">
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Pure computational approaches can't reach scientific breakthroughs—they're building ladders to the moon.
+                  Just as iOS and Android became platforms for thousands of apps, we're creating the foundational infrastructure for automated scientific work
                 </p>
               </div>
             </div>
           )
         },
         {
-          title: "Current AI approaches are building ladders to the moon",
-          subtitle: "Pure computational approaches lack the embodied operational layer",
+          title: "Labs and clinical trials are stuck in manual operations",
+          subtitle: "Despite AI advances, scientific work remains human-bottlenecked",
           content: (
             <div className="space-y-6">
               <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
                 <div className="flex items-start gap-4">
-                  <div className="text-4xl">🪜</div>
+                  <div className="text-4xl">🚧</div>
                   <div>
                     <p className="text-xl font-semibold text-red-900 mb-3">
-                      "The computational-only approach is like building a ladder to the moon"
+                      The Scientific Workflow Crisis
                     </p>
-                    <p className="text-red-800 mb-4">
-                      Competitors like FutureHouse and Periodic Labs focus on pure computational approaches—better models, more data, same limitations.
+                    <p className="text-gray-800 mb-2">
+                      While AI has revolutionized data analysis, the actual execution of science remains stubbornly manual, inconsistent, and slow.
                     </p>
-                    <div className="bg-white p-4 rounded">
-                      <p className="text-sm text-gray-700 italic">
-                        "Just as Tesla's camera-only approach hit fundamental limits requiring qualitatively different sensors (LIDAR), 
-                        pure computational AI will hit limits requiring embodied operational intelligence."
-                      </p>
-                    </div>
+                    <p className="text-sm text-gray-700 italic">
+                      Researchers spend 60-80% of their time on routine experimental execution, not discovery
+                    </p>
                   </div>
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-100 p-4 rounded-lg">
-                  <p className="font-semibold text-gray-800 mb-2">What They're Missing</p>
-                  <ul className="text-sm text-gray-700 space-y-1">
-                    <li>• Physical world interaction data</li>
-                    <li>• Real-time sensory feedback</li>
-                    <li>• Embodied spatial reasoning</li>
-                    <li>• Operational context</li>
-                  </ul>
-                </div>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="font-semibold text-blue-900 mb-2">What We Provide</p>
-                  <ul className="text-sm text-blue-800 space-y-1">
-                    <li>• XR sensory perception</li>
-                    <li>• Robotic manipulation</li>
-                    <li>• Real-world data generation</li>
-                    <li>• Operational grounding</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          )
-        },
-        {
-          title: "We combine sensory systems + reasoning + physical action",
-          subtitle: "Our integrated approach captures data pure software cannot access",
-          content: (
-            <div className="space-y-6">
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg">
-                <div className="flex items-center justify-center gap-8 mb-6">
-                  <div className="text-center">
-                    <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mb-2 mx-auto">
-                      <span className="text-3xl">👁️</span>
-                    </div>
-                    <p className="font-semibold text-gray-800">XR Sensory</p>
-                    <p className="text-xs text-gray-600">Perception</p>
-                  </div>
-                  <div className="text-3xl text-gray-400">+</div>
-                  <div className="text-center">
-                    <div className="w-20 h-20 bg-purple-500 rounded-full flex items-center justify-center mb-2 mx-auto">
-                      <span className="text-3xl">🧠</span>
-                    </div>
-                    <p className="font-semibold text-gray-800">AI Reasoning</p>
-                    <p className="text-xs text-gray-600">Intelligence</p>
-                  </div>
-                  <div className="text-3xl text-gray-400">+</div>
-                  <div className="text-center">
-                    <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-2 mx-auto">
-                      <span className="text-3xl">🦾</span>
-                    </div>
-                    <p className="font-semibold text-gray-800">Robotics</p>
-                    <p className="text-xs text-gray-600">Action</p>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <p className="text-xl font-semibold text-gray-800 mb-2">= Operational Superintelligence</p>
-                  <p className="text-gray-700">The necessary pathway to scientific breakthroughs</p>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg border-2 border-blue-200">
-                <p className="font-semibold text-gray-800 mb-3">The Critical Difference:</p>
-                <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <p className="text-sm font-semibold text-gray-700 mb-2">Computational AI</p>
-                    <svg className="w-full h-32" viewBox="0 0 200 100">
-                      <rect x="10" y="40" width="40" height="20" fill="#E5E7EB" stroke="#9CA3AF" strokeWidth="1"/>
-                      <text x="30" y="53" fontSize="10" textAnchor="middle" fill="#374151">Data</text>
-                      <path d="M 50 50 L 70 50" stroke="#9CA3AF" strokeWidth="2" markerEnd="url(#arrowgray)"/>
-                      <rect x="70" y="40" width="40" height="20" fill="#E5E7EB" stroke="#9CA3AF" strokeWidth="1"/>
-                      <text x="90" y="53" fontSize="10" textAnchor="middle" fill="#374151">Model</text>
-                      <path d="M 110 50 L 130 50" stroke="#9CA3AF" strokeWidth="2" markerEnd="url(#arrowgray)"/>
-                      <rect x="130" y="40" width="40" height="20" fill="#E5E7EB" stroke="#9CA3AF" strokeWidth="1"/>
-                      <text x="150" y="53" fontSize="10" textAnchor="middle" fill="#374151">Output</text>
-                      <defs>
-                        <marker id="arrowgray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                          <polygon points="0 0, 10 3, 0 6" fill="#9CA3AF" />
-                        </marker>
-                      </defs>
-                    </svg>
-                    <p className="text-xs text-gray-600 mt-2">Linear processing, no physical grounding</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-blue-700 mb-2">Operational AI</p>
-                    <svg className="w-full h-32" viewBox="0 0 200 100">
-                      <circle cx="100" cy="50" r="30" fill="none" stroke="#3B82F6" strokeWidth="2"/>
-                      <circle cx="100" cy="30" r="8" fill="#3B82F6"/>
-                      <text x="100" y="25" fontSize="8" textAnchor="middle" fill="white">Sense</text>
-                      <circle cx="120" cy="55" r="8" fill="#8B5CF6"/>
-                      <text x="120" y="50" fontSize="8" textAnchor="middle" fill="white">Think</text>
-                      <circle cx="100" cy="70" r="8" fill="#10B981"/>
-                      <text x="100" y="65" fontSize="8" textAnchor="middle" fill="white">Act</text>
-                      <circle cx="80" cy="55" r="8" fill="#F59E0B"/>
-                      <text x="80" y="50" fontSize="8" textAnchor="middle" fill="white">Learn</text>
-                    </svg>
-                    <p className="text-xs text-blue-600 mt-2">Continuous feedback loop with physical world</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )
-        },
-        {
-          title: "Two product tracks prove the platform",
-          subtitle: "LabOS and ClinOS demonstrate immediate value while building toward the vision",
-          content: (
-            <div className="space-y-6">
               <div className="grid grid-cols-2 gap-6">
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border-2 border-blue-300">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">🔬</span>
+                <div className="space-y-4">
+                  <p className="font-semibold text-gray-800">🔬 Research Lab Bottlenecks</p>
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Manual Repetition</p>
+                      <p className="text-xs text-gray-600">Same pipetting, mixing, imaging tasks done by hand thousands of times</p>
                     </div>
-                    <div>
-                      <p className="text-xl font-bold text-blue-900">LabOS</p>
-                      <p className="text-xs text-blue-700">Laboratory Automation</p>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Human Inconsistency</p>
+                      <p className="text-xs text-gray-600">Technique varies between researchers, shifts, and days</p>
                     </div>
-                  </div>
-                  <p className="text-sm text-gray-700 mb-3">
-                    Operating system for research automation—integrating XR perception, AI reasoning, and robotic action
-                  </p>
-                  <div className="bg-white p-3 rounded text-xs">
-                    <p className="font-semibold text-gray-800 mb-1">Initial Market:</p>
-                    <p className="text-gray-600">Drug discovery labs, materials science, biotech research</p>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Limited Throughput</p>
+                      <p className="text-xs text-gray-600">Experiments run at human speed, not computational speed</p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border-2 border-purple-300">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">🏥</span>
+                <div className="space-y-4">
+                  <p className="font-semibold text-gray-800">🏥 Clinical Trial Bottlenecks</p>
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Protocol Deviation</p>
+                      <p className="text-xs text-gray-600">Multi-site trials struggle with consistent execution</p>
                     </div>
-                    <div>
-                      <p className="text-xl font-bold text-purple-900">ClinOS</p>
-                      <p className="text-xs text-purple-700">Clinical Trial Platform</p>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Data Capture Lag</p>
+                      <p className="text-xs text-gray-600">Critical information lost between observation and recording</p>
                     </div>
-                  </div>
-                  <p className="text-sm text-gray-700 mb-3">
-                    Same infrastructure applied to biopharma trials—spatial data capture and AI-driven insights
-                  </p>
-                  <div className="bg-white p-3 rounded text-xs">
-                    <p className="font-semibold text-gray-800 mb-1">Initial Market:</p>
-                    <p className="text-gray-600">Phase I-III clinical trials, contract research organizations</p>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Safety Monitoring</p>
+                      <p className="text-xs text-gray-600">Reactive rather than predictive adverse event detection</p>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-3 text-center">Platform Architecture Enables Expansion</p>
-                <div className="flex items-center justify-center gap-4">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-blue-500 rounded-lg flex items-center justify-center mb-2">
-                      <span className="text-2xl">🔬</span>
-                    </div>
-                    <p className="text-xs font-semibold">LabOS</p>
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <p className="text-sm text-center text-gray-700">
+                  <span className="font-semibold">The Gap:</span> We have AI that can predict protein structures, 
+                  but we still rely on humans to run the experiments that generate the training data
+                </p>
+              </div>
+            </div>
+          )
+        },
+        {
+          title: "LabOS is the first OS for laboratory automation",
+          subtitle: "Integrating perception, reasoning, and action into a unified platform",
+          content: (
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                <p className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                  LabOS: The Operating System for Research
+                </p>
+                <div className="grid grid-cols-3 gap-4 mt-6">
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <div className="text-3xl mb-2 text-center">📡</div>
+                    <p className="font-semibold text-sm text-center mb-2">Perception Layer</p>
+                    <p className="text-xs text-gray-600">
+                      XR sensors capture spatial positioning, material states, equipment status, environmental conditions
+                    </p>
                   </div>
-                  <div className="text-2xl text-gray-400">→</div>
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-purple-500 rounded-lg flex items-center justify-center mb-2">
-                      <span className="text-2xl">🏥</span>
-                    </div>
-                    <p className="text-xs font-semibold">ClinOS</p>
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <div className="text-3xl mb-2 text-center">🧠</div>
+                    <p className="font-semibold text-sm text-center mb-2">Intelligence Layer</p>
+                    <p className="text-xs text-gray-600">
+                      AI orchestrates workflows, optimizes protocols, predicts outcomes, learns from results
+                    </p>
                   </div>
-                  <div className="text-2xl text-gray-400">→</div>
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-green-500 rounded-lg flex items-center justify-center mb-2">
-                      <span className="text-2xl">🏭</span>
-                    </div>
-                    <p className="text-xs font-semibold">Future Tracks</p>
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <div className="text-3xl mb-2 text-center">🦾</div>
+                    <p className="font-semibold text-sm text-center mb-2">Action Layer</p>
+                    <p className="text-xs text-gray-600">
+                      Robotic systems execute with precision, consistency, and 24/7 availability
+                    </p>
                   </div>
                 </div>
-                <p className="text-sm text-center text-gray-600 mt-4">
-                  Each track validates core technology, serves distinct markets, and strengthens the platform
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white p-5 rounded-lg border-2 border-blue-200">
+                  <p className="font-semibold text-gray-800 mb-3">Core Capabilities</p>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Protocol automation & optimization</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Real-time experiment monitoring</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Adaptive workflow adjustment</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Multi-instrument orchestration</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Continuous learning & improvement</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-white p-5 rounded-lg border-2 border-green-200">
+                  <p className="font-semibold text-gray-800 mb-3">Researcher Benefits</p>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-1">→</span>
+                      <span>10x increase in experimental throughput</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-1">→</span>
+                      <span>Consistent execution across all experiments</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-1">→</span>
+                      <span>Focus time on hypothesis generation</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-1">→</span>
+                      <span>24/7 lab operations without supervision</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-1">→</span>
+                      <span>Rich data capture for every step</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )
+        },
+        {
+          title: "Platform architecture enables rapid expansion",
+          subtitle: "ClinOS and future tracks leverage the same foundational infrastructure",
+          content: (
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg">
+                <p className="text-xl font-semibold text-gray-800 mb-6 text-center">
+                  One Platform, Multiple Applications
                 </p>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-24 flex-shrink-0">
+                      <div className="bg-blue-500 text-white rounded-lg p-3 text-center">
+                        <p className="text-xl font-bold">LabOS</p>
+                        <p className="text-xs">v1.0 - 2026</p>
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-white p-4 rounded-lg">
+                      <p className="text-sm font-semibold text-gray-800 mb-1">Research Automation Platform</p>
+                      <p className="text-xs text-gray-600">Drug discovery, materials science, synthetic biology</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-24 flex-shrink-0">
+                      <div className="bg-purple-500 text-white rounded-lg p-3 text-center">
+                        <p className="text-xl font-bold">ClinOS</p>
+                        <p className="text-xs">v1.0 - 2027</p>
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-white p-4 rounded-lg">
+                      <p className="text-sm font-semibold text-gray-800 mb-1">Clinical Trial Platform</p>
+                      <p className="text-xs text-gray-600">Multi-site coordination, protocol adherence, safety monitoring</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-24 flex-shrink-0">
+                      <div className="bg-green-500 text-white rounded-lg p-3 text-center">
+                        <p className="text-xl font-bold">MfgOS</p>
+                        <p className="text-xs">Future</p>
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-white p-4 rounded-lg opacity-60">
+                      <p className="text-sm font-semibold text-gray-800 mb-1">Manufacturing Intelligence</p>
+                      <p className="text-xs text-gray-600">Quality control, process optimization, predictive maintenance</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-24 flex-shrink-0">
+                      <div className="bg-amber-500 text-white rounded-lg p-3 text-center">
+                        <p className="text-xl font-bold">FieldOS</p>
+                        <p className="text-xs">Future</p>
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-white p-4 rounded-lg opacity-60">
+                      <p className="text-sm font-semibold text-gray-800 mb-1">Field Research Platform</p>
+                      <p className="text-xs text-gray-600">Environmental monitoring, agricultural science, geological surveys</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-5 rounded-lg border-2 border-blue-200">
+                <p className="font-semibold text-center text-gray-800 mb-4">Shared Platform Components</p>
+                <div className="grid grid-cols-4 gap-3 text-center">
+                  <div className="p-3 bg-blue-50 rounded">
+                    <div className="text-2xl mb-1">🔍</div>
+                    <p className="text-xs font-semibold">XR Perception</p>
+                  </div>
+                  <div className="p-3 bg-purple-50 rounded">
+                    <div className="text-2xl mb-1">🤖</div>
+                    <p className="text-xs font-semibold">AI Orchestration</p>
+                  </div>
+                  <div className="p-3 bg-green-50 rounded">
+                    <div className="text-2xl mb-1">⚙️</div>
+                    <p className="text-xs font-semibold">Robotic Control</p>
+                  </div>
+                  <div className="p-3 bg-amber-50 rounded">
+                    <div className="text-2xl mb-1">📊</div>
+                    <p className="text-xs font-semibold">Data Platform</p>
+                  </div>
+                </div>
               </div>
             </div>
           )
@@ -281,19 +329,17 @@ const PitchDeck = () => {
   const goToSlide = (index) => {
     setCurrentSlide(index);
   };
-  
-  // Dummy function to keep nav links from breaking
+
   const changeStory = (index) => {
-    // In a multi-file setup, this would navigate to a different page
     window.location.href = `story${index + 1}.html`;
   };
 
-  // Navigation Links for all 4 stories
+  // Reordered navigation links
   const allStoryLinks = [
-      { name: "Story 1: The Ladder to the Moon", tagline: "Operational superintelligence is the necessary foundation" },
+      { name: "Story 1: The Scientific Infrastructure", tagline: "Building the operating system for automated science" },
       { name: "Story 2: The Data Differentiation", tagline: "Unlocking breakthroughs through operational data" },
-      { name: "Story 3: The Scientific Infrastructure", tagline: "Building the operating system for automated science" },
-      { name: "Story 4: The Company vs. Product", tagline: "We're building a platform company, not a single product" }
+      { name: "Story 3: The Company vs. Product", tagline: "We're building a platform company, not a single product" },
+      { name: "Story 4: The Ladder to the Moon", tagline: "Operational superintelligence is the necessary foundation" }
   ];
 
   return (
@@ -312,11 +358,9 @@ const PitchDeck = () => {
       </button>
 
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-        {/* Slide Container */}
-        <div className="flex items-center justify-center p-8">
+        <div className="flex items-center justify-center p-8 pt-24">
           <div className="max-w-5xl w-full">
             <div className="bg-white rounded-2xl shadow-2xl p-12 min-h-[600px] flex flex-col">
-              {/* Header */}
               <div className="mb-8">
                 <h1 className="text-4xl font-bold text-gray-900 mb-2">
                   {stories[currentStory].slides[currentSlide].title}
@@ -328,12 +372,10 @@ const PitchDeck = () => {
                 )}
               </div>
 
-              {/* Content */}
               <div className="flex-1 overflow-y-auto">
                 {stories[currentStory].slides[currentSlide].content}
               </div>
 
-              {/* Navigation */}
               <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
                 <button
                   onClick={prevSlide}
@@ -344,7 +386,6 @@ const PitchDeck = () => {
                   <span className="text-sm font-medium">Previous</span>
                 </button>
 
-                {/* Dots */}
                 <div className="flex gap-2">
                   {stories[currentStory].slides.map((_, index) => (
                     <button
@@ -369,7 +410,6 @@ const PitchDeck = () => {
                 </button>
               </div>
 
-              {/* Slide Counter */}
               <div className="text-center mt-4">
                 <span className="text-xs text-gray-400">
                   {currentSlide + 1} / {stories[currentStory].slides.length}
