@@ -22,282 +22,308 @@ const PitchDeck = () => {
   const stories = [
     {}, {}, {}, // Placeholders
     {
-      name: "Story 4: The Tesla vs. Waymo Parallel",
-      tagline: "New sensors enable breakthrough capabilities",
+      name: "Story 4: The Company vs. Product",
+      tagline: "We're building a platform company, not a single product",
       slides: [
         {
-          title: "Just as autonomous driving required qualitatively different sensors, scientific superintelligence requires embodied operational intelligence",
-          subtitle: "That's what we're building",
+          title: "Investors often fund products; we're offering them a company that builds multiple products on a transformative platform",
+          subtitle: "",
           content: (
             <div className="space-y-8">
-              <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-6 rounded-lg">
-                <p className="text-lg text-gray-700 mb-4 italic text-center">
-                  "Getting to Level 4 self-driving with Tesla's method is like trying to build a ladder to the moon"
-                </p>
-                <p className="text-sm text-gray-600 text-center">
-                  — Drago Anguelov, Waymo Principal Scientist
-                </p>
-              </div>
-              
               <div className="grid grid-cols-2 gap-8">
                 <div className="text-center">
-                  <div className="bg-red-100 rounded-lg p-6 mb-3">
-                    <span className="text-5xl">🚗</span>
+                  <div className="bg-gray-100 rounded-lg p-8 mb-4">
+                    <span className="text-6xl">📦</span>
                   </div>
-                  <p className="font-semibold text-gray-800 mb-2">Tesla's Approach</p>
-                  <p className="text-sm text-gray-600">Cameras + better models + more data</p>
-                  <p className="text-xs text-red-600 mt-2">Same sensors, incremental improvements</p>
+                  <p className="font-semibold text-gray-800 mb-2 text-lg">Product Company</p>
+                  <p className="text-sm text-gray-600">Single solution, focused market</p>
+                  <p className="text-xs text-gray-500 mt-2 italic">Success depends on one product's adoption</p>
                 </div>
                 
                 <div className="text-center">
-                  <div className="bg-green-100 rounded-lg p-6 mb-3">
-                    <span className="text-5xl">🎯</span>
+                  <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg p-8 mb-4">
+                    <span className="text-6xl">🏗️</span>
                   </div>
-                  <p className="font-semibold text-gray-800 mb-2">Waymo's Approach</p>
-                  <p className="text-sm text-gray-600">LIDAR + radar + cameras</p>
-                  <p className="text-xs text-green-600 mt-2">Qualitatively different sensors</p>
+                  <p className="font-semibold text-blue-800 mb-2 text-lg">Platform Company</p>
+                  <p className="text-sm text-blue-700">Multiple products, expanding markets</p>
+                  <p className="text-xs text-blue-600 mt-2 italic">Success compounds across product lines</p>
                 </div>
               </div>
 
-              <div className="text-center">
-                <p className="text-xl text-gray-700 font-semibold">
-                  The same dynamic applies to scientific AI
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg">
+                <p className="text-xl text-center text-gray-800 font-semibold">
+                  We're building the company, using LabOS and ClinOS as evidence
                 </p>
               </div>
             </div>
           )
         },
         {
-          title: "The parallel to autonomous vehicles is direct",
-          subtitle: "Better models with the same sensors hit a ceiling",
+          title: "The 'tracks' framework signals platform thinking from day one",
+          subtitle: "We're not pitching LabOS or ClinOS—we're pitching the company that builds both (and more)",
           content: (
             <div className="space-y-6">
-              <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
-                <p className="text-xl font-semibold text-gray-900 mb-4">
-                  The Sensor Paradigm Shift
+              <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg">
+                <p className="text-xl font-semibold text-gray-800 mb-4">
+                  "Tracks" Communicates Vision Beyond Products
                 </p>
-                <p className="text-gray-800 mb-3">
-                  Waymo realized that cameras alone—no matter how good the AI—couldn't provide the perception needed for true autonomous driving. They needed LIDAR's depth perception and radar's velocity sensing.
+                <p className="text-gray-700 mb-4">
+                  By introducing LabOS and ClinOS as "tracks" rather than standalone products, we immediately establish that we're building something bigger—a platform capable of powering multiple applications.
                 </p>
-                <p className="text-gray-700 text-sm italic">
-                  The breakthrough wasn't better algorithms. It was fundamentally different sensory input.
+                <p className="text-sm text-gray-600 italic">
+                  "We're building products vs. product—evidence of a company vs. just a solution"
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <p className="font-semibold text-gray-800 mb-3 text-center">🚗 Autonomous Driving</p>
-                  <div className="space-y-3">
-                    <div className="bg-red-50 p-4 rounded-lg">
-                      <p className="text-sm font-semibold text-red-900 mb-1">Camera-Only Limits</p>
-                      <p className="text-xs text-gray-700">
-                        • Depth ambiguity in 2D images<br/>
-                        • Poor performance in low light<br/>
-                        • Velocity estimation requires inference<br/>
-                        • Occlusion problems
-                      </p>
-                    </div>
-                    <div className="bg-green-50 p-4 rounded-lg">
-                      <p className="text-sm font-semibold text-green-900 mb-1">LIDAR Enables</p>
-                      <p className="text-xs text-gray-700">
-                        • Direct 3D spatial measurement<br/>
-                        • Works in any lighting<br/>
-                        • Precise velocity & trajectory<br/>
-                        • See around obstacles
-                      </p>
-                    </div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="bg-white p-5 rounded-lg shadow-md border-t-4 border-blue-500">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">🔬</span>
+                    <p className="font-bold text-gray-800">Track 1</p>
+                  </div>
+                  <p className="text-sm font-semibold text-gray-800 mb-1">LabOS</p>
+                  <p className="text-xs text-gray-600 mb-3">Research Automation</p>
+                  <div className="bg-blue-50 p-2 rounded text-xs">
+                    <p className="font-semibold mb-1">Status: v0 Development</p>
+                    <p className="text-gray-600">First deployments Q2 2026</p>
                   </div>
                 </div>
 
-                <div>
-                  <p className="font-semibold text-gray-800 mb-3 text-center">🔬 Scientific AI</p>
-                  <div className="space-y-3">
-                    <div className="bg-red-50 p-4 rounded-lg">
-                      <p className="text-sm font-semibold text-red-900 mb-1">Computational-Only Limits</p>
-                      <p className="text-xs text-gray-700">
-                        • No physical world grounding<br/>
-                        • Inference from text descriptions<br/>
-                        • Missing spatial relationships<br/>
-                        • No tactile feedback
-                      </p>
-                    </div>
-                    <div className="bg-green-50 p-4 rounded-lg">
-                      <p className="text-sm font-semibold text-green-900 mb-1">XR + Robotics Enables</p>
-                      <p className="text-xs text-gray-700">
-                        • Direct physical perception<br/>
-                        • Real-time environmental sensing<br/>
-                        • 3D spatial understanding<br/>
-                        • Force & manipulation feedback
-                      </p>
-                    </div>
+                <div className="bg-white p-5 rounded-lg shadow-md border-t-4 border-purple-500">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">🏥</span>
+                    <p className="font-bold text-gray-800">Track 2</p>
+                  </div>
+                  <p className="text-sm font-semibold text-gray-800 mb-1">ClinOS</p>
+                  <p className="text-xs text-gray-600 mb-3">Clinical Trials</p>
+                  <div className="bg-purple-50 p-2 rounded text-xs">
+                    <p className="font-semibold mb-1">Status: Alpha Roadmap</p>
+                    <p className="text-gray-600">Pilot programs Q4 2026</p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-5 rounded-lg shadow-md border-t-4 border-green-500 opacity-60">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">🏭</span>
+                    <p className="font-bold text-gray-800">Track 3+</p>
+                  </div>
+                  <p className="text-sm font-semibold text-gray-800 mb-1">Future Tracks</p>
+                  <p className="text-xs text-gray-600 mb-3">Manufacturing, Field Research...</p>
+                  <div className="bg-green-50 p-2 rounded text-xs">
+                    <p className="font-semibold mb-1">Status: Platform Ready</p>
+                    <p className="text-gray-600">Same infra, new applications</p>
                   </div>
                 </div>
               </div>
 
               <div className="bg-blue-50 p-5 rounded-lg">
-                <p className="text-center text-sm text-gray-700">
-                  <span className="font-semibold">The Insight:</span> Just as LIDAR was necessary for autonomous driving, 
-                  embodied perception through XR and robotics is necessary for scientific superintelligence
-                </p>
-              </div>
-            </div>
-          )
-        },
-        {
-          title: "We're providing the 'LIDAR moment' for scientific AI",
-          subtitle: "XR and robotics give AI access to information it fundamentally cannot get otherwise",
-          content: (
-            <div className="space-y-6">
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg">
-                <p className="text-xl font-semibold text-gray-800 mb-6 text-center">
-                  What XR + Robotics Unlocks for Scientific AI
-                </p>
-                
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="bg-white p-5 rounded-lg shadow-md">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-3xl">🌐</span>
-                      <p className="font-semibold text-gray-800">Spatial Context</p>
-                    </div>
-                    <p className="text-sm text-gray-700 mb-2">
-                      Understanding how objects relate in 3D space—molecular interactions, equipment positioning, material flow
-                    </p>
-                    <p className="text-xs text-blue-600 italic">
-                      Can't be inferred from text or 2D images
-                    </p>
+                <p className="font-semibold text-gray-800 mb-2 text-center">What This Communicates to Investors</p>
+                <div className="grid grid-cols-2 gap-4 mt-3">
+                  <div className="text-sm text-gray-700">
+                    <span className="font-semibold">✓ Vision:</span> We see the bigger picture
                   </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-md">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-3xl">⚡</span>
-                      <p className="font-semibold text-gray-800">Real-Time Feedback</p>
-                    </div>
-                    <p className="text-sm text-gray-700 mb-2">
-                      Immediate sensory response to actions—reaction progress, mixture homogeneity, structural stability
-                    </p>
-                    <p className="text-xs text-blue-600 italic">
-                      Requires closed-loop physical interaction
-                    </p>
+                  <div className="text-sm text-gray-700">
+                    <span className="font-semibold">✓ Scalability:</span> Platform expands efficiently
                   </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-md">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-3xl">🤲</span>
-                      <p className="font-semibold text-gray-800">Tactile Understanding</p>
-                    </div>
-                    <p className="text-sm text-gray-700 mb-2">
-                      Force feedback, texture, compliance—the "feel" that expert researchers develop through experience
-                    </p>
-                    <p className="text-xs text-blue-600 italic">
-                      Impossible to capture in traditional datasets
-                    </p>
+                  <div className="text-sm text-gray-700">
+                    <span className="font-semibold">✓ De-risking:</span> Multiple revenue streams
                   </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-md">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-3xl">🔄</span>
-                      <p className="font-semibold text-gray-800">Embodied Learning</p>
-                    </div>
-                    <p className="text-sm text-gray-700 mb-2">
-                      Learning through interaction—discovering what manipulations work, what spatial arrangements enable reactions
-                    </p>
-                    <p className="text-xs text-blue-600 italic">
-                      Requires physical experimentation
-                    </p>
+                  <div className="text-sm text-gray-700">
+                    <span className="font-semibold">✓ Ambition:</span> Building a category leader
                   </div>
                 </div>
               </div>
-
-              <div className="bg-purple-50 p-5 rounded-lg border-2 border-purple-300">
-                <p className="font-semibold text-center text-gray-800 mb-3">The Competitive Moat</p>
-                <p className="text-sm text-center text-gray-700">
-                  Just as competitors can't replicate Waymo's advantage without deploying LIDAR fleets, 
-                  they can't replicate our advantage without deploying XR + robotics infrastructure across real laboratories
+            </div>
+          )
+        },
+        {
+          title: "Each track validates core technology while serving distinct markets",
+          subtitle: "Shared architecture, differentiated applications",
+          content: (
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg">
+                <p className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                  Platform Components Shared Across All Tracks
                 </p>
+                
+                <div className="grid grid-cols-4 gap-3 mb-6">
+                  <div className="bg-white p-4 rounded-lg shadow text-center">
+                    <div className="text-3xl mb-2">👁️</div>
+                    <p className="text-xs font-semibold text-gray-800">XR Perception</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow text-center">
+                    <div className="text-3xl mb-2">🧠</div>
+                    <p className="text-xs font-semibold text-gray-800">AI Orchestration</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow text-center">
+                    <div className="text-3xl mb-2">🦾</div>
+                    <p className="text-xs font-semibold text-gray-800">Robotic Control</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow text-center">
+                    <div className="text-3xl mb-2">📊</div>
+                    <p className="text-xs font-semibold text-gray-800">Data Platform</p>
+                  </div>
+                </div>
+
+                <svg className="w-full" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Base platform */}
+                  <rect x="50" y="140" width="700" height="50" fill="#3B82F6" rx="8"/>
+                  <text x="400" y="170" fontSize="20" fill="white" textAnchor="middle" fontWeight="bold">Shared Platform Infrastructure</text>
+                  
+                  {/* Tracks on top */}
+                  <rect x="80" y="60" width="180" height="70" fill="#8B5CF6" rx="8"/>
+                  <text x="170" y="85" fontSize="16" fill="white" textAnchor="middle" fontWeight="bold">LabOS</text>
+                  <text x="170" y="105" fontSize="12" fill="white" textAnchor="middle">Research Labs</text>
+                  <text x="170" y="120" fontSize="10" fill="white" textAnchor="middle">Drug Discovery, Materials</text>
+                  
+                  <rect x="310" y="60" width="180" height="70" fill="#8B5CF6" rx="8"/>
+                  <text x="400" y="85" fontSize="16" fill="white" textAnchor="middle" fontWeight="bold">ClinOS</text>
+                  <text x="400" y="105" fontSize="12" fill="white" textAnchor="middle">Clinical Trials</text>
+                  <text x="400" y="120" fontSize="10" fill="white" textAnchor="middle">Biopharma, CROs</text>
+                  
+                  <rect x="540" y="60" width="180" height="70" fill="#8B5CF6" opacity="0.4" rx="8"/>
+                  <text x="630" y="85" fontSize="16" fill="white" textAnchor="middle" fontWeight="bold">Future Tracks</text>
+                  <text x="630" y="105" fontSize="12" fill="white" textAnchor="middle">Manufacturing+</text>
+                  
+                  {/* Connecting lines */}
+                  <line x1="170" y1="130" x2="170" y2="140" stroke="#8B5CF6" strokeWidth="3"/>
+                  <line x1="400" y1="130" x2="400" y2="140" stroke="#8B5CF6" strokeWidth="3"/>
+                  <line x1="630" y1="130" x2="630" y2="140" stroke="#8B5CF6" strokeWidth="3" opacity="0.4"/>
+                </svg>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                <div className="bg-white p-5 rounded-lg border-2 border-blue-200">
+                  <p className="font-semibold text-gray-800 mb-3">Technology Development</p>
+                  <p className="text-sm text-gray-700 mb-3">
+                    Core platform components are built once and reused across tracks
+                  </p>
+                  <ul className="space-y-1 text-xs text-gray-600">
+                    <li>• XR sensing algorithms</li>
+                    <li>• AI orchestration engine</li>
+                    <li>• Robotic control systems</li>
+                    <li>• Data infrastructure</li>
+                  </ul>
+                </div>
+
+                <div className="bg-white p-5 rounded-lg border-2 border-purple-200">
+                  <p className="font-semibold text-gray-800 mb-3">Market Expansion</p>
+                  <p className="text-sm text-gray-700 mb-3">
+                    Each track addresses a distinct market with specific needs
+                  </p>
+                  <ul className="space-y-1 text-xs text-gray-600">
+                    <li>• Research automation market</li>
+                    <li>• Clinical trials market</li>
+                    <li>• Manufacturing QA market</li>
+                    <li>• Field science market</li>
+                  </ul>
+                </div>
               </div>
             </div>
           )
         },
         {
-          title: "Tracks strategy de-risks the technology bet",
-          subtitle: "LabOS and ClinOS provide immediate validation while proving the thesis",
+          title: "Network effects across tracks compound value",
+          subtitle: "Data and learnings from each track strengthen all others",
           content: (
             <div className="space-y-6">
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <p className="text-lg font-semibold text-gray-800 mb-4 text-center">
-                  How We De-Risk the "LIDAR Bet"
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg">
+                <p className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                  Cross-Track Value Compounding
                 </p>
                 <p className="text-sm text-gray-700 text-center mb-6">
-                  Waymo spent billions proving LIDAR was necessary. We prove XR + robotics are necessary through revenue-generating deployments.
+                  Unlike isolated products, our platform architecture means improvements in one track automatically benefit all tracks
                 </p>
 
                 <div className="grid grid-cols-3 gap-4">
                   <div className="bg-white p-4 rounded-lg shadow">
-                    <div className="text-3xl mb-2 text-center">💰</div>
-                    <p className="font-semibold text-sm text-center mb-2 text-gray-800">Commercial Validation</p>
-                    <p className="text-xs text-gray-600 text-center">
-                      LabOS and ClinOS generate revenue while proving the platform works
+                    <p className="font-semibold text-sm text-gray-800 mb-2">🔬 LabOS Learns</p>
+                    <p className="text-xs text-gray-600 mb-3">
+                      Optimal spatial positioning for liquid handling
                     </p>
+                    <div className="text-center">
+                      <div className="inline-block bg-blue-100 px-2 py-1 rounded text-xs text-blue-800">
+                        → Improves ClinOS sample collection
+                      </div>
+                    </div>
                   </div>
+
                   <div className="bg-white p-4 rounded-lg shadow">
-                    <div className="text-3xl mb-2 text-center">📊</div>
-                    <p className="font-semibold text-sm text-center mb-2 text-gray-800">Data Collection</p>
-                    <p className="text-xs text-gray-600 text-center">
-                      Each deployment generates proprietary operational data
+                    <p className="font-semibold text-sm text-gray-800 mb-2">🏥 ClinOS Learns</p>
+                    <p className="text-xs text-gray-600 mb-3">
+                      Adaptive protocol execution for human variability
                     </p>
+                    <div className="text-center">
+                      <div className="inline-block bg-purple-100 px-2 py-1 rounded text-xs text-purple-800">
+                        → Improves LabOS researcher interaction
+                      </div>
+                    </div>
                   </div>
+
                   <div className="bg-white p-4 rounded-lg shadow">
-                    <div className="text-3xl mb-2 text-center">🎯</div>
-                    <p className="font-semibold text-sm text-center mb-2 text-gray-800">Thesis Validation</p>
-                    <p className="text-xs text-gray-600 text-center">
-                      Success in LabOS/ClinOS proves embodied AI advantage
+                    <p className="font-semibold text-sm text-gray-800 mb-2">🏭 Future Track Learns</p>
+                    <p className="text-xs text-gray-600 mb-3">
+                      Manufacturing QC anomaly detection
                     </p>
+                    <div className="text-center">
+                      <div className="inline-block bg-green-100 px-2 py-1 rounded text-xs text-green-800">
+                        → Improves all tracks' quality systems
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-6">
-                <div className="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
-                  <p className="font-semibold text-blue-900 mb-3">🔬 LabOS Proves</p>
+                <div className="bg-blue-50 p-5 rounded-lg">
+                  <p className="font-semibold text-gray-800 mb-3">📊 Data Network Effects</p>
                   <ul className="space-y-2 text-sm text-gray-700">
                     <li className="flex items-start gap-2">
-                      <span className="text-blue-500 mt-1">✓</span>
-                      <span>XR can capture experimental context that text/images miss</span>
+                      <span className="text-blue-500 mt-1">•</span>
+                      <span>XR perception models improve across all deployments</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-blue-500 mt-1">✓</span>
-                      <span>Robotics enables consistent, repeatable execution</span>
+                      <span className="text-blue-500 mt-1">•</span>
+                      <span>Robotic manipulation libraries grow with each track</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-blue-500 mt-1">✓</span>
-                      <span>Closed-loop learning accelerates discovery</span>
+                      <span className="text-blue-500 mt-1">•</span>
+                      <span>AI orchestration learns from diverse contexts</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">•</span>
+                      <span>Safety protocols refined across use cases</span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="bg-purple-50 p-5 rounded-lg border-l-4 border-purple-500">
-                  <p className="font-semibold text-purple-900 mb-3">🏥 ClinOS Proves</p>
+                <div className="bg-purple-50 p-5 rounded-lg">
+                  <p className="font-semibold text-gray-800 mb-3">⚙️ Technology Network Effects</p>
                   <ul className="space-y-2 text-sm text-gray-700">
                     <li className="flex items-start gap-2">
-                      <span className="text-purple-500 mt-1">✓</span>
-                      <span>Platform generalizes beyond research labs</span>
+                      <span className="text-purple-500 mt-1">•</span>
+                      <span>Core platform improvements benefit all tracks</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-purple-500 mt-1">✓</span>
-                      <span>Spatial awareness improves protocol adherence</span>
+                      <span className="text-purple-500 mt-1">•</span>
+                      <span>Engineering investments amortize across products</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-purple-500 mt-1">✓</span>
-                      <span>Real-time monitoring enables predictive safety</span>
+                      <span className="text-purple-500 mt-1">•</span>
+                      <span>Faster time-to-market for new tracks</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500 mt-1">•</span>
+                      <span>Shared infrastructure reduces marginal costs</span>
                     </li>
                   </ul>
                 </div>
               </div>
 
-              <div className="bg-green-50 p-5 rounded-lg">
-                <p className="text-sm text-center text-gray-700">
-                  <span className="font-semibold">The Strategy:</span> We're not asking investors to bet on an unproven thesis. 
-                  We're showing them working products that validate the technology while building toward scientific superintelligence.
+              <div className="bg-white p-6 rounded-lg border-2 border-green-200">
+                <p className="text-center text-sm text-gray-700">
+                  <span className="font-semibold">The Compounding Advantage:</span> As we add tracks, the value of the platform increases super-linearly. 
+                  Each new track benefits from all previous tracks' learnings while contributing back to the shared platform.
                 </p>
               </div>
             </div>
@@ -327,12 +353,12 @@ const PitchDeck = () => {
     window.location.href = `story${index + 1}.html`;
   };
 
+  // Navigation Links for all 4 stories
   const allStoryLinks = [
       { name: "Story 1: The Ladder to the Moon", tagline: "Operational superintelligence is the necessary foundation" },
       { name: "Story 2: The Data Differentiation", tagline: "Unlocking breakthroughs through operational data" },
       { name: "Story 3: The Scientific Infrastructure", tagline: "Building the operating system for automated science" },
-      { name: "Story 4: The Tesla vs. Waymo Parallel", tagline: "New sensors enable breakthrough capabilities" },
-      { name: "Story 5: The Company vs. Product", tagline: "We're building a platform company, not a single product" }
+      { name: "Story 4: The Company vs. Product", tagline: "We're building a platform company, not a single product" }
   ];
 
   return (
