@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSI-Newco Pitch Deck - Story 2</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+const PitchDeck = () => {
+  const { useState } = React;
+  const [currentStory, setCurrentStory] = useState(1);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const stories = [
+    {}, // Placeholder for Story 1
+    {
+      name: "Story 2: The Data Differentiation",
+      tagline: "Unlocking breakthroughs through operational data",
+      slides: [
+        {
+          title: "We're unlocking scientific breakthroughs by generating the operational data that AI needs but can't currently access",
+          subtitle: "",
+          content: (
+            <div className="space-y-8">
+              <div className="flex items-center justify-center gap-8">
+                <div className="text-center">
+                  <div className="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center mb-3">
+                    <span className="text-5xl">📚</span>
+                  </div>
+                  <p className="font-semibold text-gray-700">Digital Data</p>
+                  <p className="text-xs text-gray-500">Papers, sequences, databases</p>
+                </div>
+                <div className="text-4xl text-red-500 font-bold">≠</div>
+                <div className="text-center">
+                  <div className="w-32 h-32 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
+                    <span className="text-5xl">🔬</span>
+                  </div>
+                  <p className="font-semibold text-blue-700">Operational Data</p>
+                  <p className="text-xs text-blue-600">Physical experiments, spatial context</p>
+                </div>
+              </div>
+              <div className="text-center max-w-2xl mx-auto">
+                <p className="text-xl text-gray-700 leading-relaxed">
+                  Foundation models train on digital data, but most scientific knowledge lives in physical experiments and observations that have never been captured.
+                </p>
+              </div>
+            </div>
+          )
+        },
+        {
+          title: "The AI revolution has a data bottleneck",
+          subtitle: "Foundation models trained on digital data miss physical-world knowledge",
+          content: (
+            <div className="space-y-6">
+              <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                <div className="flex items-start gap-4">
+                  <div className="text-4xl">⚠️</div>
+                  <div>
+                    <p className="text-xl font-semibold text-yellow-900 mb-3">
+                      AI is data-starved for physical-world science
+                    </p>
+                    <p className="text-gray-800">
+                      Current AI models excel at processing text, images, and structured data. But the most valuable scientific knowledge exists in:
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gray-100 p-5 rounded-lg">
+                  <p className="font-semibold text-gray-800 mb-3">❌ What's Missing from AI Training</p>
+                  <ul className="text-sm text-gray-700 space-y-2">
+                    <li>• How molecules actually interact in 3D space</li>
+                    <li>• The "feel" of successful experimental technique</li>
+                    <li>• Spatial relationships in lab environments</li>
+                    <li>• Real-time feedback from physical processes</li>
+                    <li>• Tacit knowledge from expert observation</li>
+                  </ul>
+                </div>
+                <div className="bg-blue-50 p-5 rounded-lg">
+                  <p className="font-semibold text-blue-900 mb-3">✓ What We Capture</p>
+                  <ul className="text-sm text-blue-800 space-y-2">
+                    <li>• Multimodal sensory data from XR</li>
+                    <li>• Spatial positioning and relationships</li>
+                    <li>• Real-time environmental context</li>
+                    <li>• Robotic manipulation outcomes</li>
+                    <li>• Expert workflow patterns</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-white p-5 rounded-lg border-2 border-gray-200">
+                <p className="text-center text-sm text-gray-700">
+                  <span className="font-semibold">The Insight:</span> AI trained on operational data from physical experiments develops 
+                  understanding that pure computational approaches cannot replicate
+                </p>
+              </div>
+            </div>
+          )
+        },
+        {
+          title: "Our XR + robotics platform generates novel training data",
+          subtitle: "Capturing multimodal operational data that doesn't exist in any dataset",
+          content: (
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg">
+                <p className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                  Every Deployment Creates Unique, Valuable Data
+                </p>
+                <div className="grid grid-cols-3 gap-4 mt-6">
+                  <div className="text-center">
+                    <div className="w-20 h-20 bg-purple-500 rounded-full flex items-center justify-center mb-3 mx-auto">
+                      <span className="text-3xl">👁️</span>
+                    </div>
+                    <p className="font-semibold text-sm text-gray-800 mb-1">XR Perception</p>
+                    <p className="text-xs text-gray-600">Spatial awareness, 3D relationships, environmental context</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mb-3 mx-auto">
+                      <span className="text-3xl">🦾</span>
+                    </div>
+                    <p className="font-semibold text-sm text-gray-800 mb-1">Robotic Action</p>
+                    <p className="text-xs text-gray-600">Manipulation outcomes, force feedback, success patterns</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-3 mx-auto">
+                      <span className="text-3xl">🔄</span>
+                    </div>
+                    <p className="font-semibold text-sm text-gray-800 mb-1">Closed Loop</p>
+                    <p className="text-xs text-gray-600">Action-perception cycles, adaptive learning, refinement</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-lg border-2 border-purple-200">
+                <p className="font-semibold text-gray-800 mb-4">Data That Compounds:</p>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-purple-100 rounded flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-lg">1</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm text-gray-800">Proprietary operational datasets</p>
+                      <p className="text-xs text-gray-600">No competitor can replicate without deploying similar physical infrastructure</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-purple-100 rounded flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-lg">2</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm text-gray-800">Network effects across deployments</p>
+                      <p className="text-xs text-gray-600">Each lab/trial adds unique data that improves all installations</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-purple-100 rounded flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-lg">3</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm text-gray-800">Data moat deepens over time</p>
+                      <p className="text-xs text-gray-600">First-mover advantage becomes insurmountable as dataset grows</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        },
+        {
+          title: "First products create data moats",
+          subtitle: "LabOS and ClinOS generate proprietary operational data with each deployment",
+          content: (
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-6">
+                <div className="bg-blue-50 p-5 rounded-lg border-2 border-blue-200">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">🔬</span>
+                    <p className="font-bold text-blue-900">LabOS Data Capture</p>
+                  </div>
+                  <ul className="text-sm text-gray-700 space-y-2">
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 font-bold">•</span>
+                      <span>Experimental protocols & outcomes</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 font-bold">•</span>
+                      <span>Material handling & manipulation</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 font-bold">•</span>
+                      <span>Equipment interaction patterns</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 font-bold">•</span>
+                      <span>Spatial lab configurations</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 font-bold">•</span>
+                      <span>Researcher workflow optimization</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-purple-50 p-5 rounded-lg border-2 border-purple-200">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">🏥</span>
+                    <p className="font-bold text-purple-900">ClinOS Data Capture</p>
+                  </div>
+                  <ul className="text-sm text-gray-700 space-y-2">
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500 font-bold">•</span>
+                      <span>Patient interaction & response</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500 font-bold">•</span>
+                      <span>Clinical procedure execution</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500 font-bold">•</span>
+                      <span>Safety protocol adherence</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500 font-bold">•</span>
+                      <span>Multi-site consistency patterns</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500 font-bold">•</span>
+                      <span>Adverse event prediction signals</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-4 text-center">The Compounding Advantage</p>
+                <div className="flex items-center justify-between max-w-3xl mx-auto">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-green-500 rounded-lg flex items-center justify-center mb-2">
+                      <span className="text-2xl font-bold text-white">10</span>
+                    </div>
+                    <p className="text-xs font-semibold">Deployments</p>
+                    <p className="text-xs text-gray-600">Initial dataset</p>
+                  </div>
+                  <div className="text-2xl text-gray-400">→</div>
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-blue-500 rounded-lg flex items-center justify-center mb-2">
+                      <span className="text-2xl font-bold text-white">100</span>
+                    </div>
+                    <p className="text-xs font-semibold">Deployments</p>
+                    <p className="text-xs text-gray-600">Strong moat</p>
+                  </div>
+                  <div className="text-2xl text-gray-400">→</div>
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-purple-500 rounded-lg flex items-center justify-center mb-2">
+                      <span className="text-xl font-bold text-white">1000</span>
+                    </div>
+                    <p className="text-xs font-semibold">Deployments</p>
+                    <p className="text-xs text-gray-600">Insurmountable</p>
+                  </div>
+                </div>
+                <p className="text-sm text-center text-gray-700 mt-4">
+                  Each deployment adds unique operational data that improves AI performance across all installations
+                </p>
+              </div>
+            </div>
+          )
+        }
+      ]
+    }
+  ];
+  
+  const nextSlide = () => {
+    if (currentSlide < stories[currentStory].slides.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  const changeStory = (index) => {
+    window.location.href = `story${index + 1}.html`;
+  };
+
+  const allStoryLinks = [
+      { name: "Story 1: The Ladder to the Moon", tagline: "Operational superintelligence is the necessary foundation" },
+      { name: "Story 2: The Data Differentiation", tagline: "Unlocking breakthroughs through operational data" },
+      { name: "Story 3: The Scientific Infrastructure", tagline: "Building the operating system for automated science" },
+      { name: "Story 4: The Tesla vs. Waymo Parallel", tagline: "New sensors enable breakthrough capabilities" },
+      { name: "Story 5: The Company vs. Product", tagline: "We're building a platform company, not a single product" }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="bg-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex overflow-x-auto">
+            {allStoryLinks.map((story, index) => (
+              <button
+                key={index}
+                onClick={() => changeStory(index)}
+                className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                  currentStory === index
+                    ? 'border-blue-600 text-blue-600'
+                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                }`}
+              >
+                <div className="text-left">
+                  <div className="font-bold">{story.name.split(':')[1]}</div>
+                  <div className="text-xs text-gray-500 mt-1">{story.tagline}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center p-8">
+        <div className="max-w-5xl w-full">
+          <div className="bg-white rounded-2xl shadow-2xl p-12 min-h-[600px] flex flex-col">
+            <div className="mb-8">
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                {stories[currentStory].slides[currentSlide].title}
+              </h1>
+              {stories[currentStory].slides[currentSlide].subtitle && (
+                <p className="text-lg text-gray-500">
+                  {stories[currentStory].slides[currentSlide].subtitle}
+                </p>
+              )}
+            </div>
+
+            <div className="flex-1 overflow-y-auto">
+              {stories[currentStory].slides[currentSlide].content}
+            </div>
+
+            <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+              <button
+                onClick={prevSlide}
+                disabled={currentSlide === 0}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+              >
+                <span>←</span>
+                <span className="text-sm font-medium">Previous</span>
+              </button>
+
+              <div className="flex gap-2">
+                {stories[currentStory].slides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`transition-all ${
+                      index === currentSlide
+                        ? 'w-8 bg-blue-600'
+                        : 'w-2 bg-gray-300 hover:bg-gray-400'
+                    } h-2 rounded-full`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={nextSlide}
+                disabled={currentSlide === stories[currentStory].slides.length - 1}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+              >
+                <span className="text-sm font-medium">Next</span>
+                <span>→</span>
+              </button>
+            </div>
+
+            <div className="text-center mt-4">
+              <span className="text-xs text-gray-400">
+                {currentSlide + 1} / {stories[currentStory].slides.length}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<PitchDeck />);
+  </script>
+</body>
+</html>

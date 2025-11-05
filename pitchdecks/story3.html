@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSI-Newco Pitch Deck - Story 3</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+const PitchDeck = () => {
+  const { useState } = React;
+  const [currentStory, setCurrentStory] = useState(2);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const stories = [
+    {}, {}, // Placeholders
+    {
+      name: "Story 3: The Scientific Infrastructure",
+      tagline: "Building the operating system for automated science",
+      slides: [
+        {
+          title: "We're building the operating system for automated science",
+          subtitle: "Starting with the lab, expanding to the clinic",
+          content: (
+            <div className="space-y-8">
+              <div className="flex items-center justify-center">
+                <svg className="w-96 h-64" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Base platform */}
+                  <rect x="50" y="140" width="300" height="40" fill="#3B82F6" rx="4"/>
+                  <text x="200" y="165" fontSize="16" fill="white" textAnchor="middle" fontWeight="bold">Scientific OS Platform</text>
+                  
+                  {/* Applications on top */}
+                  <rect x="60" y="80" width="80" height="50" fill="#8B5CF6" rx="4"/>
+                  <text x="100" y="100" fontSize="12" fill="white" textAnchor="middle">LabOS</text>
+                  <text x="100" y="115" fontSize="9" fill="white" textAnchor="middle">Research</text>
+                  
+                  <rect x="160" y="80" width="80" height="50" fill="#8B5CF6" rx="4"/>
+                  <text x="200" y="100" fontSize="12" fill="white" textAnchor="middle">ClinOS</text>
+                  <text x="200" y="115" fontSize="9" fill="white" textAnchor="middle">Clinical</text>
+                  
+                  <rect x="260" y="80" width="80" height="50" fill="#8B5CF6" opacity="0.4" rx="4"/>
+                  <text x="300" y="100" fontSize="12" fill="white" textAnchor="middle">Future</text>
+                  <text x="300" y="115" fontSize="9" fill="white" textAnchor="middle">Tracks</text>
+                  
+                  {/* Connecting lines */}
+                  <line x1="100" y1="130" x2="100" y2="140" stroke="#8B5CF6" strokeWidth="2"/>
+                  <line x1="200" y1="130" x2="200" y2="140" stroke="#8B5CF6" strokeWidth="2"/>
+                  <line x1="300" y1="130" x2="300" y2="140" stroke="#8B5CF6" strokeWidth="2" opacity="0.4"/>
+                </svg>
+              </div>
+              <div className="text-center max-w-2xl mx-auto">
+                <p className="text-xl text-gray-700 leading-relaxed">
+                  Just as iOS and Android became platforms for thousands of apps, we're creating the foundational infrastructure for automated scientific work
+                </p>
+              </div>
+            </div>
+          )
+        },
+        {
+          title: "Labs and clinical trials are stuck in manual operations",
+          subtitle: "Despite AI advances, scientific work remains human-bottlenecked",
+          content: (
+            <div className="space-y-6">
+              <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                <div className="flex items-start gap-4">
+                  <div className="text-4xl">🚧</div>
+                  <div>
+                    <p className="text-xl font-semibold text-red-900 mb-3">
+                      The Scientific Workflow Crisis
+                    </p>
+                    <p className="text-gray-800 mb-2">
+                      While AI has revolutionized data analysis, the actual execution of science remains stubbornly manual, inconsistent, and slow.
+                    </p>
+                    <p className="text-sm text-gray-700 italic">
+                      Researchers spend 60-80% of their time on routine experimental execution, not discovery
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <p className="font-semibold text-gray-800">🔬 Research Lab Bottlenecks</p>
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Manual Repetition</p>
+                      <p className="text-xs text-gray-600">Same pipetting, mixing, imaging tasks done by hand thousands of times</p>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Human Inconsistency</p>
+                      <p className="text-xs text-gray-600">Technique varies between researchers, shifts, and days</p>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Limited Throughput</p>
+                      <p className="text-xs text-gray-600">Experiments run at human speed, not computational speed</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <p className="font-semibold text-gray-800">🏥 Clinical Trial Bottlenecks</p>
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Protocol Deviation</p>
+                      <p className="text-xs text-gray-600">Multi-site trials struggle with consistent execution</p>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Data Capture Lag</p>
+                      <p className="text-xs text-gray-600">Critical information lost between observation and recording</p>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-800">Safety Monitoring</p>
+                      <p className="text-xs text-gray-600">Reactive rather than predictive adverse event detection</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <p className="text-sm text-center text-gray-700">
+                  <span className="font-semibold">The Gap:</span> We have AI that can predict protein structures, 
+                  but we still rely on humans to run the experiments that generate the training data
+                </p>
+              </div>
+            </div>
+          )
+        },
+        {
+          title: "LabOS is the first OS for laboratory automation",
+          subtitle: "Integrating perception, reasoning, and action into a unified platform",
+          content: (
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                <p className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                  LabOS: The Operating System for Research
+                </p>
+                <div className="grid grid-cols-3 gap-4 mt-6">
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <div className="text-3xl mb-2 text-center">📡</div>
+                    <p className="font-semibold text-sm text-center mb-2">Perception Layer</p>
+                    <p className="text-xs text-gray-600">
+                      XR sensors capture spatial positioning, material states, equipment status, environmental conditions
+                    </p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <div className="text-3xl mb-2 text-center">🧠</div>
+                    <p className="font-semibold text-sm text-center mb-2">Intelligence Layer</p>
+                    <p className="text-xs text-gray-600">
+                      AI orchestrates workflows, optimizes protocols, predicts outcomes, learns from results
+                    </p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <div className="text-3xl mb-2 text-center">🦾</div>
+                    <p className="font-semibold text-sm text-center mb-2">Action Layer</p>
+                    <p className="text-xs text-gray-600">
+                      Robotic systems execute with precision, consistency, and 24/7 availability
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white p-5 rounded-lg border-2 border-blue-200">
+                  <p className="font-semibold text-gray-800 mb-3">Core Capabilities</p>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Protocol automation & optimization</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Real-time experiment monitoring</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Adaptive workflow adjustment</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Multi-instrument orchestration</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Continuous learning & improvement</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-white p-5 rounded-lg border-2 border-green-200">
+                  <p className="font-semibold text-gray-800 mb-3">Researcher Benefits</p>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-1">→</span>
+                      <span>10x increase in experimental throughput</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-1">→</span>
+                      <span>Consistent execution across all experiments</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-1">→</span>
+                      <span>Focus time on hypothesis generation</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-1">→</span>
+                      <span>24/7 lab operations without supervision</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-1">→</span>
+                      <span>Rich data capture for every step</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )
+        },
+        {
+          title: "Platform architecture enables rapid expansion",
+          subtitle: "ClinOS and future tracks leverage the same foundational infrastructure",
+          content: (
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg">
+                <p className="text-xl font-semibold text-gray-800 mb-6 text-center">
+                  One Platform, Multiple Applications
+                </p>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-24 flex-shrink-0">
+                      <div className="bg-blue-500 text-white rounded-lg p-3 text-center">
+                        <p className="text-xl font-bold">LabOS</p>
+                        <p className="text-xs">v1.0 - 2026</p>
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-white p-4 rounded-lg">
+                      <p className="text-sm font-semibold text-gray-800 mb-1">Research Automation Platform</p>
+                      <p className="text-xs text-gray-600">Drug discovery, materials science, synthetic biology</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-24 flex-shrink-0">
+                      <div className="bg-purple-500 text-white rounded-lg p-3 text-center">
+                        <p className="text-xl font-bold">ClinOS</p>
+                        <p className="text-xs">v1.0 - 2027</p>
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-white p-4 rounded-lg">
+                      <p className="text-sm font-semibold text-gray-800 mb-1">Clinical Trial Platform</p>
+                      <p className="text-xs text-gray-600">Multi-site coordination, protocol adherence, safety monitoring</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-24 flex-shrink-0">
+                      <div className="bg-green-500 text-white rounded-lg p-3 text-center">
+                        <p className="text-xl font-bold">MfgOS</p>
+                        <p className="text-xs">Future</p>
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-white p-4 rounded-lg opacity-60">
+                      <p className="text-sm font-semibold text-gray-800 mb-1">Manufacturing Intelligence</p>
+                      <p className="text-xs text-gray-600">Quality control, process optimization, predictive maintenance</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-24 flex-shrink-0">
+                      <div className="bg-amber-500 text-white rounded-lg p-3 text-center">
+                        <p className="text-xl font-bold">FieldOS</p>
+                        <p className="text-xs">Future</p>
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-white p-4 rounded-lg opacity-60">
+                      <p className="text-sm font-semibold text-gray-800 mb-1">Field Research Platform</p>
+                      <p className="text-xs text-gray-600">Environmental monitoring, agricultural science, geological surveys</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-5 rounded-lg border-2 border-blue-200">
+                <p className="font-semibold text-center text-gray-800 mb-4">Shared Platform Components</p>
+                <div className="grid grid-cols-4 gap-3 text-center">
+                  <div className="p-3 bg-blue-50 rounded">
+                    <div className="text-2xl mb-1">🔍</div>
+                    <p className="text-xs font-semibold">XR Perception</p>
+                  </div>
+                  <div className="p-3 bg-purple-50 rounded">
+                    <div className="text-2xl mb-1">🤖</div>
+                    <p className="text-xs font-semibold">AI Orchestration</p>
+                  </div>
+                  <div className="p-3 bg-green-50 rounded">
+                    <div className="text-2xl mb-1">⚙️</div>
+                    <p className="text-xs font-semibold">Robotic Control</p>
+                  </div>
+                  <div className="p-3 bg-amber-50 rounded">
+                    <div className="text-2xl mb-1">📊</div>
+                    <p className="text-xs font-semibold">Data Platform</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        }
+      ]
+    }
+  ];
+
+  const nextSlide = () => {
+    if (currentSlide < stories[currentStory].slides.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  const changeStory = (index) => {
+    window.location.href = `story${index + 1}.html`;
+  };
+
+  const allStoryLinks = [
+      { name: "Story 1: The Ladder to the Moon", tagline: "Operational superintelligence is the necessary foundation" },
+      { name: "Story 2: The Data Differentiation", tagline: "Unlocking breakthroughs through operational data" },
+      { name: "Story 3: The Scientific Infrastructure", tagline: "Building the operating system for automated science" },
+      { name: "Story 4: The Tesla vs. Waymo Parallel", tagline: "New sensors enable breakthrough capabilities" },
+      { name: "Story 5: The Company vs. Product", tagline: "We're building a platform company, not a single product" }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="bg-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex overflow-x-auto">
+            {allStoryLinks.map((story, index) => (
+              <button
+                key={index}
+                onClick={() => changeStory(index)}
+                className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                  currentStory === index
+                    ? 'border-blue-600 text-blue-600'
+                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                }`}
+              >
+                <div className="text-left">
+                  <div className="font-bold">{story.name.split(':')[1]}</div>
+                  <div className="text-xs text-gray-500 mt-1">{story.tagline}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center p-8">
+        <div className="max-w-5xl w-full">
+          <div className="bg-white rounded-2xl shadow-2xl p-12 min-h-[600px] flex flex-col">
+            <div className="mb-8">
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                {stories[currentStory].slides[currentSlide].title}
+              </h1>
+              {stories[currentStory].slides[currentSlide].subtitle && (
+                <p className="text-lg text-gray-500">
+                  {stories[currentStory].slides[currentSlide].subtitle}
+                </p>
+              )}
+            </div>
+
+            <div className="flex-1 overflow-y-auto">
+              {stories[currentStory].slides[currentSlide].content}
+            </div>
+
+            <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+              <button
+                onClick={prevSlide}
+                disabled={currentSlide === 0}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+              >
+                <span>←</span>
+                <span className="text-sm font-medium">Previous</span>
+              </button>
+
+              <div className="flex gap-2">
+                {stories[currentStory].slides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`transition-all ${
+                      index === currentSlide
+                        ? 'w-8 bg-blue-600'
+                        : 'w-2 bg-gray-300 hover:bg-gray-400'
+                    } h-2 rounded-full`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={nextSlide}
+                disabled={currentSlide === stories[currentStory].slides.length - 1}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+              >
+                <span className="text-sm font-medium">Next</span>
+                <span>→</span>
+              </button>
+            </div>
+
+            <div className="text-center mt-4">
+              <span className="text-xs text-gray-400">
+                {currentSlide + 1} / {stories[currentStory].slides.length}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<PitchDeck />);
+  </script>
+</body>
+</html>

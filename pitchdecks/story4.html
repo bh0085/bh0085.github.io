@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSI-Newco Pitch Deck - Story 4</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+const PitchDeck = () => {
+  const { useState } = React;
+  const [currentStory, setCurrentStory] = useState(3);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const stories = [
+    {}, {}, {}, // Placeholders
+    {
+      name: "Story 4: The Tesla vs. Waymo Parallel",
+      tagline: "New sensors enable breakthrough capabilities",
+      slides: [
+        {
+          title: "Just as autonomous driving required qualitatively different sensors, scientific superintelligence requires embodied operational intelligence",
+          subtitle: "That's what we're building",
+          content: (
+            <div className="space-y-8">
+              <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-6 rounded-lg">
+                <p className="text-lg text-gray-700 mb-4 italic text-center">
+                  "Getting to Level 4 self-driving with Tesla's method is like trying to build a ladder to the moon"
+                </p>
+                <p className="text-sm text-gray-600 text-center">
+                  — Drago Anguelov, Waymo Principal Scientist
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-8">
+                <div className="text-center">
+                  <div className="bg-red-100 rounded-lg p-6 mb-3">
+                    <span className="text-5xl">🚗</span>
+                  </div>
+                  <p className="font-semibold text-gray-800 mb-2">Tesla's Approach</p>
+                  <p className="text-sm text-gray-600">Cameras + better models + more data</p>
+                  <p className="text-xs text-red-600 mt-2">Same sensors, incremental improvements</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="bg-green-100 rounded-lg p-6 mb-3">
+                    <span className="text-5xl">🎯</span>
+                  </div>
+                  <p className="font-semibold text-gray-800 mb-2">Waymo's Approach</p>
+                  <p className="text-sm text-gray-600">LIDAR + radar + cameras</p>
+                  <p className="text-xs text-green-600 mt-2">Qualitatively different sensors</p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <p className="text-xl text-gray-700 font-semibold">
+                  The same dynamic applies to scientific AI
+                </p>
+              </div>
+            </div>
+          )
+        },
+        {
+          title: "The parallel to autonomous vehicles is direct",
+          subtitle: "Better models with the same sensors hit a ceiling",
+          content: (
+            <div className="space-y-6">
+              <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                <p className="text-xl font-semibold text-gray-900 mb-4">
+                  The Sensor Paradigm Shift
+                </p>
+                <p className="text-gray-800 mb-3">
+                  Waymo realized that cameras alone—no matter how good the AI—couldn't provide the perception needed for true autonomous driving. They needed LIDAR's depth perception and radar's velocity sensing.
+                </p>
+                <p className="text-gray-700 text-sm italic">
+                  The breakthrough wasn't better algorithms. It was fundamentally different sensory input.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <p className="font-semibold text-gray-800 mb-3 text-center">🚗 Autonomous Driving</p>
+                  <div className="space-y-3">
+                    <div className="bg-red-50 p-4 rounded-lg">
+                      <p className="text-sm font-semibold text-red-900 mb-1">Camera-Only Limits</p>
+                      <p className="text-xs text-gray-700">
+                        • Depth ambiguity in 2D images<br/>
+                        • Poor performance in low light<br/>
+                        • Velocity estimation requires inference<br/>
+                        • Occlusion problems
+                      </p>
+                    </div>
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <p className="text-sm font-semibold text-green-900 mb-1">LIDAR Enables</p>
+                      <p className="text-xs text-gray-700">
+                        • Direct 3D spatial measurement<br/>
+                        • Works in any lighting<br/>
+                        • Precise velocity & trajectory<br/>
+                        • See around obstacles
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="font-semibold text-gray-800 mb-3 text-center">🔬 Scientific AI</p>
+                  <div className="space-y-3">
+                    <div className="bg-red-50 p-4 rounded-lg">
+                      <p className="text-sm font-semibold text-red-900 mb-1">Computational-Only Limits</p>
+                      <p className="text-xs text-gray-700">
+                        • No physical world grounding<br/>
+                        • Inference from text descriptions<br/>
+                        • Missing spatial relationships<br/>
+                        • No tactile feedback
+                      </p>
+                    </div>
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <p className="text-sm font-semibold text-green-900 mb-1">XR + Robotics Enables</p>
+                      <p className="text-xs text-gray-700">
+                        • Direct physical perception<br/>
+                        • Real-time environmental sensing<br/>
+                        • 3D spatial understanding<br/>
+                        • Force & manipulation feedback
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 p-5 rounded-lg">
+                <p className="text-center text-sm text-gray-700">
+                  <span className="font-semibold">The Insight:</span> Just as LIDAR was necessary for autonomous driving, 
+                  embodied perception through XR and robotics is necessary for scientific superintelligence
+                </p>
+              </div>
+            </div>
+          )
+        },
+        {
+          title: "We're providing the 'LIDAR moment' for scientific AI",
+          subtitle: "XR and robotics give AI access to information it fundamentally cannot get otherwise",
+          content: (
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg">
+                <p className="text-xl font-semibold text-gray-800 mb-6 text-center">
+                  What XR + Robotics Unlocks for Scientific AI
+                </p>
+                
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="bg-white p-5 rounded-lg shadow-md">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-3xl">🌐</span>
+                      <p className="font-semibold text-gray-800">Spatial Context</p>
+                    </div>
+                    <p className="text-sm text-gray-700 mb-2">
+                      Understanding how objects relate in 3D space—molecular interactions, equipment positioning, material flow
+                    </p>
+                    <p className="text-xs text-blue-600 italic">
+                      Can't be inferred from text or 2D images
+                    </p>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-md">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-3xl">⚡</span>
+                      <p className="font-semibold text-gray-800">Real-Time Feedback</p>
+                    </div>
+                    <p className="text-sm text-gray-700 mb-2">
+                      Immediate sensory response to actions—reaction progress, mixture homogeneity, structural stability
+                    </p>
+                    <p className="text-xs text-blue-600 italic">
+                      Requires closed-loop physical interaction
+                    </p>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-md">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-3xl">🤲</span>
+                      <p className="font-semibold text-gray-800">Tactile Understanding</p>
+                    </div>
+                    <p className="text-sm text-gray-700 mb-2">
+                      Force feedback, texture, compliance—the "feel" that expert researchers develop through experience
+                    </p>
+                    <p className="text-xs text-blue-600 italic">
+                      Impossible to capture in traditional datasets
+                    </p>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-md">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-3xl">🔄</span>
+                      <p className="font-semibold text-gray-800">Embodied Learning</p>
+                    </div>
+                    <p className="text-sm text-gray-700 mb-2">
+                      Learning through interaction—discovering what manipulations work, what spatial arrangements enable reactions
+                    </p>
+                    <p className="text-xs text-blue-600 italic">
+                      Requires physical experimentation
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-purple-50 p-5 rounded-lg border-2 border-purple-300">
+                <p className="font-semibold text-center text-gray-800 mb-3">The Competitive Moat</p>
+                <p className="text-sm text-center text-gray-700">
+                  Just as competitors can't replicate Waymo's advantage without deploying LIDAR fleets, 
+                  they can't replicate our advantage without deploying XR + robotics infrastructure across real laboratories
+                </p>
+              </div>
+            </div>
+          )
+        },
+        {
+          title: "Tracks strategy de-risks the technology bet",
+          subtitle: "LabOS and ClinOS provide immediate validation while proving the thesis",
+          content: (
+            <div className="space-y-6">
+              <div className="bg-gray-50 p-6 rounded-lg">
+                <p className="text-lg font-semibold text-gray-800 mb-4 text-center">
+                  How We De-Risk the "LIDAR Bet"
+                </p>
+                <p className="text-sm text-gray-700 text-center mb-6">
+                  Waymo spent billions proving LIDAR was necessary. We prove XR + robotics are necessary through revenue-generating deployments.
+                </p>
+
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <div className="text-3xl mb-2 text-center">💰</div>
+                    <p className="font-semibold text-sm text-center mb-2 text-gray-800">Commercial Validation</p>
+                    <p className="text-xs text-gray-600 text-center">
+                      LabOS and ClinOS generate revenue while proving the platform works
+                    </p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <div className="text-3xl mb-2 text-center">📊</div>
+                    <p className="font-semibold text-sm text-center mb-2 text-gray-800">Data Collection</p>
+                    <p className="text-xs text-gray-600 text-center">
+                      Each deployment generates proprietary operational data
+                    </p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <div className="text-3xl mb-2 text-center">🎯</div>
+                    <p className="font-semibold text-sm text-center mb-2 text-gray-800">Thesis Validation</p>
+                    <p className="text-xs text-gray-600 text-center">
+                      Success in LabOS/ClinOS proves embodied AI advantage
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                <div className="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+                  <p className="font-semibold text-blue-900 mb-3">🔬 LabOS Proves</p>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>XR can capture experimental context that text/images miss</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Robotics enables consistent, repeatable execution</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-500 mt-1">✓</span>
+                      <span>Closed-loop learning accelerates discovery</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-purple-50 p-5 rounded-lg border-l-4 border-purple-500">
+                  <p className="font-semibold text-purple-900 mb-3">🏥 ClinOS Proves</p>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500 mt-1">✓</span>
+                      <span>Platform generalizes beyond research labs</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500 mt-1">✓</span>
+                      <span>Spatial awareness improves protocol adherence</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500 mt-1">✓</span>
+                      <span>Real-time monitoring enables predictive safety</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-green-50 p-5 rounded-lg">
+                <p className="text-sm text-center text-gray-700">
+                  <span className="font-semibold">The Strategy:</span> We're not asking investors to bet on an unproven thesis. 
+                  We're showing them working products that validate the technology while building toward scientific superintelligence.
+                </p>
+              </div>
+            </div>
+          )
+        }
+      ]
+    }
+  ];
+
+  const nextSlide = () => {
+    if (currentSlide < stories[currentStory].slides.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  const changeStory = (index) => {
+    window.location.href = `story${index + 1}.html`;
+  };
+
+  const allStoryLinks = [
+      { name: "Story 1: The Ladder to the Moon", tagline: "Operational superintelligence is the necessary foundation" },
+      { name: "Story 2: The Data Differentiation", tagline: "Unlocking breakthroughs through operational data" },
+      { name: "Story 3: The Scientific Infrastructure", tagline: "Building the operating system for automated science" },
+      { name: "Story 4: The Tesla vs. Waymo Parallel", tagline: "New sensors enable breakthrough capabilities" },
+      { name: "Story 5: The Company vs. Product", tagline: "We're building a platform company, not a single product" }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="bg-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex overflow-x-auto">
+            {allStoryLinks.map((story, index) => (
+              <button
+                key={index}
+                onClick={() => changeStory(index)}
+                className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                  currentStory === index
+                    ? 'border-blue-600 text-blue-600'
+                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                }`}
+              >
+                <div className="text-left">
+                  <div className="font-bold">{story.name.split(':')[1]}</div>
+                  <div className="text-xs text-gray-500 mt-1">{story.tagline}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center p-8">
+        <div className="max-w-5xl w-full">
+          <div className="bg-white rounded-2xl shadow-2xl p-12 min-h-[600px] flex flex-col">
+            <div className="mb-8">
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                {stories[currentStory].slides[currentSlide].title}
+              </h1>
+              {stories[currentStory].slides[currentSlide].subtitle && (
+                <p className="text-lg text-gray-500">
+                  {stories[currentStory].slides[currentSlide].subtitle}
+                </p>
+              )}
+            </div>
+
+            <div className="flex-1 overflow-y-auto">
+              {stories[currentStory].slides[currentSlide].content}
+            </div>
+
+            <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+              <button
+                onClick={prevSlide}
+                disabled={currentSlide === 0}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+              >
+                <span>←</span>
+                <span className="text-sm font-medium">Previous</span>
+              </button>
+
+              <div className="flex gap-2">
+                {stories[currentStory].slides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`transition-all ${
+                      index === currentSlide
+                        ? 'w-8 bg-blue-600'
+                        : 'w-2 bg-gray-300 hover:bg-gray-400'
+                    } h-2 rounded-full`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={nextSlide}
+                disabled={currentSlide === stories[currentStory].slides.length - 1}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+              >
+                <span className="text-sm font-medium">Next</span>
+                <span>→</span>
+              </button>
+            </div>
+
+            <div className="text-center mt-4">
+              <span className="text-xs text-gray-400">
+                {currentSlide + 1} / {stories[currentStory].slides.length}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<PitchDeck />);
+  </script>
+</body>
+</html>
