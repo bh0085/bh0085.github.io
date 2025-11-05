@@ -16,6 +16,7 @@
     const takeaways = [
       {
         name: "1. The Scientific Infrastructure",
+        colors: "bg-sky-50 text-sky-700",
         slides: [
           "We are building the foundational operating system for all of automated science.",
           "Current scientific work is bottlenecked by manual, inconsistent human operations.",
@@ -25,6 +26,7 @@
       },
       {
         name: "2. The Data Differentiation",
+        colors: "bg-green-50 text-green-700",
         slides: [
           "We generate valuable operational data that AI currently cannot access.",
           "The AI revolution is starved for the physical-world data that drives scientific discovery.",
@@ -34,6 +36,7 @@
       },
       {
         name: "3. The Company vs. Product",
+        colors: "bg-purple-50 text-purple-700",
         slides: [
           "We are a platform company that builds multiple products, not a single-product company.",
           "Our 'tracks' framework signals a broad, scalable vision beyond any single application.",
@@ -43,6 +46,7 @@
       },
       {
         name: "4. The Ladder to the Moon",
+        colors: "bg-amber-50 text-amber-700",
         slides: [
           "Embodied AI is the necessary foundation for scientific superintelligence, and we are building it.",
           "Purely computational AI approaches are insufficient for true scientific breakthroughs.",
@@ -71,22 +75,25 @@
       };
 
       return (
-        <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
+        <div className="min-h-screen flex flex-col items-center justify-center p-4">
           <div className="w-full max-w-7xl">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-              {takeaways.map((story, storyIndex) => (
-                <div key={storyIndex} className="bg-white rounded-lg shadow-lg flex flex-col p-6 aspect-[4/3]">
-                  <p className="text-sm font-semibold text-indigo-600 mb-4">{story.name}</p>
-                  <div className="flex-grow flex items-center justify-center">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-800 text-center leading-tight">
-                      {story.slides[currentSlide] || ''}
-                    </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {takeaways.map((story, storyIndex) => {
+                const [bgColor, textColor] = story.colors.split(' ');
+                return (
+                  <div key={storyIndex} className={`rounded-lg shadow-md flex flex-col p-4 aspect-video ${bgColor}`}>
+                    <p className={`text-xs font-bold uppercase ${textColor}`}>{story.name}</p>
+                    <div className="flex-grow flex items-center justify-center">
+                      <h2 className="text-xl md:text-2xl font-bold text-gray-900 text-center leading-snug">
+                        {story.slides[currentSlide] || ''}
+                      </h2>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            <div className="flex items-center justify-center mt-8">
+            <div className="flex items-center justify-center mt-6">
               <button
                 onClick={prevSlide}
                 disabled={currentSlide === 0}
@@ -105,7 +112,7 @@
                 Next →
               </button>
             </div>
-             <div className="text-center mt-4">
+             <div className="text-center mt-3">
                 <a href="index.html" className="text-sm text-indigo-600 hover:underline">← Back to Detailed Stories</a>
             </div>
           </div>
