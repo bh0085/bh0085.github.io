@@ -61,9 +61,11 @@
     ];
 
     const SummaryView = () => {
-      const { useState, useEffect } = React;
+      const { useState, useEffect, useRef } = React;
       const [currentSlide, setCurrentSlide] = useState(0);
       const [focusedStory, setFocusedStory] = useState(0);
+      const touchStartX = useRef(0);
+      const touchEndX = useRef(0);
 
       const maxSlides = Math.max(...takeaways.map(story => story.slides.length));
 
@@ -103,26 +105,76 @@
         }
       };
 
+      const handleTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
+      };
+
+      const handleTouchMove = (e) => {
+        touchEndX.current = e.touches[0].clientX;
+      };
+
+      const handleTouchEnd = () => {
+        const swipeThreshold = 50;
+        const diff = touchStartX.current - touchEndX.current;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+          if (diff > 0) {
+            // Swipe left - next slide
+            if (currentSlide < maxSlides - 1) {
+              setCurrentSlide(currentSlide + 1);
+            }
+          } else {
+            // Swipe right - previous slide
+            if (currentSlide > 0) {
+              setCurrentSlide(currentSlide - 1);
+            }
+          }
+        }
+      };
+
       return (
         <div className="min-h-screen flex flex-col items-center justify-center p-4">
           <div className="w-full max-w-7xl">
             <div className="text-center mb-3">
-              <p className="text-sm text-gray-500">Use arrow keys ← → to advance slides • Option+← → or click to focus on a positioning</p>
+              <p className="text-xs sm:text-sm text-gray-500">
+                <span className="hidden sm:inline">Arrow keys ← → to advance slides • Option+← → or click to focus</span>
+                <span className="sm:hidden">Swipe ← → to advance slides • Tap number to switch positioning</span>
+              </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            {/* Mobile: Show focused positioning selector */}
+            <div className="sm:hidden mb-3 flex justify-center gap-2">
+              {takeaways.map((story, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setFocusedStory(idx)}
+                  className={`px-3 py-2 text-xs rounded ${focusedStory === idx ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700'} transition-colors`}
+                >
+                  {idx + 1}
+                </button>
+              ))}
+            </div>
+
+            <div 
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
               {takeaways.map((story, storyIndex) => {
                 const [bgColor, textColor] = story.colors.split(' ');
                 const isFocused = focusedStory === storyIndex;
                 const opacityClass = isFocused ? 'opacity-100' : 'opacity-30';
+                const displayClass = isFocused ? 'block' : 'hidden sm:block';
                 return (
                   <div 
                     key={storyIndex} 
                     onClick={() => setFocusedStory(storyIndex)}
-                    className={`rounded-lg shadow-md flex flex-col p-4 aspect-video ${bgColor} ${opacityClass} transition-opacity duration-300 cursor-pointer`}
+                    className={`rounded-lg shadow-md flex flex-col p-4 sm:p-6 aspect-video ${bgColor} ${opacityClass} ${displayClass} transition-opacity duration-300 cursor-pointer`}
                   >
-                    <p className={`text-xs font-bold uppercase ${textColor}`}>{story.name}</p>
-                    <div className="flex-grow flex items-center justify-center">
-                      <h2 className="text-xl md:text-2xl font-bold text-gray-900 text-center leading-snug">
+                    <p className={`text-xs sm:text-sm font-bold uppercase ${textColor} mb-2`}>{story.name}</p>
+                    <div className="flex-grow flex items-center justify-center px-2">
+                      <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 text-center leading-snug">
                         {story.slides[currentSlide] || ''}
                       </h2>
                     </div>
@@ -131,27 +183,27 @@
               })}
             </div>
 
-            <div className="flex items-center justify-center mt-6">
+            <div className="flex items-center justify-center mt-6 gap-2 sm:gap-0">
               <button
                 onClick={prevSlide}
                 disabled={currentSlide === 0}
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+                className="px-4 sm:px-6 py-3 sm:py-2 text-sm sm:text-base text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors touch-manipulation"
               >
-                ← Previous
+                ← <span className="hidden sm:inline">Previous</span>
               </button>
-              <span className="text-gray-500 mx-4">
+              <span className="text-gray-500 mx-2 sm:mx-4 text-sm sm:text-base font-medium">
                 {currentSlide + 1} / {maxSlides}
               </span>
               <button
                 onClick={nextSlide}
                 disabled={currentSlide >= maxSlides - 1}
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+                className="px-4 sm:px-6 py-3 sm:py-2 text-sm sm:text-base text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors touch-manipulation"
               >
-                Next →
+                <span className="hidden sm:inline">Next</span> →
               </button>
             </div>
-             <div className="text-center mt-3">
-                <a href="index.html" className="text-sm text-indigo-600 hover:underline">← Back to Detailed Stories</a>
+             <div className="text-center mt-4 sm:mt-3">
+                <a href="index.html" className="text-sm text-indigo-600 hover:underline touch-manipulation inline-block py-2">← Back to Detailed Stories</a>
             </div>
           </div>
         </div>
