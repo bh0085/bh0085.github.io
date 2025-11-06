@@ -27,23 +27,23 @@ const PitchDeck = () => {
       slides: [
         {
           title: "Embodied AI is the necessary foundation for scientific superintelligence. We're building that foundation.",
-          imageDescription: "Deep concrete foundation pillars being constructed underground, photographed from below looking upward, showing massive structural support beams in warm afternoon light filtering from above, emphasizing strength and permanence"
+          image: "images/slide_1_foundation.png"
         },
         {
           title: "Purely computational AI approaches are insufficient for true scientific breakthroughs.",
-          imageDescription: "A tall wooden ladder leaning against an evening sky, reaching upward but clearly falling short of the glowing full moon visible high above, vast empty space between ladder top and moon, emphasizing the impossible gap"
+          image: "images/slide_2_ladder_to_moon.png"
         },
         {
           title: "We uniquely combine sensory perception, AI reasoning, and physical action.",
-          imageDescription: "Close-up of precise human hands carefully manipulating delicate laboratory glassware while wearing sleek AR glasses that reflect data, soft natural window light from the side, shallow depth of field focusing on the fusion of seeing, thinking, and doing"
+          image: "images/slide_3_integration.png"
         },
         {
           title: "Our two initial product tracks validate the platform and build towards our long-term vision.",
-          imageDescription: "Aerial view of two parallel railway tracks stretching into the distance toward a majestic mountain range at golden hour, strong converging perspective drawing the eye forward to the distant peaks, warm sunlight on the rails"
+          image: "images/slide_4_two_tracks.png"
         },
         {
           title: "Better sensors, not just better models. Operational superintelligence unlocks scientific superintelligence.",
-          imageDescription: "A brass skeleton key being inserted into an ornate antique lock mechanism in sharp focus, soft bokeh background, warm directional lighting catching the metallic surfaces, capturing the precise moment before unlocking and breakthrough"
+          image: "images/slide_5_unlocking.png"
         }
       ]
     }
@@ -107,21 +107,24 @@ const PitchDeck = () => {
       <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
         <div className="flex items-center justify-center p-8 pt-24">
           <div className="max-w-5xl w-full">
-            <div className="bg-white rounded-2xl shadow-2xl p-12 min-h-[600px] flex flex-col">
-              <div className="flex-1 flex flex-col items-center justify-center">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 text-center leading-tight px-8 mb-6">
-                  {stories[currentStory].slides[currentSlide].title}
-                </h1>
-                {stories[currentStory].slides[currentSlide].imageDescription && (
-                  <div className="max-w-3xl px-8">
-                    <p className="text-sm text-gray-500 italic text-center border-t border-gray-200 pt-4">
-                      Visual: {stories[currentStory].slides[currentSlide].imageDescription}
-                    </p>
-                  </div>
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden min-h-[600px] flex flex-col">
+              <div className="flex-1 relative">
+                {stories[currentStory].slides[currentSlide].image && (
+                  <img 
+                    src={stories[currentStory].slides[currentSlide].image}
+                    alt={stories[currentStory].slides[currentSlide].title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
                 )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+                <div className="relative z-10 h-full flex items-center justify-center p-8 md:p-12">
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center leading-tight drop-shadow-2xl">
+                    {stories[currentStory].slides[currentSlide].title}
+                  </h1>
+                </div>
               </div>
 
-              <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+              <div className="bg-white flex items-center justify-between px-8 py-6 border-t border-gray-200">
                 <button
                   onClick={prevSlide}
                   disabled={currentSlide === 0}
@@ -155,7 +158,7 @@ const PitchDeck = () => {
                 </button>
               </div>
 
-              <div className="text-center mt-4">
+              <div className="bg-white text-center pb-4">
                 <span className="text-xs text-gray-400">
                   {currentSlide + 1} / {stories[currentStory].slides.length}
                 </span>
