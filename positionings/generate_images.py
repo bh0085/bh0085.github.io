@@ -22,38 +22,59 @@ API_KEY = os.getenv('GEMINI_API_KEY')
 if not API_KEY:
     raise ValueError("GEMINI_API_KEY not found in .env file")
 
-# Image descriptions - simple photographic compositions
-# 16:9 aspect ratio, naturally out-of-focus top areas
+# Image prompts - simple photographic compositions with 16:9 aspect ratio
+# Each has naturally out-of-focus top area for text overlay
 IMAGE_PROMPTS = [
     {
         "slide": 1,
         "name": "foundation",
-        "prompt": "Photograph of massive concrete foundation pillars underground, shot from below looking up, warm golden light filtering from above, the top third of frame naturally out of focus creating a warm light background",
-        "text_color": "white"
+        "background": "light",  # light or dark - determines text color
+        "prompt": (
+            "Overhead aerial photograph of a massive futuristic concrete spaceport "
+            "under construction, clean modernist architecture, white and light gray "
+            "concrete structures, bright sky at top of frame, the upper third naturally "
+            "light and minimal for clean composition"
+        )
     },
     {
         "slide": 2,
         "name": "ladder_to_moon",
-        "prompt": "Photograph of a wooden ladder reaching toward a full moon in a dark evening sky, ladder in lower half of frame, upper portion is smooth dark blue night sky gradually fading darker toward top",
-        "text_color": "white"
+        "background": "dark",
+        "prompt": (
+            "Photograph of a wooden ladder reaching toward a full moon in a dark "
+            "evening sky, ladder in lower half of frame, upper portion is smooth "
+            "dark blue night sky gradually fading darker toward top"
+        )
     },
     {
         "slide": 3,
         "name": "integration",
-        "prompt": "Photograph of hands manipulating laboratory glassware with AR glasses, shot with shallow depth of field, the background at top naturally blurred into soft light tones",
-        "text_color": "black"
+        "background": "light",
+        "prompt": (
+            "Photograph of hands manipulating laboratory glassware with AR glasses, "
+            "shot with shallow depth of field, the background at top naturally blurred "
+            "into soft light tones"
+        )
     },
     {
         "slide": 4,
         "name": "two_tracks",
-        "prompt": "Aerial photograph of parallel railway tracks extending toward distant mountains at golden hour, tracks in lower two-thirds, warm golden sky gradually lightening toward top of frame",
-        "text_color": "black"
+        "background": "light",
+        "prompt": (
+            "Aerial photograph of parallel railway tracks extending toward distant "
+            "mountains at golden hour, tracks in lower two-thirds, warm golden sky "
+            "gradually lightening toward top of frame"
+        )
     },
     {
         "slide": 5,
         "name": "unlocking",
-        "prompt": "Photograph of an ornate brass key in an antique lock, tight focus on the key mechanism in lower portion, background naturally blurred to soft warm tones toward top",
-        "text_color": "black"
+        "background": "light",
+        "prompt": (
+            "Photograph of an ornate brass key in an antique lock, tight focus on "
+            "the key mechanism in lower portion, background naturally blurred to "
+            "soft warm tones toward top"
+        )
     }
 ]
 
@@ -133,12 +154,13 @@ def main():
     print(f"Output directory: {output_dir}")
     print()
     
-    # Also save text color information
+    # Generate images and track text colors
     text_colors = {}
     for item in slides_to_generate:
         output_path = output_dir / f"slide_{item['slide']}_{item['name']}.png"
         generate_image(item['prompt'], output_path)
-        text_colors[item['slide']] = item['text_color']
+        # Background "dark" = white text, "light" = black text
+        text_colors[item['slide']] = "white" if item['background'] == "dark" else "black"
         print()
     
     # Save text color mapping (merge with existing if partial regeneration)
