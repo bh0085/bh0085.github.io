@@ -14,11 +14,12 @@
   <script type="text/babel" src="nav.js"></script>
   <script type="text/babel">
 const PitchDeck = () => {
-  const { useState, Fragment, useRef } = React;
+  const { useState, Fragment, useRef, useEffect } = React;
   const [currentStory, setCurrentStory] = useState(3);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isNavVisible, setIsNavVisible] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const containerRef = useRef(null);
 
   const stories = [
@@ -58,21 +59,40 @@ const PitchDeck = () => {
     }
   ];
 
+  // Preload all images
+  useEffect(() => {
+    const imageUrls = stories[currentStory].slides.map(slide => slide.image).filter(Boolean);
+    let loadedCount = 0;
+    
+    imageUrls.forEach(url => {
+      const img = new Image();
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === imageUrls.length) {
+          setImagesLoaded(true);
+        }
+      };
+      img.src = url;
+    });
+  }, []);
+
   const nextSlide = () => {
-    if (currentSlide < stories[currentStory].slides.length - 1) {
+    if (imagesLoaded && currentSlide < stories[currentStory].slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
     }
   };
 
   const prevSlide = () => {
-    if (currentSlide > 0) {
+    if (imagesLoaded && currentSlide > 0) {
       setCurrentSlide(currentSlide - 1);
     }
   };
 
   // Keyboard navigation
-  React.useEffect(() => {
+  useEffect(() => {
     const handleKeyDown = (e) => {
+      if (!imagesLoaded) return;
+      
       if (e.key === 'ArrowLeft') {
         prevSlide();
       } else if (e.key === 'ArrowRight') {
@@ -83,7 +103,7 @@ const PitchDeck = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlide, isFullscreen]);
+  }, [currentSlide, isFullscreen, imagesLoaded]);
 
   // Fullscreen functionality
   const enterFullscreen = () => {
@@ -149,7 +169,15 @@ const PitchDeck = () => {
       </button>
 
       <div ref={containerRef} className={isFullscreen ? "min-h-screen bg-black" : "min-h-screen bg-white"}>
-        {isFullscreen ? (
+        {!imagesLoaded ? (
+          /* Loading state */
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-indigo-600 mb-4"></div>
+              <p className="text-gray-600">Loading slides...</p>
+            </div>
+          </div>
+        ) : isFullscreen ? (
           /* Fullscreen presentation mode */
           <div className="h-screen flex items-center justify-center">
             <div className="w-full h-full relative">
