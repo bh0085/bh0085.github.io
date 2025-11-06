@@ -14,10 +14,12 @@
   <script type="text/babel" src="nav.js"></script>
   <script type="text/babel">
 const PitchDeck = () => {
-  const { useState, Fragment } = React;
+  const { useState, Fragment, useRef } = React;
   const [currentStory, setCurrentStory] = useState(3);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isNavVisible, setIsNavVisible] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const containerRef = useRef(null);
 
   const stories = [
     {}, {}, {}, // Placeholders
@@ -68,11 +70,46 @@ const PitchDeck = () => {
         prevSlide();
       } else if (e.key === 'ArrowRight') {
         nextSlide();
+      } else if (e.key === 'Escape' && isFullscreen) {
+        exitFullscreen();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlide]);
+  }, [currentSlide, isFullscreen]);
+
+  // Fullscreen functionality
+  const enterFullscreen = () => {
+    if (containerRef.current) {
+      if (containerRef.current.requestFullscreen) {
+        containerRef.current.requestFullscreen();
+      } else if (containerRef.current.webkitRequestFullscreen) {
+        containerRef.current.webkitRequestFullscreen();
+      }
+      setIsFullscreen(true);
+    }
+  };
+
+  const exitFullscreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+    setIsFullscreen(false);
+  };
+
+  React.useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement || !!document.webkitFullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+    };
+  }, []);
 
   const goToSlide = (index) => {
     setCurrentSlide(index);
@@ -104,47 +141,106 @@ const PitchDeck = () => {
         </svg>
       </button>
 
-      <div className="min-h-screen bg-black">
-        <div className="h-screen flex items-center justify-center">
-          <div className="w-full h-full relative">
-            {stories[currentStory].slides[currentSlide].image && (
-              <img 
-                src={stories[currentStory].slides[currentSlide].image}
-                alt={stories[currentStory].slides[currentSlide].title}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            )}
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="relative z-10 h-full p-8 md:p-12 lg:p-16">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-medium text-white text-left leading-snug max-w-4xl">
-                {stories[currentStory].slides[currentSlide].title}
-              </h1>
-            </div>
-            
-            {/* Slide controls - bottom right */}
-            <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 flex items-center gap-2 md:gap-3 z-20">
-              <button
-                onClick={prevSlide}
-                disabled={currentSlide === 0}
-                className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center text-white/70 hover:text-white disabled:text-white/20 disabled:cursor-not-allowed transition-colors touch-manipulation"
-                aria-label="Previous slide"
-              >
-                <span className="text-lg md:text-xl">←</span>
-              </button>
-              <span className="text-xs md:text-sm text-white/70 font-light">
-                {currentSlide + 1} / {stories[currentStory].slides.length}
-              </span>
-              <button
-                onClick={nextSlide}
-                disabled={currentSlide === stories[currentStory].slides.length - 1}
-                className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center text-white/70 hover:text-white disabled:text-white/20 disabled:cursor-not-allowed transition-colors touch-manipulation"
-                aria-label="Next slide"
-              >
-                <span className="text-lg md:text-xl">→</span>
-              </button>
+      <div ref={containerRef} className={isFullscreen ? "min-h-screen bg-black" : "min-h-screen bg-white"}>
+        {isFullscreen ? (
+          /* Fullscreen presentation mode */
+          <div className="h-screen flex items-center justify-center">
+            <div className="w-full h-full relative">
+              {stories[currentStory].slides[currentSlide].image && (
+                <img 
+                  src={stories[currentStory].slides[currentSlide].image}
+                  alt={stories[currentStory].slides[currentSlide].title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/20" />
+              <div className="relative z-10 h-full p-8 md:p-12 lg:p-16">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-medium text-white text-left leading-snug max-w-4xl">
+                  {stories[currentStory].slides[currentSlide].title}
+                </h1>
+              </div>
+              
+              {/* Slide controls - bottom right */}
+              <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 flex items-center gap-2 md:gap-3 z-20">
+                <button
+                  onClick={prevSlide}
+                  disabled={currentSlide === 0}
+                  className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center text-white/70 hover:text-white disabled:text-white/20 disabled:cursor-not-allowed transition-colors touch-manipulation"
+                  aria-label="Previous slide"
+                >
+                  <span className="text-lg md:text-xl">←</span>
+                </button>
+                <span className="text-xs md:text-sm text-white/70 font-light">
+                  {currentSlide + 1} / {stories[currentStory].slides.length}
+                </span>
+                <button
+                  onClick={nextSlide}
+                  disabled={currentSlide === stories[currentStory].slides.length - 1}
+                  className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center text-white/70 hover:text-white disabled:text-white/20 disabled:cursor-not-allowed transition-colors touch-manipulation"
+                  aria-label="Next slide"
+                >
+                  <span className="text-lg md:text-xl">→</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          /* Normal slide view with aspect ratio */
+          <div className="min-h-screen flex items-center justify-center p-4 md:p-8 pt-24">
+            <div className="w-full max-w-6xl">
+              <div className="relative bg-white shadow-2xl" style={{paddingBottom: '56.25%'}}>
+                <div className="absolute inset-0">
+                  {stories[currentStory].slides[currentSlide].image && (
+                    <img 
+                      src={stories[currentStory].slides[currentSlide].image}
+                      alt={stories[currentStory].slides[currentSlide].title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-black/20" />
+                  <div className="relative z-10 h-full p-6 md:p-8 lg:p-12">
+                    <h1 className="text-xl md:text-2xl lg:text-3xl font-medium text-white text-left leading-snug max-w-3xl">
+                      {stories[currentStory].slides[currentSlide].title}
+                    </h1>
+                  </div>
+                  
+                  {/* Slide controls - bottom right */}
+                  <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 flex items-center gap-2 z-20">
+                    <button
+                      onClick={prevSlide}
+                      disabled={currentSlide === 0}
+                      className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-white/70 hover:text-white disabled:text-white/20 disabled:cursor-not-allowed transition-colors touch-manipulation"
+                      aria-label="Previous slide"
+                    >
+                      <span className="text-base md:text-lg">←</span>
+                    </button>
+                    <span className="text-xs text-white/70 font-light">
+                      {currentSlide + 1} / {stories[currentStory].slides.length}
+                    </span>
+                    <button
+                      onClick={nextSlide}
+                      disabled={currentSlide === stories[currentStory].slides.length - 1}
+                      className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-white/70 hover:text-white disabled:text-white/20 disabled:cursor-not-allowed transition-colors touch-manipulation"
+                      aria-label="Next slide"
+                    >
+                      <span className="text-base md:text-lg">→</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Present button */}
+              <div className="mt-6 text-center">
+                <button
+                  onClick={enterFullscreen}
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors"
+                >
+                  Present Fullscreen
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </Fragment>
   );
