@@ -14,10 +14,13 @@
   <script type="text/babel" src="nav.js"></script>
   <script type="text/babel">
 const PitchDeck = () => {
-  const { useState, Fragment } = React;
+  const { useState, Fragment, useRef, useEffect } = React;
   const [currentStory, setCurrentStory] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isNavVisible, setIsNavVisible] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const containerRef = useRef(null);
 
   const stories = [
     {
@@ -25,48 +28,114 @@ const PitchDeck = () => {
       tagline: "Building the operating system for automated science",
       slides: [
         {
-          title: "We're building the operating system for automated science."
+          title: "We're building the operating system for automated science",
+          subtitle: "",
+          image: "images/story1_slide_1_operating_system.png",
+          textColor: "black"
         },
         {
-          title: "Current scientific work is bottlenecked by manual, inconsistent human operations."
+          title: "Current scientific work is bottlenecked by manual, inconsistent human operations",
+          image: "images/story1_slide_2_bottleneck.png",
+          textColor: "black"
         },
         {
-          title: "Our first product, LabOS, is a unified platform integrating perception, intelligence, and action."
+          title: "Our first product, LabOS, is a unified platform integrating perception, intelligence, and action",
+          image: "images/story1_slide_3_unified_platform.png",
+          textColor: "black"
         },
         {
-          title: "Our core platform architecture is designed for rapid expansion into new scientific domains."
+          title: "Our core platform architecture is designed for rapid expansion into new scientific domains",
+          image: "images/story1_slide_4_rapid_expansion.png",
+          textColor: "black"
         },
         {
-          title: "From lab automation to clinical trials and beyond—one platform, many applications. We're building the OS for science."
+          title: "From lab automation to clinical trials and beyond—one platform, many applications",
+          subtitle: "We're building the OS for science",
+          image: "images/story1_slide_5_one_platform.png",
+          textColor: "black"
         }
       ]
     }
   ];
 
+  // Preload all images
+  useEffect(() => {
+    const imageUrls = stories[currentStory].slides.map(slide => slide.image).filter(Boolean);
+    let loadedCount = 0;
+    
+    imageUrls.forEach(url => {
+      const img = new Image();
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === imageUrls.length) {
+          setImagesLoaded(true);
+        }
+      };
+      img.src = url;
+    });
+  }, []);
+
   const nextSlide = () => {
-    if (currentSlide < stories[currentStory].slides.length - 1) {
+    if (imagesLoaded && currentSlide < stories[currentStory].slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
     }
   };
 
   const prevSlide = () => {
-    if (currentSlide > 0) {
+    if (imagesLoaded && currentSlide > 0) {
       setCurrentSlide(currentSlide - 1);
     }
   };
 
   // Keyboard navigation
-  React.useEffect(() => {
+  useEffect(() => {
     const handleKeyDown = (e) => {
+      if (!imagesLoaded) return;
+      
       if (e.key === 'ArrowLeft') {
         prevSlide();
       } else if (e.key === 'ArrowRight') {
         nextSlide();
+      } else if (e.key === 'Escape' && isFullscreen) {
+        exitFullscreen();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlide]);
+  }, [currentSlide, isFullscreen, imagesLoaded]);
+
+  // Fullscreen functionality
+  const enterFullscreen = () => {
+    if (containerRef.current) {
+      if (containerRef.current.requestFullscreen) {
+        containerRef.current.requestFullscreen();
+      } else if (containerRef.current.webkitRequestFullscreen) {
+        containerRef.current.webkitRequestFullscreen();
+      }
+      setIsFullscreen(true);
+    }
+  };
+
+  const exitFullscreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+    setIsFullscreen(false);
+  };
+
+  React.useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement || !!document.webkitFullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+    };
+  }, []);
 
   const goToSlide = (index) => {
     setCurrentSlide(index);
@@ -98,58 +167,135 @@ const PitchDeck = () => {
         </svg>
       </button>
 
-      <div className="min-h-screen bg-gradient-to-br from-sky-50 to-blue-50">
-        <div className="flex items-center justify-center p-8 pt-24">
-          <div className="max-w-5xl w-full">
-            <div className="bg-white rounded-2xl shadow-2xl p-12 min-h-[600px] flex flex-col">
-              <div className="flex-1 flex items-center justify-center">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 text-center leading-tight px-8">
-                  {stories[currentStory].slides[currentSlide].title}
-                </h1>
+      <div ref={containerRef} className={isFullscreen ? "min-h-screen bg-black" : "min-h-screen bg-white"}>
+        {!imagesLoaded ? (
+          /* Loading state */
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-blue-600 mb-4"></div>
+              <p className="text-gray-600">Loading slides...</p>
+            </div>
+          </div>
+        ) : isFullscreen ? (
+          /* Fullscreen presentation mode */
+          <div className="h-screen flex items-center justify-center">
+            <div className="w-full h-full relative">
+              {stories[currentStory].slides[currentSlide].image && (
+                <img 
+                  src={stories[currentStory].slides[currentSlide].image}
+                  alt={stories[currentStory].slides[currentSlide].title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              )}
+              <div className="relative z-10 h-full p-6 md:p-8 lg:p-10">
+                <div>
+                  <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight max-w-5xl ${
+                    stories[currentStory].slides[currentSlide].textColor === 'white' ? 'text-white' : 'text-black'
+                  }`} style={{fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'}}>
+                    {stories[currentStory].slides[currentSlide].title}
+                  </h1>
+                  {stories[currentStory].slides[currentSlide].subtitle && (
+                    <h2 className={`text-xl md:text-2xl lg:text-3xl font-normal tracking-tight leading-tight max-w-5xl mt-2 ${
+                      stories[currentStory].slides[currentSlide].textColor === 'white' ? 'text-white/90' : 'text-black/80'
+                    }`} style={{fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'}}>
+                      {stories[currentStory].slides[currentSlide].subtitle}
+                    </h2>
+                  )}
+                </div>
               </div>
-
-              <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+              
+              {/* Slide controls - bottom right */}
+              <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 flex items-center gap-2 md:gap-3 z-20">
                 <button
                   onClick={prevSlide}
                   disabled={currentSlide === 0}
-                  className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+                  className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center text-white/70 hover:text-white disabled:text-white/20 disabled:cursor-not-allowed transition-colors touch-manipulation"
+                  aria-label="Previous slide"
                 >
-                  <span>←</span>
-                  <span className="text-sm font-medium">Previous</span>
+                  <span className="text-lg md:text-xl">←</span>
                 </button>
-
-                <div className="flex gap-2">
-                  {stories[currentStory].slides.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => goToSlide(index)}
-                      className={`transition-all ${
-                        index === currentSlide
-                          ? 'w-8 bg-blue-600'
-                          : 'w-2 bg-gray-300 hover:bg-gray-400'
-                      } h-2 rounded-full`}
-                    />
-                  ))}
-                </div>
-
+                <span className="text-xs md:text-sm text-white/70 font-light">
+                  {currentSlide + 1} / {stories[currentStory].slides.length}
+                </span>
                 <button
                   onClick={nextSlide}
                   disabled={currentSlide === stories[currentStory].slides.length - 1}
-                  className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+                  className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center text-white/70 hover:text-white disabled:text-white/20 disabled:cursor-not-allowed transition-colors touch-manipulation"
+                  aria-label="Next slide"
                 >
-                  <span className="text-sm font-medium">Next</span>
-                  <span>→</span>
+                  <span className="text-lg md:text-xl">→</span>
                 </button>
-              </div>
-
-              <div className="text-center mt-4">
-                <span className="text-xs text-gray-400">
-                  {currentSlide + 1} / {stories[currentStory].slides.length}
-                </span>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          /* Normal slide view with aspect ratio */
+          <div className="min-h-screen flex items-center justify-center p-4 md:p-8 pt-24">
+            <div className="w-full max-w-6xl">
+              <div className="relative bg-white shadow-2xl" style={{paddingBottom: '56.25%'}}>
+                <div className="absolute inset-0">
+                  {stories[currentStory].slides[currentSlide].image && (
+                    <img 
+                      src={stories[currentStory].slides[currentSlide].image}
+                      alt={stories[currentStory].slides[currentSlide].title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  )}
+                  <div className="relative z-10 h-full p-4 md:p-6 lg:p-8">
+                    <div>
+                      <h1 className={`text-xl md:text-2xl lg:text-3xl font-bold tracking-tight leading-tight max-w-4xl ${
+                        stories[currentStory].slides[currentSlide].textColor === 'white' ? 'text-white' : 'text-black'
+                      }`} style={{fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'}}>
+                        {stories[currentStory].slides[currentSlide].title}
+                      </h1>
+                      {stories[currentStory].slides[currentSlide].subtitle && (
+                        <h2 className={`text-base md:text-lg lg:text-xl font-normal tracking-tight leading-tight max-w-4xl mt-1 md:mt-2 ${
+                          stories[currentStory].slides[currentSlide].textColor === 'white' ? 'text-white/90' : 'text-black/80'
+                        }`} style={{fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'}}>
+                          {stories[currentStory].slides[currentSlide].subtitle}
+                        </h2>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Slide controls - bottom right */}
+                  <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 flex items-center gap-2 z-20">
+                    <button
+                      onClick={prevSlide}
+                      disabled={currentSlide === 0}
+                      className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-white/70 hover:text-white disabled:text-white/20 disabled:cursor-not-allowed transition-colors touch-manipulation"
+                      aria-label="Previous slide"
+                    >
+                      <span className="text-base md:text-lg">←</span>
+                    </button>
+                    <span className="text-xs text-white/70 font-light">
+                      {currentSlide + 1} / {stories[currentStory].slides.length}
+                    </span>
+                    <button
+                      onClick={nextSlide}
+                      disabled={currentSlide === stories[currentStory].slides.length - 1}
+                      className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-white/70 hover:text-white disabled:text-white/20 disabled:cursor-not-allowed transition-colors touch-manipulation"
+                      aria-label="Next slide"
+                    >
+                      <span className="text-base md:text-lg">→</span>
+                    </button>
+                    <span className="mx-1 text-white/30">|</span>
+                    <button
+                      onClick={enterFullscreen}
+                      className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-white/70 hover:text-white transition-colors touch-manipulation"
+                      aria-label="Present fullscreen"
+                      title="Present fullscreen"
+                    >
+                      <svg className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </Fragment>
   );
