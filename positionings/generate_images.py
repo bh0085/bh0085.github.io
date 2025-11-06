@@ -56,15 +56,20 @@ def generate_image(prompt, output_path):
     
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key={API_KEY}"
     
-    # Add aspect ratio specification for 16:9 slides
-    full_prompt = f"{prompt}. 16:9 landscape aspect ratio, professional photography, no text or graphics."
+    # Clean prompt - no text or graphics
+    full_prompt = f"{prompt}. Professional photography, no text or graphics."
     
     payload = {
         "contents": [{
             "parts": [{
                 "text": full_prompt
             }]
-        }]
+        }],
+        "generation_config": {
+            "image_config": {
+                "aspect_ratio": "16:9"
+            }
+        }
     }
     
     headers = {
