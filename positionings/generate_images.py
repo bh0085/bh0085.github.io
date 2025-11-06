@@ -5,6 +5,7 @@ Generate images for Story 4 positioning slides using Gemini 2.5 Flash Image
 import os
 import requests
 import json
+import base64
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -72,15 +73,27 @@ def generate_image(prompt, output_path):
     
     data = response.json()
     
-    # Extract image data (base64 or URL depending on API response)
+    # Extract image data from response
     if 'candidates' in data and len(data['candidates']) > 0:
-        # Save response for inspection
-        with open(output_path.with_suffix('.json'), 'w') as f:
-            json.dump(data, f, indent=2)
-        print(f"✓ Response saved to {output_path.with_suffix('.json')}")
-        return True
+        parts = data['candidates'][0]['content']['parts']
+        
+        # Find the inlineData part with the image
+        for part in parts:
+            if 'inlineData' in part:
+                image_data = part['inlineData']['data']
+                
+                # Decode base64 and save as PNG
+                image_bytes = base64.b64decode(image_data)
+                with open(output_path, 'wb') as f:
+                    f.write(image_bytes)
+                
+                print(f"✓ Image saved to {output_path}")
+                return True
+        
+        print(f"✗ No image data found in response")
+        return False
     else:
-        print(f"✗ No image data in response")
+        print(f"✗ No candidates in response")
         return False
 
 def main():
