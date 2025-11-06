@@ -28,27 +28,27 @@ const PitchDeck = () => {
       tagline: "Operational superintelligence is the necessary foundation",
       slides: [
         {
-          title: "Embodied AI is the necessary foundation for scientific superintelligence. We're building that foundation.",
+          title: "We're building the foundation for scientific superintelligence",
           image: "images/slide_1_foundation.png",
           textColor: "white"
         },
         {
-          title: "Purely computational AI approaches are insufficient for true scientific breakthroughs.",
+          title: "Computational AI alone cannot reach scientific breakthroughs",
           image: "images/slide_2_ladder_to_moon.png",
           textColor: "white"
         },
         {
-          title: "We uniquely combine sensory perception, AI reasoning, and physical action.",
+          title: "We combine perception, intelligence, and action",
           image: "images/slide_3_integration.png",
           textColor: "black"
         },
         {
-          title: "Our two initial product tracks validate the platform and build towards our long-term vision.",
+          title: "Two product tracks validate the platform",
           image: "images/slide_4_two_tracks.png",
           textColor: "black"
         },
         {
-          title: "Better sensors, not just better models. Operational superintelligence unlocks scientific superintelligence.",
+          title: "Better sensors unlock scientific superintelligence",
           image: "images/slide_5_unlocking.png",
           textColor: "black"
         }
@@ -159,9 +159,9 @@ const PitchDeck = () => {
                 />
               )}
               <div className="relative z-10 h-full p-6 md:p-8 lg:p-10">
-                <h1 className={`text-2xl md:text-3xl lg:text-4xl font-normal leading-tight max-w-5xl ${
+                <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight max-w-5xl ${
                   stories[currentStory].slides[currentSlide].textColor === 'white' ? 'text-white' : 'text-black'
-                }`}>
+                }`} style={{fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'}}>
                   {stories[currentStory].slides[currentSlide].title}
                 </h1>
               </div>
@@ -204,9 +204,9 @@ const PitchDeck = () => {
                     />
                   )}
                   <div className="relative z-10 h-full p-4 md:p-6 lg:p-8">
-                    <h1 className={`text-lg md:text-xl lg:text-2xl font-normal leading-tight max-w-4xl ${
+                    <h1 className={`text-xl md:text-2xl lg:text-3xl font-bold tracking-tight leading-tight max-w-4xl ${
                       stories[currentStory].slides[currentSlide].textColor === 'white' ? 'text-white' : 'text-black'
-                    }`}>
+                    }`} style={{fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'}}>
                       {stories[currentStory].slides[currentSlide].title}
                     </h1>
                   </div>
