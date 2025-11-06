@@ -16,37 +16,37 @@ API_KEY = os.getenv('GEMINI_API_KEY')
 if not API_KEY:
     raise ValueError("GEMINI_API_KEY not found in .env file")
 
-# Image descriptions from story4.html
-# Each prompt is designed to have a consistent, solid-colored area at the top 20% for text overlay
+# Image descriptions - simple photographic compositions
+# 16:9 aspect ratio, naturally out-of-focus top areas
 IMAGE_PROMPTS = [
     {
         "slide": 1,
         "name": "foundation",
-        "prompt": "Deep concrete foundation pillars being constructed underground, photographed from below looking upward, showing massive structural support beams in warm afternoon light filtering from above, emphasizing strength and permanence. IMPORTANT: Compose the image so the TOP 20% has a consistent warm beige/tan color area perfect for overlaying white text in a presentation slide format.",
+        "prompt": "Photograph of massive concrete foundation pillars underground, shot from below looking up, warm golden light filtering from above, the top third of frame naturally out of focus creating a warm light background",
         "text_color": "white"
     },
     {
         "slide": 2,
         "name": "ladder_to_moon",
-        "prompt": "A tall wooden ladder leaning against a deep evening sky, reaching upward but clearly falling short of the glowing full moon visible high above, vast empty space between ladder top and moon, emphasizing the impossible gap. IMPORTANT: Compose the image so the TOP 20% has a consistent dark blue/navy sky perfect for overlaying white text in a presentation slide format.",
+        "prompt": "Photograph of a wooden ladder reaching toward a full moon in a dark evening sky, ladder in lower half of frame, upper portion is smooth dark blue night sky gradually fading darker toward top",
         "text_color": "white"
     },
     {
         "slide": 3,
         "name": "integration",
-        "prompt": "Close-up of precise human hands carefully manipulating delicate laboratory glassware while wearing sleek AR glasses that reflect data, soft natural window light from the side, shallow depth of field focusing on the fusion of seeing, thinking, and doing. IMPORTANT: Compose the image so the TOP 20% has a consistent soft light background perfect for overlaying black text in a presentation slide format.",
+        "prompt": "Photograph of hands manipulating laboratory glassware with AR glasses, shot with shallow depth of field, the background at top naturally blurred into soft light tones",
         "text_color": "black"
     },
     {
         "slide": 4,
         "name": "two_tracks",
-        "prompt": "Aerial view of two parallel railway tracks stretching into the distance toward a majestic mountain range at golden hour, strong converging perspective drawing the eye forward to the distant peaks, warm sunlight on the rails. IMPORTANT: Compose the image so the TOP 20% has a consistent warm golden sky perfect for overlaying black text in a presentation slide format.",
+        "prompt": "Aerial photograph of parallel railway tracks extending toward distant mountains at golden hour, tracks in lower two-thirds, warm golden sky gradually lightening toward top of frame",
         "text_color": "black"
     },
     {
         "slide": 5,
         "name": "unlocking",
-        "prompt": "A brass skeleton key being inserted into an ornate antique lock mechanism in sharp focus, soft bokeh background, warm directional lighting catching the metallic surfaces, capturing the precise moment before unlocking and breakthrough. IMPORTANT: Compose the image so the TOP 20% has a consistent soft blurred background perfect for overlaying black text in a presentation slide format.",
+        "prompt": "Photograph of an ornate brass key in an antique lock, tight focus on the key mechanism in lower portion, background naturally blurred to soft warm tones toward top",
         "text_color": "black"
     }
 ]
@@ -56,10 +56,13 @@ def generate_image(prompt, output_path):
     
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key={API_KEY}"
     
+    # Add aspect ratio specification for 16:9 slides
+    full_prompt = f"{prompt}. 16:9 landscape aspect ratio, professional photography, no text or graphics."
+    
     payload = {
         "contents": [{
             "parts": [{
-                "text": prompt
+                "text": full_prompt
             }]
         }]
     }
