@@ -17,31 +17,37 @@ if not API_KEY:
     raise ValueError("GEMINI_API_KEY not found in .env file")
 
 # Image descriptions from story4.html
+# Each prompt is designed to have a consistent, solid-colored area at the top 20% for text overlay
 IMAGE_PROMPTS = [
     {
         "slide": 1,
         "name": "foundation",
-        "prompt": "Deep concrete foundation pillars being constructed underground, photographed from below looking upward, showing massive structural support beams in warm afternoon light filtering from above, emphasizing strength and permanence"
+        "prompt": "Deep concrete foundation pillars being constructed underground, photographed from below looking upward, showing massive structural support beams in warm afternoon light filtering from above, emphasizing strength and permanence. IMPORTANT: Compose the image so the TOP 20% has a consistent warm beige/tan color area perfect for overlaying white text in a presentation slide format.",
+        "text_color": "white"
     },
     {
         "slide": 2,
         "name": "ladder_to_moon",
-        "prompt": "A tall wooden ladder leaning against an evening sky, reaching upward but clearly falling short of the glowing full moon visible high above, vast empty space between ladder top and moon, emphasizing the impossible gap"
+        "prompt": "A tall wooden ladder leaning against a deep evening sky, reaching upward but clearly falling short of the glowing full moon visible high above, vast empty space between ladder top and moon, emphasizing the impossible gap. IMPORTANT: Compose the image so the TOP 20% has a consistent dark blue/navy sky perfect for overlaying white text in a presentation slide format.",
+        "text_color": "white"
     },
     {
         "slide": 3,
         "name": "integration",
-        "prompt": "Close-up of precise human hands carefully manipulating delicate laboratory glassware while wearing sleek AR glasses that reflect data, soft natural window light from the side, shallow depth of field focusing on the fusion of seeing, thinking, and doing"
+        "prompt": "Close-up of precise human hands carefully manipulating delicate laboratory glassware while wearing sleek AR glasses that reflect data, soft natural window light from the side, shallow depth of field focusing on the fusion of seeing, thinking, and doing. IMPORTANT: Compose the image so the TOP 20% has a consistent soft light background perfect for overlaying black text in a presentation slide format.",
+        "text_color": "black"
     },
     {
         "slide": 4,
         "name": "two_tracks",
-        "prompt": "Aerial view of two parallel railway tracks stretching into the distance toward a majestic mountain range at golden hour, strong converging perspective drawing the eye forward to the distant peaks, warm sunlight on the rails"
+        "prompt": "Aerial view of two parallel railway tracks stretching into the distance toward a majestic mountain range at golden hour, strong converging perspective drawing the eye forward to the distant peaks, warm sunlight on the rails. IMPORTANT: Compose the image so the TOP 20% has a consistent warm golden sky perfect for overlaying black text in a presentation slide format.",
+        "text_color": "black"
     },
     {
         "slide": 5,
         "name": "unlocking",
-        "prompt": "A brass skeleton key being inserted into an ornate antique lock mechanism in sharp focus, soft bokeh background, warm directional lighting catching the metallic surfaces, capturing the precise moment before unlocking and breakthrough"
+        "prompt": "A brass skeleton key being inserted into an ornate antique lock mechanism in sharp focus, soft bokeh background, warm directional lighting catching the metallic surfaces, capturing the precise moment before unlocking and breakthrough. IMPORTANT: Compose the image so the TOP 20% has a consistent soft blurred background perfect for overlaying black text in a presentation slide format.",
+        "text_color": "black"
     }
 ]
 
@@ -105,10 +111,19 @@ def main():
     print(f"Output directory: {output_dir}")
     print()
     
+    # Also save text color information
+    text_colors = {}
     for item in IMAGE_PROMPTS:
         output_path = output_dir / f"slide_{item['slide']}_{item['name']}.png"
         generate_image(item['prompt'], output_path)
+        text_colors[item['slide']] = item['text_color']
         print()
+    
+    # Save text color mapping
+    import json
+    with open(output_dir / "text_colors.json", 'w') as f:
+        json.dump(text_colors, f, indent=2)
+    print(f"✓ Text colors saved to text_colors.json")
     
     print("Done!")
 
