@@ -153,11 +153,12 @@ const PitchDeck = () => {
                   className="absolute inset-0 w-full h-full object-cover"
                 />
               )}
-              <div className="absolute inset-0 bg-black/20" />
               <div className="relative z-10 h-full p-8 md:p-12 lg:p-16">
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-medium text-white text-left leading-snug max-w-4xl">
-                  {stories[currentStory].slides[currentSlide].title}
-                </h1>
+                <div className="inline-block bg-black/70 px-6 py-4 rounded">
+                  <h1 className="text-2xl md:text-3xl lg:text-4xl font-medium text-white text-left leading-snug max-w-4xl">
+                    {stories[currentStory].slides[currentSlide].title}
+                  </h1>
+                </div>
               </div>
               
               {/* Slide controls - bottom right */}
@@ -197,11 +198,12 @@ const PitchDeck = () => {
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                   )}
-                  <div className="absolute inset-0 bg-black/20" />
                   <div className="relative z-10 h-full p-6 md:p-8 lg:p-12">
-                    <h1 className="text-xl md:text-2xl lg:text-3xl font-medium text-white text-left leading-snug max-w-3xl">
-                      {stories[currentStory].slides[currentSlide].title}
-                    </h1>
+                    <div className="inline-block bg-black/70 px-4 py-3 md:px-5 md:py-4 rounded">
+                      <h1 className="text-xl md:text-2xl lg:text-3xl font-medium text-white text-left leading-snug max-w-3xl">
+                        {stories[currentStory].slides[currentSlide].title}
+                      </h1>
+                    </div>
                   </div>
                   
                   {/* Slide controls - bottom right */}
@@ -225,18 +227,19 @@ const PitchDeck = () => {
                     >
                       <span className="text-base md:text-lg">→</span>
                     </button>
+                    <span className="mx-1 text-white/30">|</span>
+                    <button
+                      onClick={enterFullscreen}
+                      className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-white/70 hover:text-white transition-colors touch-manipulation"
+                      aria-label="Present fullscreen"
+                      title="Present fullscreen"
+                    >
+                      <svg className="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                      </svg>
+                    </button>
                   </div>
                 </div>
-              </div>
-              
-              {/* Present button */}
-              <div className="mt-6 text-center">
-                <button
-                  onClick={enterFullscreen}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors"
-                >
-                  Present Fullscreen
-                </button>
               </div>
             </div>
           </div>
