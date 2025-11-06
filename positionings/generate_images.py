@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 """
 Generate images for Story 4 positioning slides using Gemini 2.5 Flash Image
+
+Usage:
+  python3 generate_images.py          # Generate all slides
+  python3 generate_images.py 2        # Regenerate only slide 2
+  python3 generate_images.py 1 3 5    # Regenerate slides 1, 3, and 5
 """
 import os
+import sys
 import requests
 import json
 import base64
@@ -115,21 +121,35 @@ def main():
     output_dir = Path(__file__).parent / "images"
     output_dir.mkdir(exist_ok=True)
     
-    print(f"Generating {len(IMAGE_PROMPTS)} images for Story 4...")
+    # Check if specific slides requested via command line
+    slides_to_generate = IMAGE_PROMPTS
+    if len(sys.argv) > 1:
+        slide_numbers = [int(n) for n in sys.argv[1:]]
+        slides_to_generate = [item for item in IMAGE_PROMPTS if item['slide'] in slide_numbers]
+        print(f"Regenerating slides: {', '.join(map(str, slide_numbers))}")
+    else:
+        print(f"Generating all {len(IMAGE_PROMPTS)} images")
+    
     print(f"Output directory: {output_dir}")
     print()
     
     # Also save text color information
     text_colors = {}
-    for item in IMAGE_PROMPTS:
+    for item in slides_to_generate:
         output_path = output_dir / f"slide_{item['slide']}_{item['name']}.png"
         generate_image(item['prompt'], output_path)
         text_colors[item['slide']] = item['text_color']
         print()
     
-    # Save text color mapping
-    import json
-    with open(output_dir / "text_colors.json", 'w') as f:
+    # Save text color mapping (merge with existing if partial regeneration)
+    colors_file = output_dir / "text_colors.json"
+    if colors_file.exists():
+        with open(colors_file, 'r') as f:
+            existing_colors = json.load(f)
+        existing_colors.update(text_colors)
+        text_colors = existing_colors
+    
+    with open(colors_file, 'w') as f:
         json.dump(text_colors, f, indent=2)
     print(f"✓ Text colors saved to text_colors.json")
     
